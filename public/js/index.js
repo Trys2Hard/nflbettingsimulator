@@ -20,13 +20,31 @@ const getData = async () => {
                     const team2 = document.createElement('div');
                     const team2Spread = document.createElement('div');
                     const match = document.createElement('div');
+                    const pickLeft = document.createElement('button');
+                    const pickRight = document.createElement('button');
 
                     games.append(game);
+                    game.append(pickLeft);
                     game.append(team1);
                     game.append(team1Spread);
                     game.append(match);
                     game.append(team2);
                     game.append(team2Spread);
+                    game.append(pickRight);
+
+
+                    pickLeft.innerText = "Pick";
+                    pickRight.innerText = "Pick";
+
+                    pickLeft.addEventListener('click', () => {
+                        pickLeft.style.backgroundColor = "blue";
+                        pickRight.style.backgroundColor = "gray";
+                    })
+
+                    pickRight.addEventListener('click', () => {
+                        pickRight.style.backgroundColor = "blue";
+                        pickLeft.style.backgroundColor = "gray";
+                    })
 
                     team1.innerText = bookmaker.markets[0].outcomes[0].name;
                     if (bookmaker.markets[0].outcomes[0].point > 0) {
