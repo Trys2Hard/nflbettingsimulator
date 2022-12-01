@@ -1,0 +1,34 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: rgb(136, 179, 136);
+}
+
+.container {
+    display: flex;
+}
+
+.awayTeams {
+    color: red;
+}
+
+.homeTeams {
+    color: blue;
+}
+
+.games {
+    border: 1px solid blue;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.game {
+    border: 1px solid red;
+    display: flex;
+    justify-content: space-evenly;
+}
