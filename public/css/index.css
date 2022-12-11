@@ -8,18 +8,6 @@ body {
     background-color: rgb(136, 179, 136);
 }
 
-.container {
-    display: flex;
-}
-
-.awayTeams {
-    color: red;
-}
-
-.homeTeams {
-    color: blue;
-}
-
 .games {
     border: 1px solid blue;
     width: 50%;
@@ -31,4 +19,10 @@ body {
     border: 1px solid red;
     display: flex;
     justify-content: space-evenly;
+}
+
+.placeBetModal {
+    max-width: 50%;
+    margin: auto;
+    padding: 1rem;
 }

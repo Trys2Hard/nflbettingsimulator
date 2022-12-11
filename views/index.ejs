@@ -11,12 +11,29 @@
 
 <body>
     <h1>Subjectively Bettor</h1>
-    <div class="homeTeams">Home Teams</div>
-    <div class="awayTeams">Away Teams</div>
 
-    <section class="games">
+    <section class="games"></section>
 
-    </section>
+    <dialog class="placeBetModal">
+        <div class="closeBetModal">X</div>
+        <h2>Pick a Team</h2>
+        <div class="betModalHomeTeam"></div>
+        <div class="homeSpread"></div>
+        <div class="betModalAwayTeam"></div>
+        <div class="awaySpread"></div>
+        <h2>Place Your Bet</h2>
+        <input type="number">
+        <button class="placeBet">Place Bet</button>
+    </dialog>
+
+    <dialog class="confirmBetModal">
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem error itaque minima, soluta nam in
+            facilis aliquam expedita voluptatem excepturi reiciendis aspernatur nisi at laboriosam voluptates nulla
+            accusantium velit necessitatibus?</p>
+        <button class="confirmBet">Confirm Bet</button>
+        <button class="cancelBet">Cancel</button>
+    </dialog>
+
     <script src="js/index.js"></script>
 </body>
 
