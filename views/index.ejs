@@ -12,6 +12,11 @@
 <body>
     <h1>Subjectively Bettor</h1>
 
+    <section>
+        <div>Account Balance:</div>
+        <div class="account"></div>
+    </section>
+
     <section class="games"></section>
 
     <dialog class="placeBetModal">
@@ -22,14 +27,14 @@
         <div class="betModalAwayTeam"></div>
         <div class="awaySpread"></div>
         <h2>Place Your Bet</h2>
-        <input type="number">
+        <input type="number" class="betAmount">
         <button class="placeBet">Place Bet</button>
     </dialog>
 
     <dialog class="confirmBetModal">
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem error itaque minima, soluta nam in
-            facilis aliquam expedita voluptatem excepturi reiciendis aspernatur nisi at laboriosam voluptates nulla
-            accusantium velit necessitatibus?</p>
+        <p>You have placed a (AMOUNT1) bet on the (TEAM1) at (ODDS) odds. If the (TEAM1) beat the (TEAM2) by more than
+            (POSITIVE-ODDS) you will win (AMOUNT2) Otherwise you will lose the entirety of the bet. If you understand
+            this and wish to proceed please click the confirmation button below.</p>
         <button class="confirmBet">Confirm Bet</button>
         <button class="cancelBet">Cancel</button>
     </dialog>

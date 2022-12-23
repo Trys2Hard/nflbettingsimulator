@@ -1,4 +1,8 @@
 const games = document.querySelector('.games');
+const account = document.querySelector('.account');
+
+let balance = 1000;
+account.innerText = balance;
 
 const getData = async () => {
     const res = await fetch('https://api.the-odds-api.com/v4/sports/americanfootball_nfl/odds/?apiKey=24130c642a2c5a7e3ed0dbe6f657d841&regions=us&markets=spreads&oddsFormat=american');
@@ -80,11 +84,12 @@ const getData = async () => {
                 const confirmBet = document.querySelector('.confirmBet');
                 const cancelBet = document.querySelector('.cancelBet');
 
-
                 bet.addEventListener('click', () => {
                     betModal.showModal();
                     const betModalHomeTeam = document.querySelector('.betModalHomeTeam');
                     const betModalAwayTeam = document.querySelector('.betModalAwayTeam');
+                    const betAmount = document.querySelector('.betAmount');
+                    betAmount.value = "";
 
                     betModalHomeTeam.innerText = contest.home_team;
                     if (spread1 > 0) {
@@ -101,20 +106,23 @@ const getData = async () => {
 
                     closeBetModal.addEventListener('click', () => {
                         betModal.close();
-                    })
+                    }, { once: true });
 
-                    placeBet.addEventListener('click', () => {
+                    placeBet.addEventListener('click', function Func() {
                         betModal.close();
                         if (confirmBetModal.open === false) {
                             confirmBetModal.showModal();
                         }
                         confirmBet.addEventListener('click', () => {
                             confirmBetModal.close();
-                        })
+                            bet.style.pointerEvents = "none";
+                            balance = balance - betAmount.value;
+                            account.innerText = balance;
+                        }, { once: true });
                         cancelBet.addEventListener('click', () => {
                             confirmBetModal.close();
-                        })
-                    })
+                        }, { once: true });
+                    }, { once: true });
                 })
             }
             viewBetModal();
