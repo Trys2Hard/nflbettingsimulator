@@ -1,6 +1,6 @@
 const games = document.querySelector('.games');
 const account = document.querySelector('.account');
-
+let listen = false;
 let balance = 1000;
 account.innerText = balance;
 
@@ -9,21 +9,28 @@ const getData = async () => {
     const data = await res.json();
     console.log(data);
 
-    data.forEach((contest) => {
-        const getSpread = () => {
+    const homeSpreads = [];
+    const awaySpreads = [];
+
+    const getSpreads = () => {
+        for (const contest of data) {
             for (const bookmaker of contest.bookmakers) {
                 if (bookmaker.key === "draftkings") {
-                    if (bookmaker.markets[0].outcomes[0].name == contest.home_team) {
-                        return [bookmaker.markets[0].outcomes[0].point, bookmaker.markets[0].outcomes[1].point];
+                    if (bookmaker.markets[0].outcomes[0].name == data[1].home_team) {
+                        homeSpreads.push(bookmaker.markets[0].outcomes[0].point);
+                        awaySpreads.push(bookmaker.markets[0].outcomes[1].point);
                     } else {
-                        return [bookmaker.markets[0].outcomes[1].point, bookmaker.markets[0].outcomes[0].point];
+                        homeSpreads.push(bookmaker.markets[0].outcomes[1].point);
+                        awaySpreads.push(bookmaker.markets[0].outcomes[0].point);
                     }
                 }
             }
         }
-        let [spread1, spread2] = getSpread();
+    }
+    getSpreads();
 
-        const listGames = () => {
+    const listGames = () => {
+        for (let i = 0; i < data.length; i++) {
             const game = document.createElement('section')
             const pickLeft = document.createElement('button');
             const team1 = document.createElement('div');
@@ -45,20 +52,19 @@ const getData = async () => {
             game.append(bet);
 
             game.classList.add('game');
-
             pickLeft.innerText = "Pick Home";
-            team1.innerText = contest.home_team;
-            if (spread1 > 0) {
-                team1Spread.innerText = `+${spread1}`;
+            team1.innerText = data[i].home_team;
+            if (homeSpreads[i] > 0) {
+                team1Spread.innerText = `+${homeSpreads[i]}`;
             } else {
-                team1Spread.innerText = spread1;
+                team1Spread.innerText = homeSpreads[i];
             }
             match.innerText = 'vs';
-            team2.innerText = contest.away_team;
-            if (spread2 > 0) {
-                team2Spread.innerText = `+${spread2}`;
+            team2.innerText = data[i].away_team;
+            if (awaySpreads[i] > 0) {
+                team2Spread.innerText = `+${awaySpreads[i]}`;
             } else {
-                team2Spread.innerText = spread2;
+                team2Spread.innerText = awaySpreads[i];
             }
             pickRight.innerText = "Pick Away";
             bet.innerText = 'Bet';
@@ -79,56 +85,58 @@ const getData = async () => {
                 const homeSpread = document.querySelector('.homeSpread');
                 const awaySpread = document.querySelector('.awaySpread');
                 const placeBet = document.querySelector('.placeBet');
-
                 const confirmBetModal = document.querySelector('.confirmBetModal');
                 const confirmBet = document.querySelector('.confirmBet');
                 const cancelBet = document.querySelector('.cancelBet');
 
-                bet.addEventListener('click', () => {
+                bet.addEventListener('click', function betFunc() {
                     betModal.showModal();
                     const betModalHomeTeam = document.querySelector('.betModalHomeTeam');
                     const betModalAwayTeam = document.querySelector('.betModalAwayTeam');
                     const betAmount = document.querySelector('.betAmount');
                     betAmount.value = "";
 
-                    betModalHomeTeam.innerText = contest.home_team;
-                    if (spread1 > 0) {
-                        homeSpread.innerText = `+${spread1}`;
+                    betModalHomeTeam.innerText = data[i].home_team;
+                    if (homeSpreads[i] > 0) {
+                        homeSpread.innerText = `+${homeSpreads[i]}`;
                     } else {
-                        homeSpread.innerText = spread1;
+                        homeSpread.innerText = homeSpreads[i];
                     }
-                    betModalAwayTeam.innerText = contest.away_team;
-                    if (spread2 > 0) {
-                        awaySpread.innerText = `+${spread2}`;
+                    betModalAwayTeam.innerText = data[i].away_team;
+                    if (awaySpreads[i] > 0) {
+                        awaySpread.innerText = `+${awaySpreads[i]}`;
                     } else {
-                        awaySpread.innerText = spread2;
+                        awaySpread.innerText = awaySpreads[i];
                     }
 
-                    closeBetModal.addEventListener('click', () => {
-                        betModal.close();
-                    }, { once: true });
+                    if (listen == false) {
+                        closeBetModal.addEventListener('click', () => {
+                            betModal.close();
+                        });
 
-                    placeBet.addEventListener('click', function Func() {
-                        betModal.close();
-                        if (confirmBetModal.open === false) {
+                        placeBet.addEventListener('click', function Func() {
+                            betModal.close();
                             confirmBetModal.showModal();
-                        }
-                        confirmBet.addEventListener('click', () => {
-                            confirmBetModal.close();
-                            bet.style.pointerEvents = "none";
-                            balance = balance - betAmount.value;
-                            account.innerText = balance;
-                        }, { once: true });
-                        cancelBet.addEventListener('click', () => {
-                            confirmBetModal.close();
-                        }, { once: true });
-                    }, { once: true });
+                            if (listen == false) {
+                                confirmBet.addEventListener('click', function confirm() {
+                                    confirmBetModal.close();
+                                    balance = balance - betAmount.value;
+                                    account.innerText = balance;
+                                    listen = true;
+                                });
+                                cancelBet.addEventListener('click', () => {
+                                    confirmBetModal.close();
+                                    listen = true;
+                                });
+                            }
+                        });
+                    }
                 })
             }
             viewBetModal();
         }
-        listGames();
-    })
+    }
+    listGames();
 }
 
 getData();
