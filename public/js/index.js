@@ -1,6 +1,12 @@
+// Create navbar partial
+// Work on "Bets" page to view placed bets
+// Test recorded bet gets appended to same game each time
+
+let pickTeam = '';
 const games = document.querySelector('.games');
 const account = document.querySelector('.account');
-let listen = false;
+let listenPlaceBet = false;
+let listenConfirmBet = false;
 let balance = 1000;
 account.innerText = balance;
 
@@ -109,25 +115,67 @@ const getData = async () => {
                         awaySpread.innerText = awaySpreads[i];
                     }
 
-                    if (listen == false) {
+                    pickTeam = '';
+                    betModalHomeTeam.style.color = 'black';
+                    betModalAwayTeam.style.color = 'black';
+
+                    if (listenPlaceBet == false) {
                         closeBetModal.addEventListener('click', () => {
                             betModal.close();
+                            listenPlaceBet = true;
                         });
 
+                        betModalHomeTeam.addEventListener('click', () => {
+                            console.log('you chose the home team');
+                            if (pickTeam !== 'home') {
+                                betModalHomeTeam.style.color = 'blue';
+                                betModalAwayTeam.style.color = 'black';
+                                pickTeam = 'home';
+                            }
+
+                        })
+
+                        betModalAwayTeam.addEventListener('click', () => {
+                            console.log('you chose the away team');
+                            if (pickTeam !== 'away') {
+                                betModalHomeTeam.style.color = 'black';
+                                betModalAwayTeam.style.color = 'blue';
+                                pickTeam = 'away';
+                            }
+
+                        })
+
                         placeBet.addEventListener('click', function Func() {
-                            betModal.close();
-                            confirmBetModal.showModal();
-                            if (listen == false) {
-                                confirmBet.addEventListener('click', function confirm() {
-                                    confirmBetModal.close();
-                                    balance = balance - betAmount.value;
-                                    account.innerText = balance;
-                                    listen = true;
-                                });
-                                cancelBet.addEventListener('click', () => {
-                                    confirmBetModal.close();
-                                    listen = true;
-                                });
+                            if (betAmount.value > balance) {
+                                console.log('Insufficient Funds');
+                            } else {
+                                betModal.close();
+                                listenPlaceBet = true;
+                                if (confirmBetModal.open == false) {
+                                    confirmBetModal.showModal();
+                                }
+                                if (listenConfirmBet == false) {
+                                    confirmBet.addEventListener('click', function confirm() {
+                                        // const testBet = document.createElement('div');
+                                        // testBet.innerText = `You have placed a $${betAmount.value} bet on the (Seattle Seahawks) at (-3) odds`;
+                                        // game.append(testBet);
+                                        if (pickTeam == 'home') {
+                                            console.log(`You have placed a $${betAmount.value} bet on the ${betModalHomeTeam.innerText} at ${homeSpread.innerText} odds`)
+                                        } else {
+                                            console.log(`You have placed a $${betAmount.value} bet on the ${betModalAwayTeam.innerText} at ${awaySpread.innerText} odds`)
+                                        }
+
+
+                                        confirmBetModal.close();
+                                        balance = balance - betAmount.value;
+                                        account.innerText = balance;
+                                        listenConfirmBet = true;
+                                    });
+                                    cancelBet.addEventListener('click', () => {
+                                        confirmBetModal.close();
+                                        listenConfirmBet = true;
+                                    });
+                                }
                             }
                         });
                     }
