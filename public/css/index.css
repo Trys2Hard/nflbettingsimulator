@@ -8,6 +8,10 @@ body {
     background-color: rgb(136, 179, 136);
 }
 
+nav {
+    background-color: aqua;
+}
+
 .games {
     border: 1px solid blue;
     width: 50%;

@@ -10,36 +10,47 @@
 </head>
 
 <body>
-    <h1>Subjectively Bettor</h1>
 
-    <section>
-        <div>Account Balance:</div>
-        <div class="account"></div>
-    </section>
+    <%- include('./partials/navbar.ejs'); %>
 
-    <section class="games"></section>
+        <section>
+            <div>Account Balance:</div>
+            <div class="account"></div>
 
-    <dialog class="placeBetModal">
-        <div class="closeBetModal">X</div>
-        <h2>Pick a Team</h2>
-        <div class="betModalHomeTeam"></div>
-        <div class="homeSpread"></div>
-        <div class="betModalAwayTeam"></div>
-        <div class="awaySpread"></div>
-        <h2>Place Your Bet</h2>
-        <input type="number" class="betAmount">
-        <button class="placeBet">Place Bet</button>
-    </dialog>
+            <button class="edit-balance">Edit Account Balance</button>
 
-    <dialog class="confirmBetModal">
-        <p>You have placed a (AMOUNT1) bet on the (TEAM1) at (ODDS) odds. If the (TEAM1) beat the (TEAM2) by more than
-            (POSITIVE-ODDS) you will win (AMOUNT2) Otherwise you will lose the entirety of the bet. If you understand
-            this and wish to proceed please click the confirmation button below.</p>
-        <button class="confirmBet">Confirm Bet</button>
-        <button class="cancelBet">Cancel</button>
-    </dialog>
+            <dialog class="edit-balance-modal">
+                <div>Enter positive number to add money or negative number to withdraw.</div>
+                <input type="number" class="change">
+                <button class="submit-edit-balance-modal">Submit</button>
+            </dialog>
+        </section>
 
-    <script src="js/index.js"></script>
+        <section class="games"></section>
+
+        <dialog class="placeBetModal">
+            <div class="closeBetModal">X</div>
+            <h2>Pick a Team</h2>
+            <div class="betModalHomeTeam"></div>
+            <div class="homeSpread"></div>
+            <div class="betModalAwayTeam"></div>
+            <div class="awaySpread"></div>
+            <h2>Place Your Bet</h2>
+            <input type="number" class="betAmount">
+            <button class="placeBet">Place Bet</button>
+        </dialog>
+
+        <dialog class="confirmBetModal">
+            <p>You have placed a (AMOUNT1) bet on the (TEAM1) at (ODDS) odds. If the (TEAM1) beat the (TEAM2) by more
+                than
+                (POSITIVE-ODDS) you will win (AMOUNT2) Otherwise you will lose the entirety of the bet. If you
+                understand
+                this and wish to proceed please click the confirmation button below.</p>
+            <button class="confirmBet">Confirm Bet</button>
+            <button class="cancelBet">Cancel</button>
+        </dialog>
+
+        <script src="js/index.js"></script>
 </body>
 
 </html>

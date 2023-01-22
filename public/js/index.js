@@ -1,7 +1,3 @@
-// Create navbar partial
-// Work on "Bets" page to view placed bets
-// Test recorded bet gets appended to same game each time
-
 let pickTeam = '';
 const games = document.querySelector('.games');
 const account = document.querySelector('.account');
@@ -9,6 +5,22 @@ let listenPlaceBet = false;
 let listenConfirmBet = false;
 let balance = 1000;
 account.innerText = balance;
+
+const editBalance = document.querySelector('.edit-balance');
+const editBalanceModal = document.querySelector('.edit-balance-modal');
+const submitEditBalanceModal = document.querySelector('.submit-edit-balance-modal');
+const change = document.querySelector('.change');
+
+editBalance.addEventListener('click', () => {
+    change.value = '';
+    editBalanceModal.showModal();
+
+    submitEditBalanceModal.addEventListener('click', () => {
+        balance = balance + parseInt(change.value);
+        account.innerText = balance;
+        editBalanceModal.close();
+    }, { once: true })
+})
 
 const getData = async () => {
     const res = await fetch('https://api.the-odds-api.com/v4/sports/americanfootball_nfl/odds/?apiKey=24130c642a2c5a7e3ed0dbe6f657d841&regions=us&markets=spreads&oddsFormat=american');
@@ -156,15 +168,11 @@ const getData = async () => {
                                 }
                                 if (listenConfirmBet == false) {
                                     confirmBet.addEventListener('click', function confirm() {
-                                        // const testBet = document.createElement('div');
-                                        // testBet.innerText = `You have placed a $${betAmount.value} bet on the (Seattle Seahawks) at (-3) odds`;
-                                        // game.append(testBet);
                                         if (pickTeam == 'home') {
                                             console.log(`You have placed a $${betAmount.value} bet on the ${betModalHomeTeam.innerText} at ${homeSpread.innerText} odds`)
                                         } else {
                                             console.log(`You have placed a $${betAmount.value} bet on the ${betModalAwayTeam.innerText} at ${awaySpread.innerText} odds`)
                                         }
-
 
                                         confirmBetModal.close();
                                         balance = balance - betAmount.value;
