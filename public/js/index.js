@@ -34,7 +34,7 @@ const getData = async () => {
         for (const contest of data) {
             for (const bookmaker of contest.bookmakers) {
                 if (bookmaker.key === "draftkings") {
-                    if (bookmaker.markets[0].outcomes[0].name == data[1].home_team) {
+                    if (bookmaker.markets[0].outcomes[0].name == data[0].home_team) {
                         homeSpreads.push(bookmaker.markets[0].outcomes[0].point);
                         awaySpreads.push(bookmaker.markets[0].outcomes[1].point);
                     } else {

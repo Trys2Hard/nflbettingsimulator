@@ -20,10 +20,6 @@ app.get('/bets', (req, res) => {
     res.render('bets');
 })
 
-app.get('/stats', (req, res) => {
-    res.send('This is the stats page');
-})
-
 app.listen(PORT, () => {
     console.log(`listening on port ${PORT}...`)
 });
