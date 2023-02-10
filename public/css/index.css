@@ -4,89 +4,99 @@
     box-sizing: border-box;
 }
 
-/* Navbar
-nav {
-    display: flex;
-    align-items: center;
-    height: 3.5rem;
-    background-color: #a10f0f;
-}
-
-nav img {
-    height: 2.5rem;
-    width: 2.5rem;
-    margin: 0.5rem;
-    background-color: white;
-    border-radius: 10%;
-}
-
-nav h1 {
-    font-size: 2.2rem;
-    color: white;
-}
-
-nav ul {
-    display: flex;
-    width: 15rem;
-    justify-content: space-evenly;
-    margin-top: 0.3rem;
-}
-
-nav ul li {
-    list-style-type: none;
-}
-
-nav ul li a {
-    text-decoration: none;
-    font-size: 1.2rem;
-    color: white;
-}
-
-.nav-buttons {
-    display: flex;
-    margin-left: auto;
-}
-
-nav button {
-    background-color: lightgrey;
-    margin-left: 0.5rem;
-    margin-right: 0.5rem;
-    padding: 0.3rem;
-}
-
-nav img:hover {
-    cursor: pointer;
-}
-
-nav h1:hover {
-    cursor: pointer;
-}
-
-nav button:hover {
-    cursor: pointer;
-    background-color: lightblue;
-}
-
-nav ul li a:hover {
-    color: lightblue;
-} */
-
 /* Body */
 .games {
-    /* border: 1px solid blue; */
     width: 50%;
     margin-left: auto;
     margin-right: auto;
 }
 
 .game {
-    /* border: 1px solid red; */
     display: flex;
     justify-content: space-evenly;
 }
 
+/* Place Bet Modal */
 .placeBetModal {
     max-width: 50%;
     margin: auto;
     padding: 1rem;
+    border: none;
+    border-radius: 10px;
+    box-shadow: -5px 5px 5px grey;
+    background-color: #dbdbdb;
+}
+
+.closeBetModal {
+    margin-left: auto;
+    cursor: pointer;
+    color: white;
+    background-color: #a10f0f;
+    padding: 0.3rem;
+    display: inline;
+    border-radius: 5px;
+}
+
+.placeBetModal h2 {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.modalTeams {
+    display: flex;
+}
+
+.modalTeam1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 0.5rem;
+}
+
+.modalTeam2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 0.5rem;
+}
+
+.betModalHomeTeam {
+    cursor: pointer;
+}
+
+.betModalAwayTeam {
+    cursor: pointer;
+}
+
+.betAmount {
+    height: 1.5rem;
+    padding-left: 0.1rem;
+    width: 5rem;
+    border-radius: 5px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.placeBet {
+    padding: 0.5rem;
+    border: none;
+    border-radius: 5px;
+    background-color: #6331c1;
+    color: white;
+    cursor: pointer;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0.5rem;
+}
+
+.closeBetModal:hover {
+    filter: brightness(1.2);
+}
+
+.placeBet:hover {
+    filter: brightness(1.2);
 }

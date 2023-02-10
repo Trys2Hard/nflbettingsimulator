@@ -51,26 +51,40 @@ const getData = async () => {
         for (let i = 0; i < data.length; i++) {
             const game = document.createElement('section')
             const pickLeft = document.createElement('button');
+            const priceLeft = document.createElement('div');
             const team1 = document.createElement('div');
             const team1Spread = document.createElement('div');
             const match = document.createElement('div');
             const team2 = document.createElement('div');
             const team2Spread = document.createElement('div');
+            const priceRight = document.createElement('div');
             const pickRight = document.createElement('button');
             const bet = document.createElement('button');
 
             games.append(game);
             game.append(pickLeft);
+            game.append(priceLeft);
             game.append(team1);
             game.append(team1Spread);
             game.append(match);
             game.append(team2);
             game.append(team2Spread);
+            game.append(priceRight);
             game.append(pickRight);
             game.append(bet);
 
             game.classList.add('game');
             pickLeft.innerText = "Pick Home";
+            data[i].bookmakers.forEach((bookmaker) => {
+                if (bookmaker.key === "draftkings") {
+                    if (bookmaker.markets[0].outcomes[0].name == data[i].home_team) {
+                        priceLeft.innerText = bookmaker.markets[0].outcomes[0].price;
+                        priceRight.innerText = bookmaker.markets[0].outcomes[1].price;
+                    } else if (bookmaker.markets[0].outcomes[0].name == data[i].away_team)
+                        priceRight.innerText = bookmaker.markets[0].outcomes[0].price;
+                    priceLeft.innerText = bookmaker.markets[0].outcomes[1].price;
+                }
+            })
             team1.innerText = data[i].home_team;
             if (homeSpreads[i] > 0) {
                 team1Spread.innerText = `+${homeSpreads[i]}`;
@@ -128,8 +142,6 @@ const getData = async () => {
                     }
 
                     pickTeam = '';
-                    betModalHomeTeam.style.color = 'black';
-                    betModalAwayTeam.style.color = 'black';
 
                     if (listenPlaceBet == false) {
                         closeBetModal.addEventListener('click', () => {
@@ -138,9 +150,8 @@ const getData = async () => {
                         });
 
                         betModalHomeTeam.addEventListener('click', () => {
-                            console.log('you chose the home team');
                             if (pickTeam !== 'home') {
-                                betModalHomeTeam.style.color = 'blue';
+                                betModalHomeTeam.style.color = '#6331c1';
                                 betModalAwayTeam.style.color = 'black';
                                 pickTeam = 'home';
                             }
@@ -148,27 +159,49 @@ const getData = async () => {
                         })
 
                         betModalAwayTeam.addEventListener('click', () => {
-                            console.log('you chose the away team');
                             if (pickTeam !== 'away') {
                                 betModalHomeTeam.style.color = 'black';
-                                betModalAwayTeam.style.color = 'blue';
+                                betModalAwayTeam.style.color = '#6331c1';
                                 pickTeam = 'away';
                             }
 
                         })
 
                         placeBet.addEventListener('click', function Func() {
-                            if (betAmount.value > balance) {
-                                console.log('Insufficient Funds');
+                            if (betAmount.value > balance || betAmount.value === '' || betAmount.value == 0 || pickTeam == '') {
+                                alert('Please enter an amount greater than 0 and less than your account balance. Number can have at most 2 decimal places. Also make sure to pick a team');
                             } else {
-                                betModal.close();
                                 listenPlaceBet = true;
                                 if (confirmBetModal.open == false) {
-                                    confirmBetModal.showModal();
+
+                                    // Create confirm bet modal message
+                                    const confirmBetModalMessage = document.querySelector('.confirmBetModalMessage');
+                                    let winnings = priceLeft.innerText;
+                                    if (pickTeam === 'home') {
+                                        betModal.close();
+                                        confirmBetModal.showModal();
+                                        console.log(`You picked the home team`);
+                                        if (priceLeft.innerText < 0) {
+                                            console.log('negative price')
+                                            winnings = Math.ceil(betAmount.value / (Math.abs(priceLeft.innerText) / 100));
+                                            console.log(winnings);
+                                        } else {
+                                            console.log('positive price');
+                                            winnings = Math.abs(betAmount.value * (priceLeft.innerText / 100));
+                                            console.log(winnings);
+                                        }
+                                        confirmBetModalMessage.innerText = `You have placed a $${betAmount.value} bet on the ${betModalHomeTeam.innerText} at ${homeSpread.innerText} odds. If the ${betModalHomeTeam.innerText} cover the spread againt the ${betModalAwayTeam.innerText} you will win $${winnings}. Otherwise you will lose the entirety of the bet. If you understand this and wish to proceed please click the confirmation button below.`
+                                    } else if (pickTeam === 'away') {
+                                        betModal.close();
+                                        confirmBetModal.showModal();
+                                        console.log(`You picked the away team`);
+                                        const winnings = priceRight.innerText;
+                                        confirmBetModalMessage.innerText = `You have placed a $${betAmount.value} bet on the ${betModalAwayTeam.innerText} at ${awaySpread.innerText} odds. If the ${betModalAwayTeam.innerText} cover the spread against the ${betModalHomeTeam.innerText} you will win $${winnings}. Otherwise you will lose the entirety of the bet. If you understand this and wish to proceed please click the confirmation button below.`
+                                    }
                                 }
                                 if (listenConfirmBet == false) {
                                     confirmBet.addEventListener('click', function confirm() {
-                                        if (pickTeam == 'home') {
+                                        if (pickTeam === 'home') {
                                             console.log(`You have placed a $${betAmount.value} bet on the ${betModalHomeTeam.innerText} at ${homeSpread.innerText} odds`)
                                         } else {
                                             console.log(`You have placed a $${betAmount.value} bet on the ${betModalAwayTeam.innerText} at ${awaySpread.innerText} odds`)
