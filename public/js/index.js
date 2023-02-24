@@ -10,6 +10,7 @@ const editBalance = document.querySelector('.edit-balance');
 const editBalanceModal = document.querySelector('.edit-balance-modal');
 const submitEditBalanceModal = document.querySelector('.submit-edit-balance-modal');
 const change = document.querySelector('.change');
+const spentMoney = document.querySelector('.spentMoney');
 
 editBalance.addEventListener('click', () => {
     change.value = '';
@@ -18,6 +19,7 @@ editBalance.addEventListener('click', () => {
     submitEditBalanceModal.addEventListener('click', () => {
         balance = balance + parseInt(change.value);
         account.innerText = balance;
+        spentMoney.innerText = parseInt(spentMoney.innerText) + parseInt(change.value);
         editBalanceModal.close();
     }, { once: true })
 })

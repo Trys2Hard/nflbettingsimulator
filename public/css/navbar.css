@@ -1,25 +1,28 @@
-/* Navbar */
 nav {
     display: flex;
     align-items: center;
     height: 3.5rem;
-    background-color: #a10f0f;
+    background-color: lightgrey;
 }
 
 nav img {
     height: 2rem;
     width: 2rem;
     margin-left: 0.5rem;
-    background-color: white;
     border-radius: 5px;
 }
 
 nav h1 {
     font-size: 2rem;
-    color: white;
     margin-left: 0.2rem;
 }
 
+.beta {
+    width: 4rem;
+    height: auto;
+}
+
+/* Nav Links */
 nav ul {
     display: flex;
     width: 10rem;
@@ -34,14 +37,38 @@ nav ul li {
 nav ul li a {
     text-decoration: none;
     font-size: 1.2rem;
-    color: white;
+    color: black;
     padding: 0.5rem;
     border-radius: 5px;
 }
 
+.cash {
+    width: 2rem;
+}
+
+/* Account */
+.accountDiv {
+    color: #51f251;
+    background-color: #9c9c9c;
+    padding-left: 0.3rem;
+    padding-right: 6rem;
+    border-radius: 20px;
+    height: 2rem;
+    align-items: center;
+    /* margin-left: 1rem; */
+    font-size: 1.2rem;
+    display: flex;
+    /* border: 1px solid red; */
+    /* margin-left: auto; */
+}
+
+.account {}
+
+/* Nav Buttons */
 .nav-buttons {
     display: flex;
     margin-left: auto;
+    /* border: 1px solid blue; */
 }
 
 nav button {
@@ -50,10 +77,10 @@ nav button {
     padding: 0.5rem;
     border: none;
     border-radius: 5px;
-    background-color: #6331c1;
-    color: white;
+    background-color: lightblue;
 }
 
+/* Nav Hover */
 nav img:hover {
     cursor: pointer;
 }
@@ -68,5 +95,5 @@ nav button:hover {
 }
 
 nav ul li a:hover {
-    background-color: #6331c1;
+    background-color: lightblue;
 }
