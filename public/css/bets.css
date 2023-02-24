@@ -3,3 +3,39 @@
     padding: 0px;
     box-sizing: border-box;
 }
+
+h1 {
+    text-align: center;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+h2 {
+    margin-bottom: 1rem;
+}
+
+/* Placed Bets */
+.titles {
+    display: flex;
+    list-style-type: none;
+}
+
+.titles li {
+    border: 1px solid black;
+    width: 15rem;
+}
+
+.bets {
+    display: flex;
+    list-style-type: none;
+}
+
+.bets li {
+    border: 1px solid black;
+    width: 15rem;
+}
+
+/* Completed Bets */
+.completed {
+    margin-top: 1rem;
+}
