@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+body {
+    /* background: url('../img/background.jpg'); */
+}
+
 /* Record */
 .record {
     display: flex;

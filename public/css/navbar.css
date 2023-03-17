@@ -2,98 +2,90 @@ nav {
     display: flex;
     align-items: center;
     height: 3.5rem;
-    background-color: lightgrey;
-}
-
-nav img {
-    height: 2rem;
-    width: 2rem;
-    margin-left: 0.5rem;
-    border-radius: 5px;
-}
-
-nav h1 {
-    font-size: 2rem;
-    margin-left: 0.2rem;
+    background-color: #484848;
 }
 
 .beta {
     width: 4rem;
     height: auto;
+    background-color: #484848;
 }
 
-/* Nav Links */
+.logo {
+    width: 3rem;
+    height: 3rem;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    filter: brightness(1.5);
+    border: 1px solid white;
+    border-radius: 50%;
+    text-align: center;
+    padding-top: 0.8rem;
+    color: white;
+}
+
+.name {
+    width: 12rem;
+    height: auto;
+    margin-right: 1rem;
+}
+
 nav ul {
+    list-style-type: none;
     display: flex;
     width: 10rem;
     justify-content: space-evenly;
-    margin-top: 0.4rem;
-}
-
-nav ul li {
-    list-style-type: none;
 }
 
 nav ul li a {
     text-decoration: none;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     color: black;
-    padding: 0.5rem;
-    border-radius: 5px;
+    padding: 0.4rem;
+    border-radius: 15px;
+    color: white;
+    border-right: 2px solid #54b654;
+}
+
+nav ul li a:hover {
+    color: lightgrey;
 }
 
 .cash {
-    width: 2rem;
+    width: 1.3rem;
+    height: 1.3rem;
+    background-color: #484848;
+    margin-right: 0.2rem;
+    margin-left: 0.5rem;
 }
 
-/* Account */
 .accountDiv {
-    color: #51f251;
-    background-color: #9c9c9c;
-    padding-left: 0.3rem;
-    padding-right: 6rem;
+    color: white;
+    border: 2px solid #54b654;
+    padding-right: 5rem;
     border-radius: 20px;
-    height: 2rem;
+    height: 2.3rem;
     align-items: center;
-    /* margin-left: 1rem; */
     font-size: 1.2rem;
     display: flex;
-    /* border: 1px solid red; */
-    /* margin-left: auto; */
 }
 
-.account {}
-
-/* Nav Buttons */
 .nav-buttons {
     display: flex;
     margin-left: auto;
-    /* border: 1px solid blue; */
 }
 
 nav button {
     margin-left: 0.5rem;
     margin-right: 0.5rem;
-    padding: 0.5rem;
+    padding: 0.6rem;
     border: none;
-    border-radius: 5px;
-    background-color: lightblue;
-}
-
-/* Nav Hover */
-nav img:hover {
-    cursor: pointer;
-}
-
-nav h1:hover {
-    cursor: pointer;
+    border-radius: 15px;
+    background-color: #19198a;
+    color: white;
 }
 
 nav button:hover {
     cursor: pointer;
     filter: brightness(1.2);
-}
-
-nav ul li a:hover {
-    background-color: lightblue;
 }
