@@ -8,453 +8,202 @@
     <title>Subjectively Bettor</title>
     <link rel="stylesheet" href="css/navbar.css">
     <link rel="stylesheet" href="css/index.css">
+    <script src="https://kit.fontawesome.com/927b7ac6ca.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron&family=Source+Serif+Pro&display=swap"
+        rel="stylesheet">
 </head>
 
 <body>
-
-    <!-- Navbar -->
     <%- include('./partials/navbar.ejs') %>
+        <section class="landing">
 
-        <!-- Record -->
-        <section class="record">
-            <div>Record:</div>
-            <div>127-109</div>
+            <img class="beta" src="../img/beta.png" alt="Beta">
+            <div class="showcase">
+                <div class="intro">
+                    <h1>Welcome to Subjectively Bettor</h1>
+                    <h2>A free NFL betting simulator</h2>
+                </div>
+
+                <div class="scroll">
+                    <h2>Place Your Bets</h2>
+                    <a href="#target"><i class="fa-solid fa-arrow-down" style="color: #54b654;"></i></a>
+                </div>
+            </div>
         </section>
 
-        <!-- Spent Money -->
-        <div class="money">
-            <div>Spent Money:</div>
-            <div class="spentMoney">1000</div>
-            <button class="edit-balance">Edit</button>
-        </div>
+        <section class="main">
+            <section class="record">
+                <div class="target">127-109</div>
+                <div class="recordWords">Picks</div>
+                <a class="anchor" name="target"></a>
 
-        <dialog class="edit-balance-modal">
-            <div>Enter positive number to add money or negative number to withdraw.</div>
-            <input type="number" class="change">
-            <button class="submit-edit-balance-modal">Submit</button>
-        </dialog>
-
-        <!-- Games -->
-        <section class="games">
-            <section class="game">
-                <button>Pick</button>
-
-                <div class="info">
-                    <div class="top">
-                        <div>Seattle Seahawks</div>
-                        <div>vs</div>
-                        <div>Arizona Cardinals</div>
-                    </div>
-
-                    <div class="bottom">
-                        <div>-4.5</div>
-                        <div>-110</div>
-                        <button>Bet</button>
-                        <div>+4.5</div>
-                        <div>-110</div>
-                    </div>
+                <div class="money">
+                    <div>Spent Money:</div>
+                    <div class="spentMoney">$1000</div>
+                    <button class="edit-balance">Edit</button>
                 </div>
-
-                <button>Pick</button>
             </section>
 
-            <section class="game">
-                <button>Pick</button>
+            <dialog class="edit-balance-modal">
+                <div>Enter positive number to add money or negative number to withdraw.</div>
+                <input type="number" class="change">
+                <button class="submit-edit-balance-modal">Submit</button>
+            </dialog>
 
-                <div class="info">
-                    <div class="top">
-                        <div>Seattle Seahawks</div>
-                        <div>vs</div>
-                        <div>Arizona Cardinals</div>
+            <section class="games">
+                <section class="game">
+                    <div class="teams">
+                        <div class="left">
+                            <div class="names">Seattle Seahawks</div>
+                            <div class="spread">-4.5/-110</div>
+                        </div>
+
+                        <div class="middle">VS</div>
+
+                        <div class="right">
+                            <div class="names">Arizona Cardinals</div>
+                            <div class="spread">+4.5/-110</div>
+                        </div>
                     </div>
 
-                    <div class="bottom">
-                        <div>-4.5</div>
-                        <div>-110</div>
-                        <button>Bet</button>
-                        <div>+4.5</div>
-                        <div>-110</div>
-                    </div>
-                </div>
+                    <div class="picks">
+                        <div>
+                            <img src="../img/squigs.png" alt="Seahawks Image">
+                            <div class="status">Home</div>
+                        </div>
+
+                        <button>Place Bet</button>
+                        <div>
+                            <img src="../img/logo.png" alt="Cardinals Image">
+                            <div class="status">Away</div>
+                        </div>
 
-
-                <button>Pick</button>
-            </section>
-
-            <section class="game">
-                <button>Pick</button>
-
-                <div class="info">
-                    <div class="top">
-                        <div>Seattle Seahawks</div>
-                        <div>vs</div>
-                        <div>Arizona Cardinals</div>
-                    </div>
-
-                    <div class="bottom">
-                        <div>-4.5</div>
-                        <div>-110</div>
-                        <button>Bet</button>
-                        <div>+4.5</div>
-                        <div>-110</div>
-                    </div>
-                </div>
-
-
-                <button>Pick</button>
-            </section>
-
-            <section class="game">
-                <button>Pick</button>
-
-                <div class="info">
-                    <div class="top">
-                        <div>Seattle Seahawks</div>
-                        <div>vs</div>
-                        <div>Arizona Cardinals</div>
-                    </div>
-
-                    <div class="bottom">
-                        <div>-4.5</div>
-                        <div>-110</div>
-                        <button>Bet</button>
-                        <div>+4.5</div>
-                        <div>-110</div>
-                    </div>
-                </div>
-
-
-                <button>Pick</button>
-            </section>
-
-            <section class="game">
-                <button>Pick</button>
-
-                <div class="info">
-                    <div class="top">
-                        <div>Seattle Seahawks</div>
-                        <div>vs</div>
-                        <div>Arizona Cardinals</div>
-                    </div>
-
-                    <div class="bottom">
-                        <div>-4.5</div>
-                        <div>-110</div>
-                        <button>Bet</button>
-                        <div>+4.5</div>
-                        <div>-110</div>
-                    </div>
-                </div>
-
-
-                <button>Pick</button>
-            </section>
-
-            <section class="game">
-                <button>Pick</button>
-
-                <div class="info">
-                    <div class="top">
-                        <div>Seattle Seahawks</div>
-                        <div>vs</div>
-                        <div>Arizona Cardinals</div>
-                    </div>
-
-                    <div class="bottom">
-                        <div>-4.5</div>
-                        <div>-110</div>
-                        <button>Bet</button>
-                        <div>+4.5</div>
-                        <div>-110</div>
-                    </div>
-                </div>
-
-
-                <button>Pick</button>
-            </section>
-
-            <section class="game">
-                <button>Pick</button>
-
-                <div class="info">
-                    <div class="top">
-                        <div>Seattle Seahawks</div>
-                        <div>vs</div>
-                        <div>Arizona Cardinals</div>
-                    </div>
-
-                    <div class="bottom">
-                        <div>-4.5</div>
-                        <div>-110</div>
-                        <button>Bet</button>
-                        <div>+4.5</div>
-                        <div>-110</div>
-                    </div>
-                </div>
-
-
-                <button>Pick</button>
-            </section>
-
-            <section class="game">
-                <button>Pick</button>
-
-                <div class="info">
-                    <div class="top">
-                        <div>Seattle Seahawks</div>
-                        <div>vs</div>
-                        <div>Arizona Cardinals</div>
-                    </div>
-
-                    <div class="bottom">
-                        <div>-4.5</div>
-                        <div>-110</div>
-                        <button>Bet</button>
-                        <div>+4.5</div>
-                        <div>-110</div>
-                    </div>
-                </div>
-
-
-                <button>Pick</button>
-            </section>
-
-            <section class="game">
-                <button>Pick</button>
-
-                <div class="info">
-                    <div class="top">
-                        <div>Seattle Seahawks</div>
-                        <div>vs</div>
-                        <div>Arizona Cardinals</div>
-                    </div>
-
-                    <div class="bottom">
-                        <div>-4.5</div>
-                        <div>-110</div>
-                        <button>Bet</button>
-                        <div>+4.5</div>
-                        <div>-110</div>
-                    </div>
-                </div>
-
-
-                <button>Pick</button>
-            </section>
-
-            <section class="game">
-                <button>Pick</button>
-
-                <div class="info">
-                    <div class="top">
-                        <div>Seattle Seahawks</div>
-                        <div>vs</div>
-                        <div>Arizona Cardinals</div>
-                    </div>
-
-                    <div class="bottom">
-                        <div>-4.5</div>
-                        <div>-110</div>
-                        <button>Bet</button>
-                        <div>+4.5</div>
-                        <div>-110</div>
-                    </div>
-                </div>
-
-
-                <button>Pick</button>
-            </section>
-
-            <section class="game">
-                <button>Pick</button>
-
-                <div class="info">
-                    <div class="top">
-                        <div>Seattle Seahawks</div>
-                        <div>vs</div>
-                        <div>Arizona Cardinals</div>
-                    </div>
-
-                    <div class="bottom">
-                        <div>-4.5</div>
-                        <div>-110</div>
-                        <button>Bet</button>
-                        <div>+4.5</div>
-                        <div>-110</div>
-                    </div>
-                </div>
-
-
-                <button>Pick</button>
-            </section>
-
-            <section class="game">
-                <button>Pick</button>
-
-                <div class="info">
-                    <div class="top">
-                        <div>Seattle Seahawks</div>
-                        <div>vs</div>
-                        <div>Arizona Cardinals</div>
-                    </div>
-
-                    <div class="bottom">
-                        <div>-4.5</div>
-                        <div>-110</div>
-                        <button>Bet</button>
-                        <div>+4.5</div>
-                        <div>-110</div>
-                    </div>
-                </div>
-
-
-                <button>Pick</button>
-            </section>
-
-            <section class="game">
-                <button>Pick</button>
-
-                <div class="info">
-                    <div class="top">
-                        <div>Seattle Seahawks</div>
-                        <div>vs</div>
-                        <div>Arizona Cardinals</div>
-                    </div>
-
-                    <div class="bottom">
-                        <div>-4.5</div>
-                        <div>-110</div>
-                        <button>Bet</button>
-                        <div>+4.5</div>
-                        <div>-110</div>
-                    </div>
-                </div>
-
-
-                <button>Pick</button>
-            </section>
-
-            <section class="game">
-                <button>Pick</button>
-
-                <div class="info">
-                    <div class="top">
-                        <div>Seattle Seahawks</div>
-                        <div>vs</div>
-                        <div>Arizona Cardinals</div>
-                    </div>
-
-                    <div class="bottom">
-                        <div>-4.5</div>
-                        <div>-110</div>
-                        <button>Bet</button>
-                        <div>+4.5</div>
-                        <div>-110</div>
-                    </div>
-                </div>
-
-
-                <button>Pick</button>
-            </section>
-
-            <section class="game">
-                <button>Pick</button>
-
-                <div class="info">
-                    <div class="top">
-                        <div>Seattle Seahawks</div>
-                        <div>vs</div>
-                        <div>Arizona Cardinals</div>
-                    </div>
-
-                    <div class="bottom">
-                        <div>-4.5</div>
-                        <div>-110</div>
-                        <button>Bet</button>
-                        <div>+4.5</div>
-                        <div>-110</div>
-                    </div>
-                </div>
-
-
-                <button>Pick</button>
-            </section>
-
-            <section class="game">
-                <button>Pick</button>
-
-                <div class="info">
-                    <div class="top">
-                        <div>Seattle Seahawks</div>
-                        <div>vs</div>
-                        <div>Arizona Cardinals</div>
-                    </div>
-
-                    <div class="bottom">
-                        <div>-4.5</div>
-                        <div>-110</div>
-                        <button>Bet</button>
-                        <div>+4.5</div>
-                        <div>-110</div>
-                    </div>
-                </div>
-
-
-                <button>Pick</button>
-            </section>
-
-            <section class="game">
-                <button>Pick</button>
-
-                <div class="info">
-                    <div class="top">
-                        <div>Seattle Seahawks</div>
-                        <div>vs</div>
-                        <div>Arizona Cardinals</div>
-                    </div>
-
-                    <div class="bottom">
-                        <div>-4.5</div>
-                        <div>-110</div>
-                        <button>Bet</button>
-                        <div>+4.5</div>
-                        <div>-110</div>
-                    </div>
-                </div>
-
-
-                <button>Pick</button>
-            </section>
-
-            <dialog class="placeBetModal">
-                <div class="closeBetModal">X</div>
-                <h2>Pick a Team</h2>
-
-                <section class="modalTeams">
-                    <div class="modalTeam1">
-                        <div class="betModalHomeTeam"></div>
-                        <div class="homeSpread"></div>
-                    </div>
-
-                    <div class="modalTeam2">
-                        <div class="betModalAwayTeam"></div>
-                        <div class="awaySpread"></div>
                     </div>
                 </section>
 
+                <section class="game">
+                    <div class="teams">
+                        <div class="left">
+                            <div class="names">Seattle Seahawks</div>
+                            <div class="spread">-4.5/-110</div>
+                        </div>
 
-                <h2>Place Your Bet</h2>
-                <input type="number" class="betAmount">
-                <button class="placeBet">Place Bet</button>
-            </dialog>
+                        <div class="middle">VS</div>
 
-            <dialog class="confirmBetModal">
-                <p class="confirmBetModalMessage"></p>
-                <button class="confirmBet">Confirm Bet</button>
-                <button class="cancelBet">Cancel</button>
-            </dialog>
+                        <div class="right">
+                            <div class="names">Arizona Cardinals</div>
+                            <div class="spread">+4.5/-110</div>
+                        </div>
+                    </div>
 
-            <script src="js/index.js"></script>
+                    <div class="picks">
+                        <div>
+                            <img src="../img/squigs.png" alt="Seahawks Image">
+                            <div class="status" style="font-family:arvo">Home</div>
+                        </div>
+
+                        <button>Place Bet</button>
+                        <div>
+                            <img src="../img/logo.png" alt="Cardinals Image">
+                            <div class="status" style="font-family:arvo">Away</div>
+                        </div>
+
+                    </div>
+                </section>
+
+                <section class="game">
+                    <div class="teams">
+                        <div class="left">
+                            <div class="names">Seattle Seahawks</div>
+                            <div class="spread">-4.5/-110</div>
+                        </div>
+
+                        <div class="middle">VS</div>
+
+                        <div class="right">
+                            <div class="names">Arizona Cardinals</div>
+                            <div class="spread">+4.5/-110</div>
+                        </div>
+                    </div>
+
+                    <div class="picks">
+                        <div>
+                            <img src="../img/squigs.png" alt="Seahawks Image">
+                            <div class="status">Home</div>
+                        </div>
+
+                        <button>Place Bet</button>
+                        <div>
+                            <img src="../img/logo.png" alt="Cardinals Image">
+                            <div class="status">Away</div>
+                        </div>
+
+                    </div>
+                </section>
+
+                <section class="game">
+                    <div class="teams">
+                        <div class="left">
+                            <div class="names">Seattle Seahawks</div>
+                            <div class="spread">-4.5/-110</div>
+                        </div>
+
+                        <div class="middle">VS</div>
+
+                        <div class="right">
+                            <div class="names">Arizona Cardinals</div>
+                            <div class="spread">+4.5/-110</div>
+                        </div>
+                    </div>
+
+                    <div class="picks">
+                        <div>
+                            <img src="../img/squigs.png" alt="Seahawks Image">
+                            <div class="status">Home</div>
+                        </div>
+
+                        <button>Place Bet</button>
+                        <div>
+                            <img src="../img/logo.png" alt="Cardinals Image">
+                            <div class="status">Away</div>
+                        </div>
+
+                    </div>
+                </section>
+            </section>
+        </section>
+
+
+        <dialog class="placeBetModal">
+            <div class="closeBetModal">X</div>
+            <h2>Pick a Team</h2>
+
+            <section class="modalTeams">
+                <div class="modalTeam1">
+                    <div class="betModalHomeTeam"></div>
+                    <div class="homeSpread"></div>
+                </div>
+
+                <div class="modalTeam2">
+                    <div class="betModalAwayTeam"></div>
+                    <div class="awaySpread"></div>
+                </div>
+            </section>
+
+            <h2>Place Your Bet</h2>
+            <input type="number" class="betAmount">
+            <button class="placeBet">Place Bet</button>
+        </dialog>
+
+        <dialog class="confirmBetModal">
+            <p class="confirmBetModalMessage"></p>
+            <button class="confirmBet">Confirm Bet</button>
+            <button class="cancelBet">Cancel</button>
+        </dialog>
+
+        <script src="js/index.js"></script>
 </body>
 
 </html>

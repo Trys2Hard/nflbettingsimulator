@@ -5,40 +5,228 @@
 }
 
 body {
-    /* background: url('../img/background.jpg'); */
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 50% 90%;
+    background-attachment: fixed;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../img/background.jpg');
 }
 
-/* Record */
-.record {
+html {
+    scroll-behavior: smooth;
+}
+
+.main {
+    background-position: 100% 90%;
+    background-repeat: no-repeat;
+    height: 100vh;
+}
+
+.intro {
+    line-height: 45px;
+}
+
+h1 {
+    font-size: 3rem;
+    font-family: 'Orbitron';
+}
+
+h2 {
+    font-size: 1.5rem;
+    font-family: 'Orbitron';
+}
+
+.scroll h2 {
+    font-size: 1.5rem;
+    font-family: 'Orbitron';
+    line-height: 40px;
+}
+
+.scroll a i {
+    transition: 1s;
+}
+
+.scroll a i:hover {
+    transform: translateY(0.5rem);
+    filter: brightness(1.5);
+}
+
+.beta {
+    width: 8rem;
+    margin: 1.5rem;
+    margin-bottom: 0rem;
+}
+
+/* SHOWCASE */
+.landing {
+    width: 100%;
+    height: 100vh;
+    color: white;
+}
+
+.showcase {
     display: flex;
-    justify-content: center;
-    width: 60%;
+    flex-direction: column;
+    align-items: center;
+    height: 90vh;
+}
+
+.intro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.scroll {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 2rem;
+    margin-top: 30rem;
+}
+
+/* GAME TEST */
+.teams {
+    display: flex;
+    justify-content: space-evenly;
+    font-size: 1.3rem;
+    width: 80%;
     margin-left: auto;
     margin-right: auto;
     margin-top: 1rem;
-    margin-bottom: 1rem;
+    font-size: 1rem;
+    color: white;
+}
+
+.left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.middle {
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+}
+
+.right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.picks {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.picks img {
+    height: 7rem;
+    width: 7rem;
+    margin-top: 1rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    border: 1px solid blue;
+    background-color: #e5e5e5;
+}
+
+.picks img:hover {
+    background-color: rgb(255, 255, 255);
+}
+
+.picks div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 0.5rem;
     font-size: 1.2rem;
+    color: #e5e5e5;
+}
+
+.picks button {
+    border: none;
+    font-size: 1.2rem;
+    background-color: #19198a;
+    padding: 0.5rem 0.8rem;
+    border-radius: 20px;
+    cursor: pointer;
+    color: white;
+    font-family: 'source serif pro';
+}
+
+.names {
+    font-size: 1.6rem;
+}
+
+.status {
+    color: white;
+}
+
+/* GAME TEST */
+
+/* Record */
+.record {
+    backdrop-filter: blur(10px);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 5rem;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 5rem;
+    font-size: 1.8rem;
+}
+
+.target {
+    color: white;
+}
+
+.anchor {
+    position: absolute;
+    top: -4rem;
+}
+
+.recordWords {
+    font-size: 1.2rem;
+    color: white;
+
+}
+
+.spread {
+    color: white;
 }
 
 /* Spent Money */
 .money {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
     position: absolute;
     right: 1rem;
     width: 15rem;
     font-size: 1.2rem;
-    background-color: lightgrey;
     padding: 0.5rem;
+    border: 2px solid #54b654;
+    border-radius: 10px;
+    color: white;
 }
 
 .money button {
-    padding: 0.5rem;
-    cursor: pointer;
     border: none;
-    border-radius: 5px;
-    background-color: lightblue;
+    background-color: #19198a;
+    padding: 0.5rem 0.8rem;
+    border-radius: 20px;
+    cursor: pointer;
+    color: white;
+    font-family: 'source serif pro';
 }
 
 .money button:hover {
@@ -50,50 +238,37 @@ body {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1rem;
-    width: 60%;
+    width: 80%;
     margin-left: auto;
     margin-right: auto;
 }
 
 .game {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-top: 2rem;
-    padding-bottom: 2rem;
-    font-size: 1.2rem;
-    background-color: lightgrey;
-}
-
-.info {
-    display: flex;
     flex-direction: column;
-}
-
-.info div {
-    padding-left: 1rem;
-    padding-right: 1rem;
+    border: 1px solid white;
+    backdrop-filter: blur(25px);
+    background-color: #9b9b9b7d;
 }
 
 .top {
     display: flex;
-    align-items: center;
     justify-content: space-evenly;
-    margin-bottom: 0.2rem;
+    border: 1px solid red;
+    width: 100%;
+}
+
+.pick {
+    border: 1px solid blue;
+    display: flex;
+    justify-content: space-evenly;
 }
 
 .bottom {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-}
-
-.game button {
-    padding: 0.5rem;
-    cursor: pointer;
-    border: none;
-    border-radius: 5px;
-    background-color: lightblue;
+    border: 1px solid green;
 }
 
 .game button:hover {
@@ -115,7 +290,6 @@ body {
     margin-left: auto;
     cursor: pointer;
     color: white;
-    /* background-color: #a10f0f; */
     background-color: lightgrey;
     padding: 0.3rem;
     display: inline;
