@@ -35,13 +35,37 @@ const getData = async () => {
     const getSpreads = () => {
         for (const contest of data) {
             for (const bookmaker of contest.bookmakers) {
+                if (bookmaker.markets[0].outcomes[0].point > 0) {
+                    var point1 = `+${bookmaker.markets[0].outcomes[0].point}`;
+                } else {
+                    var point1 = bookmaker.markets[0].outcomes[0].point;
+                }
+
+                if (bookmaker.markets[0].outcomes[1].point > 0) {
+                    var point2 = `+${bookmaker.markets[0].outcomes[1].point}`;
+                } else {
+                    var point2 = bookmaker.markets[0].outcomes[1].point;
+                }
+
+                if (bookmaker.markets[0].outcomes[0].price > 0) {
+                    var price1 = `+${bookmaker.markets[0].outcomes[0].price}`;
+                } else {
+                    var price1 = bookmaker.markets[0].outcomes[0].price;
+                }
+
+                if (bookmaker.markets[0].outcomes[1].price > 0) {
+                    var price2 = `+${bookmaker.markets[0].outcomes[1].price}`;
+                } else {
+                    var price2 = bookmaker.markets[0].outcomes[1].price;
+                }
+
                 if (bookmaker.key === "draftkings") {
-                    if (bookmaker.markets[0].outcomes[0].name == data[0].home_team) {
-                        homeSpreads.push(bookmaker.markets[0].outcomes[0].point);
-                        awaySpreads.push(bookmaker.markets[0].outcomes[1].point);
+                    if (bookmaker.markets[0].outcomes[0].name == contest.home_team) {
+                        homeSpreads.push(`${point1}/${price1}`);
+                        awaySpreads.push(`${point2}/${price2}`);
                     } else {
-                        homeSpreads.push(bookmaker.markets[0].outcomes[1].point);
-                        awaySpreads.push(bookmaker.markets[0].outcomes[0].point);
+                        homeSpreads.push(`${point2}/${price2}`);
+                        awaySpreads.push(`${point1}/${price1}`);
                     }
                 }
             }
@@ -50,67 +74,79 @@ const getData = async () => {
     getSpreads();
 
     const listGames = () => {
-        for (let i = 0; i < data.length; i++) {
-            const game = document.createElement('section')
-            const pickLeft = document.createElement('button');
-            const priceLeft = document.createElement('div');
-            const team1 = document.createElement('div');
-            const team1Spread = document.createElement('div');
-            const match = document.createElement('div');
-            const team2 = document.createElement('div');
-            const team2Spread = document.createElement('div');
-            const priceRight = document.createElement('div');
-            const pickRight = document.createElement('button');
+        for (let i = 0; i < 16; i++) {
+            const game = document.createElement('section');
+            const teams = document.createElement('div');
+            const picks = document.createElement('div');
+            const homeInfo = document.createElement('div');
+            const verses = document.createElement('div');
+            const awayInfo = document.createElement('div');
+            const homeName = document.createElement('div');
+            const homeNums = document.createElement('div');
+            const awayName = document.createElement('div');
+            const awayNums = document.createElement('div');
+            const homePick = document.createElement('div');
+            const homeImg = document.createElement('img');
+            const homeStatus = document.createElement('div');
             const bet = document.createElement('button');
+            const awayPick = document.createElement('div');
+            const awayImg = document.createElement('img');
+            const awayStatus = document.createElement('div');
+
+            // console.log(homeSpreads);
 
             games.append(game);
-            game.append(pickLeft);
-            game.append(priceLeft);
-            game.append(team1);
-            game.append(team1Spread);
-            game.append(match);
-            game.append(team2);
-            game.append(team2Spread);
-            game.append(priceRight);
-            game.append(pickRight);
-            game.append(bet);
+            game.append(teams);
+            game.append(picks);
+            teams.append(homeInfo);
+            teams.append(verses);
+            teams.append(awayInfo);
+            homeInfo.append(homeName);
+            homeInfo.append(homeNums);
+            awayInfo.append(awayName);
+            awayInfo.append(awayNums);
+            picks.append(homePick);
+            picks.append(bet);
+            picks.append(awayPick);
+            homePick.append(homeImg);
+            homePick.append(homeStatus);
+            awayPick.append(awayImg);
+            awayPick.append(awayStatus);
 
             game.classList.add('game');
-            pickLeft.innerText = "Pick Home";
-            data[i].bookmakers.forEach((bookmaker) => {
-                if (bookmaker.key === "draftkings") {
-                    if (bookmaker.markets[0].outcomes[0].name == data[i].home_team) {
-                        priceLeft.innerText = bookmaker.markets[0].outcomes[0].price;
-                        priceRight.innerText = bookmaker.markets[0].outcomes[1].price;
-                    } else if (bookmaker.markets[0].outcomes[0].name == data[i].away_team)
-                        priceRight.innerText = bookmaker.markets[0].outcomes[0].price;
-                    priceLeft.innerText = bookmaker.markets[0].outcomes[1].price;
-                }
-            })
-            team1.innerText = data[i].home_team;
-            if (homeSpreads[i] > 0) {
-                team1Spread.innerText = `+${homeSpreads[i]}`;
-            } else {
-                team1Spread.innerText = homeSpreads[i];
-            }
-            match.innerText = 'vs';
-            team2.innerText = data[i].away_team;
-            if (awaySpreads[i] > 0) {
-                team2Spread.innerText = `+${awaySpreads[i]}`;
-            } else {
-                team2Spread.innerText = awaySpreads[i];
-            }
-            pickRight.innerText = "Pick Away";
-            bet.innerText = 'Bet';
+            teams.classList.add('teams');
+            picks.classList.add('picks');
+            homeInfo.classList.add('left');
+            verses.classList.add('middle');
+            awayInfo.classList.add('right');
+            homeName.classList.add('names');
+            homeNums.classList.add('spread');
+            awayName.classList.add('names');
+            awayNums.classList.add('spread');
+            homeStatus.classList.add('status');
+            awayStatus.classList.add('status');
+            homeImg.classList.add('pickImg');
 
-            pickLeft.addEventListener('click', () => {
-                pickLeft.style.backgroundColor = "blue";
-                pickRight.style.backgroundColor = "gray";
+            homeImg.src = "../img/squigs.png";
+            awayImg.src = "../img/logo.png";
+
+            homeStatus.innerText = "Home";
+            awayStatus.innerText = "Away";
+            homeName.innerText = data[i].home_team;
+            homeNums.innerText = homeSpreads[i];
+            verses.innerText = 'vs';
+            awayName.innerText = data[i].away_team;
+            awayNums.innerText = awaySpreads[i];
+            bet.innerText = 'Place Bet';
+
+            homeImg.addEventListener('click', () => {
+                homeImg.style.backgroundColor = "blue";
+                awayImg.style.backgroundColor = "gray";
             })
 
-            pickRight.addEventListener('click', () => {
-                pickRight.style.backgroundColor = "blue";
-                pickLeft.style.backgroundColor = "gray";
+            awayImg.addEventListener('click', () => {
+                awayImg.style.backgroundColor = "blue";
+                homeImg.style.backgroundColor = "gray";
             })
 
             const viewBetModal = () => {
@@ -169,7 +205,15 @@ const getData = async () => {
 
                         })
 
+                        // Place Bet buttons using price of first button clicked, add for loop with i here?
                         placeBet.addEventListener('click', function Func() {
+                            if (data[0].bookmakers[0].markets[0].outcomes[0].name == data[0].home_team) {
+                                var priceLeft = data[i].bookmakers[0].markets[0].outcomes[0].price;
+                                var priceRight = data[i].bookmakers[0].markets[0].outcomes[1].price;
+                            } else {
+                                var priceLeft = data[i].bookmakers[0].markets[0].outcomes[1].price;
+                                var priceRight = data[i].bookmakers[0].markets[0].outcomes[0].price;
+                            }
                             if (betAmount.value > balance || betAmount.value === '' || betAmount.value == 0 || pickTeam == '') {
                                 alert('Please enter an amount greater than 0 and less than your account balance. Number can have at most 2 decimal places. Also make sure to pick a team');
                             } else {
@@ -178,27 +222,40 @@ const getData = async () => {
 
                                     // Create confirm bet modal message
                                     const confirmBetModalMessage = document.querySelector('.confirmBetModalMessage');
-                                    let winnings = priceLeft.innerText;
+                                    let winnings = priceLeft;
                                     if (pickTeam === 'home') {
                                         betModal.close();
                                         confirmBetModal.showModal();
-                                        console.log(`You picked the home team`);
-                                        if (priceLeft.innerText < 0) {
-                                            console.log('negative price')
-                                            winnings = Math.ceil(betAmount.value / (Math.abs(priceLeft.innerText) / 100));
+                                        // console.log(`You picked the home team`);
+                                        if (priceLeft < 0) {
+                                            console.log('negative price', priceLeft)
+                                            winnings = Math.ceil(betAmount.value / (Math.abs(priceLeft) / 100));
                                             console.log(winnings);
                                         } else {
                                             console.log('positive price');
-                                            winnings = Math.abs(betAmount.value * (priceLeft.innerText / 100));
+                                            winnings = Math.abs(betAmount.value * (priceLeft / 100));
+                                            console.log(betAmount.value, priceLeft)
                                             console.log(winnings);
                                         }
-                                        confirmBetModalMessage.innerText = `You have placed a $${betAmount.value} bet on the ${betModalHomeTeam.innerText} at ${homeSpread.innerText} odds. If the ${betModalHomeTeam.innerText} cover the spread againt the ${betModalAwayTeam.innerText} you will win $${winnings}. Otherwise you will lose the entirety of the bet. If you understand this and wish to proceed please click the confirmation button below.`
+                                        confirmBetModalMessage.innerText = `You have placed a $${betAmount.value} bet on the ${betModalHomeTeam.innerText} at ${homeSpread.innerText} odds. If the ${betModalHomeTeam.innerText} cover the spread againt the ${betModalAwayTeam.innerText} you will win $${winnings} plus receive your intial bet back. Otherwise you will lose the entirety of the bet. If you understand this and wish to proceed please click the confirmation button below.`
                                     } else if (pickTeam === 'away') {
                                         betModal.close();
                                         confirmBetModal.showModal();
-                                        console.log(`You picked the away team`);
-                                        const winnings = priceRight.innerText;
-                                        confirmBetModalMessage.innerText = `You have placed a $${betAmount.value} bet on the ${betModalAwayTeam.innerText} at ${awaySpread.innerText} odds. If the ${betModalAwayTeam.innerText} cover the spread against the ${betModalHomeTeam.innerText} you will win $${winnings}. Otherwise you will lose the entirety of the bet. If you understand this and wish to proceed please click the confirmation button below.`
+                                        // console.log(`You picked the away team`);
+                                        // let winnings = priceRight;
+                                        if (priceRight < 0) {
+                                            // console.log('negative price')
+                                            winnings = Math.ceil(betAmount.value / (Math.abs(priceRight) / 100));
+                                            // console.log(winnings);
+                                        } else {
+                                            // console.log('positive price');
+                                            winnings = Math.abs(betAmount.value * (priceRight / 100));
+                                            // console.log(betAmount.value, priceLeft)
+                                            // console.log(winnings);
+                                        }
+
+                                        // winnings = Math.abs(betAmount.value * (priceRight / 100));
+                                        confirmBetModalMessage.innerText = `You have placed a $${betAmount.value} bet on the ${betModalAwayTeam.innerText} at ${awaySpread.innerText} odds. If the ${betModalAwayTeam.innerText} cover the spread against the ${betModalHomeTeam.innerText} you will win $${winnings} plus receive your intial bet back. Otherwise you will lose the entirety of the bet. If you understand this and wish to proceed please click the confirmation button below.`
                                     }
                                 }
                                 if (listenConfirmBet == false) {

@@ -88,13 +88,15 @@ h2 {
 /* GAME TEST */
 .teams {
     display: flex;
-    justify-content: space-evenly;
-    font-size: 1.3rem;
-    width: 80%;
-    margin-left: auto;
-    margin-right: auto;
+    /* justify-content: space-evenly; */
+    justify-content: center;
+    /* align-items: center; */
+    /* font-size: 1.3rem; */
+    /* width: 90%; */
+    /* margin-left: auto; */
+    /* margin-right: auto; */
     margin-top: 1rem;
-    font-size: 1rem;
+    /* font-size: 1rem; */
     color: white;
 }
 
@@ -102,24 +104,42 @@ h2 {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 45%;
+    justify-content: center;
 }
 
 .middle {
     display: flex;
     align-items: center;
     font-size: 1.5rem;
+    width: 5%;
+    justify-content: center;
 }
 
 .right {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 45%;
+    justify-content: center;
 }
 
 .picks {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.pickImg {
+    height: 7rem;
+    width: 7rem;
+    margin-top: 1rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    border: 1px solid blue;
+    background-color: #e5e5e5;
 }
 
 .picks img {
@@ -172,17 +192,19 @@ h2 {
 /* Record */
 .record {
     backdrop-filter: blur(10px);
-    position: relative;
+    /* position: relative; */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     width: 100%;
+    /* width: 80%; */
     height: 5rem;
     margin-left: auto;
     margin-right: auto;
-    margin-bottom: 5rem;
+    /* margin-bottom: 5rem; */
     font-size: 1.8rem;
+    /* border: 1px solid white; */
 }
 
 .target {
