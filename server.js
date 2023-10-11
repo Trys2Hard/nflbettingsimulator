@@ -5,7 +5,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 const Bet = require('./models/bet');
 
-mongoose.connect('mongodb://127.0.0.1:27017/test')
+mongoose.connect('mongodb://127.0.0.1:27017/placedBets')
     .then(() => {
         console.log("Database connected")
     })
@@ -29,9 +29,17 @@ app.get('/', (req, res) => {
     res.render('index');
 });
 
-app.get('/bets', (req, res) => {
-    res.render('bets');
+app.get('/bets', async (req, res) => {
+    const bets = await Bet.find({});
+    res.render('bets', { bets });
 });
+
+// app.get('/bets/:id', async (req, res) => {
+//     const {id} = req.params;
+//     const bet = await Bet.findById(id);
+//     console.log(bet);
+//     res.send('details page!');
+// })
 
 app.listen(PORT, () => {
     console.log(`listening on port ${PORT}...`)
