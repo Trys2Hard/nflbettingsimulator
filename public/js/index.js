@@ -162,10 +162,30 @@ const getData = async () => {
                 // for (let i = 0; i < 16; i++) {
                 bet.addEventListener('click', function betFunc() {
                     betModal.showModal();
+                    const teamName = document.querySelector('#teamName');
+                    const spread = document.querySelector('#spread');
+                    const points = document.querySelector('#points');
                     const betModalHomeTeam = document.querySelector('.betModalHomeTeam');
                     const betModalAwayTeam = document.querySelector('.betModalAwayTeam');
-                    const betAmount = document.querySelector('.betAmount');
+                    const betAmount = document.querySelector('#betAmount');
                     betAmount.value = "";
+
+                    // teamName.value = 'Green Bay Packers';
+                    // spread.value = 3;
+                    // betAmount.value = 110;
+
+                    betModalHomeTeam.addEventListener('click', () => {
+                        teamName.value = betModalHomeTeam.innerText;
+                        spread.value = homeSpread.innerText;
+                        // points.value = 
+                        console.log(betAmount.value);
+                    })
+
+                    betModalAwayTeam.addEventListener('click', () => {
+                        teamName.value = betModalAwayTeam.innerText;
+                        spread.value = awaySpread.innerText;
+                        // points.value = 
+                    })
 
                     betModalHomeTeam.innerText = data[i].home_team;
                     if (homeSpreads[i] > 0) {

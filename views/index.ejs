@@ -195,8 +195,22 @@
             </section>
 
             <h2>Place Your Bet</h2>
-            <input type="number" class="betAmount">
-            <button class="placeBet">Place Bet</button>
+            <form action="/bets" method="POST">
+                <label for="teamName">Team Name</label>
+                <input name="teamName" type="text" id="teamName" class="" value="">
+
+                <label for="spread">Spread</label>
+                <input name="spread" type="text" id="spread" class="">
+
+                <!-- <label for="points">Points</label>
+                <input name="points" type="number" id="points" class=""> -->
+
+
+
+                <label for="betAmount">Bet</label>
+                <input name="betAmount" type="text" id="betAmount" class="">
+                <button class="placeBet">Place Bet</button>
+            </form>
         </dialog>
 
         <dialog class="confirmBetModal">
