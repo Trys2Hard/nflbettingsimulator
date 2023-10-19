@@ -32,7 +32,8 @@ app.get('/', (req, res) => {
 
 app.get('/bets', async (req, res) => {
     const bets = await Bet.find({});
-    res.render('bets', { bets });
+    // res.render('bets', { bets });
+    res.render('newBets');
 });
 
 app.post('/bets', async (req, res) => {

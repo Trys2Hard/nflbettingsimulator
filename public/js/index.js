@@ -179,6 +179,7 @@ const getData = async () => {
                         spread.value = homeSpread.innerText;
                         // points.value = 
                         console.log(betAmount.value);
+                        console.log(teamName.value);
                     })
 
                     betModalAwayTeam.addEventListener('click', () => {
@@ -201,16 +202,22 @@ const getData = async () => {
                     }
                     // console.log("Yes, you clicked button", i)
                     // console.log(data[i].home_team)
-
                     pickTeam = '';
-                    // console.log(listenPlaceBet);
+                    
+                    
+                    placeBet.addEventListener('click', function Func() {  
+                        const betObject = {
+                            betAmount: betAmount.value,
+                            teamName: teamName.value,
+                            spread: spread.value
+                        }
+                        let count = localStorage.length + 1;
+                        localStorage.setItem(count, JSON.stringify(betObject));
 
+                        // const newBets = document.querySelector('newBets');
+                        // const newBet = document.createElement('li');
+                        // newBets.append(newBet);
 
-
-
-
-
-                    placeBet.addEventListener('click', function Func() {
                         // console.log(data[i].home_team)
                         if (data[0].bookmakers[0].markets[0].outcomes[0].name == data[i].home_team) {
                             var priceLeft = data[i].bookmakers[0].markets[0].outcomes[0].price;
