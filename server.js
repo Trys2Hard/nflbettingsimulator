@@ -36,12 +36,12 @@ app.get('/bets', async (req, res) => {
     res.render('newBets');
 });
 
-app.post('/bets', async (req, res) => {
-    const newBet = new Bet(req.body);
-    await newBet.save();
-    console.log(newBet);
-    res.redirect('/');
-})
+// app.post('/bets', async (req, res) => {
+//     const newBet = new Bet(req.body);
+//     await newBet.save();
+//     console.log(newBet);
+//     res.redirect('/');
+// })
 
 // app.get('/bets/:id', async (req, res) => {
 //     const {id} = req.params;

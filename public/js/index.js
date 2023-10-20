@@ -3,8 +3,25 @@ const games = document.querySelector('.games');
 const account = document.querySelector('.account');
 let listenPlaceBet = false;
 let listenConfirmBet = false;
-let balance = 1000;
-account.innerText = balance;
+
+
+
+account.innerText = localStorage.getItem('savedBalance');
+
+if(account.innerText == false) {
+    localStorage.setItem('savedBalance', 1000);
+    account.innerText = localStorage.getItem('savedBalance');
+}
+
+// let balance;
+// if (balance === undefined) {
+//     localStorage.setItem('balance', 2000);
+//     let balance = localStorage.getItem('balance');
+//     account.innerText = balance;
+// } else {
+//     let balance = localStorage.getItem('balance');
+//     account.innerText = balance;
+// }
 
 const editBalance = document.querySelector('.edit-balance');
 const editBalanceModal = document.querySelector('.edit-balance-modal');
@@ -206,6 +223,7 @@ const getData = async () => {
                     
                     
                     placeBet.addEventListener('click', function Func() {  
+                        // SAVE BET TO LOCAL STORAGE
                         const betObject = {
                             betAmount: betAmount.value,
                             teamName: teamName.value,
@@ -213,10 +231,7 @@ const getData = async () => {
                         }
                         let count = localStorage.length + 1;
                         localStorage.setItem(count, JSON.stringify(betObject));
-
-                        // const newBets = document.querySelector('newBets');
-                        // const newBet = document.createElement('li');
-                        // newBets.append(newBet);
+                        // SAVE BET TO LOCAL STORAGE
 
                         // console.log(data[i].home_team)
                         if (data[0].bookmakers[0].markets[0].outcomes[0].name == data[i].home_team) {
@@ -228,7 +243,7 @@ const getData = async () => {
                             var priceRight = data[i].bookmakers[0].markets[0].outcomes[0].price;
                             // console.log(data[i].home_team)
                         }
-                        if (betAmount.value > balance || betAmount.value === '' || betAmount.value == 0 || pickTeam == '') {
+                        if (betAmount.value > parseInt(account.innerText) || betAmount.value === '' || betAmount.value == 0 || pickTeam == '') {
                             alert('Please enter an amount greater than 0 and less than your account balance. Number can have at most 2 decimal places. Also make sure to pick a team');
                         } else {
                             listenPlaceBet = true;
@@ -281,8 +296,8 @@ const getData = async () => {
                                     }
 
                                     confirmBetModal.close();
-                                    balance = balance - betAmount.value;
-                                    account.innerText = balance;
+                                    account.innerText = parseInt(account.innerText) - parseInt(betAmount.value);
+                                    localStorage.setItem('savedBalance', account.innerText);
                                     listenConfirmBet = true;
                                 });
                                 cancelBet.addEventListener('click', () => {
