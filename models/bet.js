@@ -12,6 +12,10 @@ const betSchema = new mongoose.Schema({
     betAmount: {
         type: Number,
         required: true
+    },
+    betID: {
+        type: Number,
+        required: true
     }
 })
 

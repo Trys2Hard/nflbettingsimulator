@@ -45,6 +45,7 @@ const getData = async () => {
     const res = await fetch('https://api.the-odds-api.com/v4/sports/americanfootball_nfl/odds/?apiKey=24130c642a2c5a7e3ed0dbe6f657d841&regions=us&markets=spreads&oddsFormat=american');
     const data = await res.json();
     console.log(data);
+    
 
     const homeSpreads = [];
     const awaySpreads = [];
@@ -185,7 +186,10 @@ const getData = async () => {
                     const betModalHomeTeam = document.querySelector('.betModalHomeTeam');
                     const betModalAwayTeam = document.querySelector('.betModalAwayTeam');
                     const betAmount = document.querySelector('#betAmount');
+                    const betID = document.querySelector('#betID');
                     betAmount.value = "";
+                    
+                    betID.value = data[i].id;
 
                     // teamName.value = 'Green Bay Packers';
                     // spread.value = 3;
@@ -227,7 +231,8 @@ const getData = async () => {
                         const betObject = {
                             betAmount: betAmount.value,
                             teamName: teamName.value,
-                            spread: spread.value
+                            spread: spread.value,
+                            betID: betID.value
                         }
                         let count = localStorage.length + 1;
                         localStorage.setItem(count, JSON.stringify(betObject));

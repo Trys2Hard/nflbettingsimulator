@@ -23,7 +23,7 @@ const PORT = process.env.PORT || 3000;
 app.use(express.static('public'));
 app.use('/css', express.static(__dirname + 'public/css'));
 app.use('/js', express.static(__dirname + 'public/js'));
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 
 // Routes
 app.get('/', (req, res) => {
@@ -31,7 +31,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/bets', async (req, res) => {
-    const bets = await Bet.find({});
+    // const bets = await Bet.find({});
     // res.render('bets', { bets });
     res.render('newBets');
 });
