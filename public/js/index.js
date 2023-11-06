@@ -8,7 +8,7 @@ let listenConfirmBet = false;
 
 account.innerText = localStorage.getItem('savedBalance');
 
-if(account.innerText == false) {
+if (account.innerText == false) {
     localStorage.setItem('savedBalance', 1000);
     account.innerText = localStorage.getItem('savedBalance');
 }
@@ -42,13 +42,17 @@ editBalance.addEventListener('click', () => {
 })
 
 const getData = async () => {
-    const res = await fetch('https://api.the-odds-api.com/v4/sports/americanfootball_nfl/odds/?apiKey=24130c642a2c5a7e3ed0dbe6f657d841&regions=us&markets=spreads&oddsFormat=american');
+    const res = await fetch('https://api.the-odds-api.com/v4/sports/americanfootball_nfl/odds/?apiKey=api_key&regions=us&markets=spreads&oddsFormat=american');
     const data = await res.json();
     console.log(data);
-    
+
 
     const homeSpreads = [];
     const awaySpreads = [];
+    const homePriceArr = [];
+    const awayPriceArr = [];
+    const homePointsArr = [];
+    const awayPointsArr = [];
 
     const getSpreads = () => {
         for (const contest of data) {
@@ -81,9 +85,17 @@ const getData = async () => {
                     if (bookmaker.markets[0].outcomes[0].name == contest.home_team) {
                         homeSpreads.push(`${point1}/${price1}`);
                         awaySpreads.push(`${point2}/${price2}`);
+                        homePriceArr.push(`${price1}`);
+                        awayPriceArr.push(`${price2}`);
+                        homePointsArr.push(`${point1}`);
+                        awayPointsArr.push(`${point2}`);
                     } else {
                         homeSpreads.push(`${point2}/${price2}`);
                         awaySpreads.push(`${point1}/${price1}`);
+                        homePriceArr.push(`${price2}`);
+                        awayPriceArr.push(`${price1}`);
+                        homePointsArr.push(`${point2}`);
+                        awayPointsArr.push(`${point1}`);
                     }
                 }
             }
@@ -92,7 +104,7 @@ const getData = async () => {
     getSpreads();
 
     const listGames = () => {
-        for (let i = 0; i < 16; i++) {
+        for (let i = 0; i < data.length; i++) {
             const game = document.createElement('section');
             const teams = document.createElement('div');
             const picks = document.createElement('div');
@@ -112,6 +124,7 @@ const getData = async () => {
             const awayStatus = document.createElement('div');
 
             // console.log(homeSpreads);
+            // console.log(data.length)
 
             games.append(game);
             game.append(teams);
@@ -182,13 +195,16 @@ const getData = async () => {
                     betModal.showModal();
                     const teamName = document.querySelector('#teamName');
                     const spread = document.querySelector('#spread');
-                    const points = document.querySelector('#points');
+                    const homePoints = document.querySelector('.homePoints');
+                    const awayPoints = document.querySelector('.awayPoints');
+                    const homePrice = document.querySelector('.homePrice');
+                    const awayPrice = document.querySelector('.awayPrice');
                     const betModalHomeTeam = document.querySelector('.betModalHomeTeam');
                     const betModalAwayTeam = document.querySelector('.betModalAwayTeam');
                     const betAmount = document.querySelector('#betAmount');
                     const betID = document.querySelector('#betID');
                     betAmount.value = "";
-                    
+
                     betID.value = data[i].id;
 
                     // teamName.value = 'Green Bay Packers';
@@ -197,44 +213,39 @@ const getData = async () => {
 
                     betModalHomeTeam.addEventListener('click', () => {
                         teamName.value = betModalHomeTeam.innerText;
-                        spread.value = homeSpread.innerText;
-                        // points.value = 
-                        console.log(betAmount.value);
-                        console.log(teamName.value);
+                        points.value = homePoints.innerText;
+                        price.value = homePrice.innerText;
                     })
 
                     betModalAwayTeam.addEventListener('click', () => {
                         teamName.value = betModalAwayTeam.innerText;
-                        spread.value = awaySpread.innerText;
-                        // points.value = 
+                        points.value = awayPoints.innerText;
+                        price.value = awayPrice.innerText;
                     })
 
                     betModalHomeTeam.innerText = data[i].home_team;
-                    if (homeSpreads[i] > 0) {
-                        homeSpread.innerText = `+${homeSpreads[i]}`;
-                    } else {
-                        homeSpread.innerText = homeSpreads[i];
-                    }
+                    homePoints.innerText = homePointsArr[i];
+                    homePrice.innerText = homePriceArr[i];
                     betModalAwayTeam.innerText = data[i].away_team;
-                    if (awaySpreads[i] > 0) {
-                        awaySpread.innerText = `+${awaySpreads[i]}`;
-                    } else {
-                        awaySpread.innerText = awaySpreads[i];
-                    }
+                    awayPoints.innerText = awayPointsArr[i];
+                    awayPrice.innerText = awayPriceArr[i];
+
                     // console.log("Yes, you clicked button", i)
                     // console.log(data[i].home_team)
                     pickTeam = '';
-                    
-                    
-                    placeBet.addEventListener('click', function Func() {  
+
+
+                    placeBet.addEventListener('click', function Func() {
                         // SAVE BET TO LOCAL STORAGE
                         const betObject = {
                             betAmount: betAmount.value,
                             teamName: teamName.value,
-                            spread: spread.value,
+                            // spread: spread.value,
+                            price: price.value,
+                            points: points.value,
                             betID: betID.value
                         }
-                        let count = localStorage.length + 1;
+                        let count = localStorage.length - 1;
                         localStorage.setItem(count, JSON.stringify(betObject));
                         // SAVE BET TO LOCAL STORAGE
 
@@ -271,7 +282,7 @@ const getData = async () => {
                                         // console.log(betAmount.value, priceLeft)
                                         // console.log(winnings);
                                     }
-                                    confirmBetModalMessage.innerText = `You have placed a $${betAmount.value} bet on the ${betModalHomeTeam.innerText} at ${homeSpread.innerText} odds. If the ${betModalHomeTeam.innerText} cover the spread againt the ${betModalAwayTeam.innerText} you will win $${winnings} plus receive your intial bet back. Otherwise you will lose the entirety of the bet. If you understand this and wish to proceed please click the confirmation button below.`
+                                    confirmBetModalMessage.innerText = `You have placed a $${betAmount.value} bet on the ${betModalHomeTeam.innerText} at ${homePoints.innerText} odds. If the ${betModalHomeTeam.innerText} cover the spread againt the ${betModalAwayTeam.innerText} you will win $${winnings} plus receive your intial bet back. Otherwise you will lose the entirety of the bet. If you understand this and wish to proceed please click the confirmation button below.`
                                 } else if (pickTeam === 'away') {
                                     betModal.close();
                                     confirmBetModal.showModal();
@@ -289,15 +300,15 @@ const getData = async () => {
                                     }
 
                                     // winnings = Math.abs(betAmount.value * (priceRight / 100));
-                                    confirmBetModalMessage.innerText = `You have placed a $${betAmount.value} bet on the ${betModalAwayTeam.innerText} at ${awaySpread.innerText} odds. If the ${betModalAwayTeam.innerText} cover the spread against the ${betModalHomeTeam.innerText} you will win $${winnings} plus receive your intial bet back. Otherwise you will lose the entirety of the bet. If you understand this and wish to proceed please click the confirmation button below.`
+                                    confirmBetModalMessage.innerText = `You have placed a $${betAmount.value} bet on the ${betModalAwayTeam.innerText} at ${awayPoints.innerText} odds. If the ${betModalAwayTeam.innerText} cover the spread against the ${betModalHomeTeam.innerText} you will win $${winnings} plus receive your intial bet back. Otherwise you will lose the entirety of the bet. If you understand this and wish to proceed please click the confirmation button below.`
                                 }
                             }
                             if (listenConfirmBet == false) {
                                 confirmBet.addEventListener('click', function confirm() {
                                     if (pickTeam === 'home') {
-                                        console.log(`You have placed a $${betAmount.value} bet on the ${betModalHomeTeam.innerText} at ${homeSpread.innerText} odds`)
+                                        console.log(`You have placed a $${betAmount.value} bet on the ${betModalHomeTeam.innerText} at ${homePoints.innerText} odds`)
                                     } else {
-                                        console.log(`You have placed a $${betAmount.value} bet on the ${betModalAwayTeam.innerText} at ${awaySpread.innerText} odds`)
+                                        console.log(`You have placed a $${betAmount.value} bet on the ${betModalAwayTeam.innerText} at ${awayPoints.innerText} odds`)
                                     }
 
                                     confirmBetModal.close();

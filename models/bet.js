@@ -5,8 +5,12 @@ const betSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    spread: {
-        type: String,
+    points: {
+        type: Number,
+        required: true
+    },
+    price: {
+        type: Number,
         required: true
     },
     betAmount: {
@@ -14,7 +18,7 @@ const betSchema = new mongoose.Schema({
         required: true
     },
     betID: {
-        type: Number,
+        type: String,
         required: true
     }
 })
