@@ -1,7 +1,9 @@
 const newBets = document.querySelector('.newBets');
+const completedBets = document.querySelector('.completedBets');
 const homeScore = '';
 const awayScore = '';
 const teamNames = [];
+const api_key = 'e603050424de0c31810f91e691efa21d';
 
 for (let i = 0; i < localStorage.length - 1; i++) {
     const newBet = document.createElement('li');
@@ -11,71 +13,49 @@ for (let i = 0; i < localStorage.length - 1; i++) {
     let savedBetParse = JSON.parse(savedBet);
     newBet.innerText = savedBetParse.teamName + savedBetParse.betAmount + savedBetParse.points + savedBetParse.price + savedBetParse.betID;
 
-    // console.log(savedBetParse.teamName);
-
     teamNames.push(savedBetParse.teamName);
 
 
     const getGame = async () => {
-        const res = await fetch(`https://api.the-odds-api.com/v4/sports/americanfootball_nfl/odds/?apiKey=api_key&eventIds=${savedBetParse.betID}&regions=us`);
+        const res = await fetch(`https://api.the-odds-api.com/v4/sports/americanfootball_nfl/scores/?apiKey=${api_key}&eventIds=${savedBetParse.betID}&daysFrom=3`);
         const data = await res.json();
         console.log(data);
-        // console.log(savedBetParse.betID);
-        // if (savedBetParse.betID === data[0].id) {
-        //     console.log('match');
-        // }
         if (data.length > 0) {
+
             if (data[0].completed === true) {
-                // getData function goes here
+                const getData = async () => {
+                    if (savedBetParse.teamName == data[0].scores[0].name) {
+                        const adjustedScore = parseInt(data[0].scores[0].score) + parseInt(savedBetParse.points);
+                        if (adjustedScore > data[0].scores[1].score) {
+                            console.log('You won the bet')
+                            // add money to account
+                        } else {
+                            console.log('You lost the bet')
+                        }
+                    } else {
+                        const adjustedScore = parseInt(data[0].scores[1].score) + parseInt(savedBetParse.points);
+                        if (adjustedScore > data[0].scores[0].score) {
+                            console.log('You won the bet')
+                            // add money to account
+                        } else {
+                            console.log('You lost the bet')
+                        }
+                    }
+                    completedBets.append(newBet);
+                }
+                getData();
+
             } else {
-                // if (savedBetParse.teamName === data[0].homeTeam) {
-                //     console.log('bet was placed on the home team');
-                // } else if (savedBetParse.teamName === data[0].awayTeam) {
-                //     console.log('bet was placed on the away team');
-                // }
-                console.log(savedBetParse.teamName, data[0].homeTeam)
+                console.log('Game has not been completed');
             }
+
         } else {
-            console.log('Bet not from game completed in last 3 days')
+            console.log('Game data expired')
+            completedBets.append(newBet);
         }
     }
 
     getGame();
-    // console.log(savedBetParse.betID);
-
-    // const getData = async () => {
-    //     const res = await fetch('https://api.the-odds-api.com/v4/sports/americanfootball_nfl/scores/?apiKey=api_key&daysFrom=3');
-    //     const data = await res.json();
-    //     console.log(data);
-    // }
-    // getData();
 }
 
 console.log(teamNames);
-
-// const getData = async () => {
-//     const res = await fetch('https://api.the-odds-api.com/v4/sports/americanfootball_nfl/scores/?apiKey=api_key&daysFrom=3');
-//     const data = await res.json();
-
-//     const getCompleted = () => {
-//         for (const contest of data) {
-//             if (contest.completed === true) {
-//                 console.log(contest)
-//                 // console.log(contest.scores[0].score, contest.scores[1].score, contest.scores[0].name, contest.scores[1].name);
-//                 // console.log(contest.away_team);
-
-//                 // if (contest.scores[0].name === contest.home_team) {
-//                 //     console.log('home team')
-//                 // } else if (contest.scores[0].name === contest.away_team) {
-//                 //     console.log('away team')
-//                 // }
-
-//             } else {
-//                 // console.log('game has not finished yet')
-//             }
-//         }
-//     }
-//     getCompleted();
-// }
-
-// getData();

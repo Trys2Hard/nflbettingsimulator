@@ -3,6 +3,7 @@ const games = document.querySelector('.games');
 const account = document.querySelector('.account');
 let listenPlaceBet = false;
 let listenConfirmBet = false;
+const api_key = 'e603050424de0c31810f91e691efa21d';
 
 
 
@@ -42,7 +43,7 @@ editBalance.addEventListener('click', () => {
 })
 
 const getData = async () => {
-    const res = await fetch('https://api.the-odds-api.com/v4/sports/americanfootball_nfl/odds/?apiKey=api_key&regions=us&markets=spreads&oddsFormat=american');
+    const res = await fetch(`https://api.the-odds-api.com/v4/sports/americanfootball_nfl/odds/?apiKey=${api_key}&regions=us&markets=spreads&oddsFormat=american`);
     const data = await res.json();
     console.log(data);
 
