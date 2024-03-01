@@ -5,14 +5,14 @@ const path = require('path');
 const mongoose = require('mongoose');
 const Bet = require('./models/bet');
 
-mongoose.connect('mongodb://127.0.0.1:27017/placedBets')
-    .then(() => {
-        console.log("Database connected")
-    })
-    .catch(err => {
-        console.log("Connection error");
-        console.log(err)
-    });
+// mongoose.connect('mongodb://127.0.0.1:27017/placedBets')
+//     .then(() => {
+//         console.log("Database connected")
+//     })
+//     .catch(err => {
+//         console.log("Connection error");
+//         console.log(err)
+//     });
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));

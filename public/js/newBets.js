@@ -5,10 +5,9 @@ const awayScore = '';
 const teamNames = [];
 const api_key = 'e603050424de0c31810f91e691efa21d';
 
-for (let i = 0; i < localStorage.length - 1; i++) {
+for (let i = 1; i < localStorage.length; i++) {
     const newBet = document.createElement('li');
     newBets.append(newBet);
-
     let savedBet = localStorage.getItem(i);
     let savedBetParse = JSON.parse(savedBet);
     newBet.innerText = savedBetParse.teamName + savedBetParse.betAmount + savedBetParse.points + savedBetParse.price + savedBetParse.betID;

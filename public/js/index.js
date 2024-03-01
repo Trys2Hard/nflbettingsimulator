@@ -246,7 +246,7 @@ const getData = async () => {
                             points: points.value,
                             betID: betID.value
                         }
-                        let count = localStorage.length - 1;
+                        let count = localStorage.length;
                         localStorage.setItem(count, JSON.stringify(betObject));
                         // SAVE BET TO LOCAL STORAGE
 
