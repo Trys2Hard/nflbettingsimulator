@@ -7,7 +7,7 @@ const Bet = require('./models/bet');
 const session = require('express-session');
 const flash = require('connect-flash');
 
-mongoose.connect('mongodb://127.0.0.1:27017/bets')
+mongoose.connect('mongodb://127.0.0.1:27017/betApp')
     .then(() => {
         console.log("Database connected")
     })
@@ -53,25 +53,24 @@ app.get('/', (req, res) => {
 });
 
 app.get('/bets', async (req, res) => {
-    // const bets = await Bet.find({});
-    // res.render('bets', { bets });
-    res.render('newBets', { messages: req.flash('success') });
+    const bets = await Bet.find({});
+    res.render('bets', { bets });
 });
 
-app.get('/createBet', (req, res) => {
-    res.render('createBet', { messages: req.flash('success') });
-})
-
-app.post('/bets', (req, res) => {
-    req.flash('success', 'New bet saved (not really lol)');
+app.post('/bets', async (req, res) => {
+    const newBet = new Bet(req.body);
+    await newBet.save();
+    req.flash('success', 'New bet saved');
     res.redirect('/');
 })
 
-app.get('/mongoTest', async (req, res) => {
-    const bet = new Bet({ teamName: 'Seattle Seahawks', betAmount: 70 });
-    await bet.save();
-    res.send(bet);
-})
+
+
+// app.get('/mongoTest', async (req, res) => {
+//     const bet = new Bet({ teamName: 'Seattle Seahawks', betAmount: 70 });
+//     await bet.save();
+//     res.send(bet);
+// })
 
 // app.post('/bets', async (req, res) => {
 //     const newBet = new Bet(req.body);

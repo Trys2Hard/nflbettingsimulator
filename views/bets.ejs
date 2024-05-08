@@ -1,19 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>All Bets</title>
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/bets.css">
+    <script src="https://kit.fontawesome.com/927b7ac6ca.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron&family=Source+Serif+Pro&display=swap"
+        rel="stylesheet">
 </head>
+
 <body>
-    <h1>All Bets</h1>
-<ul>
-    <% for(let bet of bets) { %>
-        <li><%= bet.teamName %></li>
-        <li><%= bet.spread %></li>
-        <li><%= bet.betAmount %></li>
-    <% } %>
-</ul>
-    
+    <%- include('./partials/navbar.ejs') %>
+        <h1>All Bets</h1>
+
+        <ul>
+            <% for(let bet of bets) { %>
+                <li>
+                    <%= bet.teamName %>
+                        <%= bet.points %>
+                            <%= bet.price %>
+                                <%= bet.betAmount %>
+                </li>
+                <% } %>
+        </ul>
+
 </body>
+
 </html>

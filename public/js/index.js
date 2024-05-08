@@ -206,7 +206,7 @@ const getData = async () => {
                     const betID = document.querySelector('#betID');
                     betAmount.value = "";
 
-                    betID.value = data[i].id;
+                    // betID.value = data[i].id;
 
                     // teamName.value = 'Green Bay Packers';
                     // spread.value = 3;
