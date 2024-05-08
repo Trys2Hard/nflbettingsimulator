@@ -4,7 +4,7 @@ const account = document.querySelector('.account');
 let listenPlaceBet = false;
 let listenConfirmBet = false;
 const api_key = 'e603050424de0c31810f91e691efa21d';
-
+// Need to remove confirm bet modal
 
 
 account.innerText = localStorage.getItem('savedBalance');
@@ -203,10 +203,7 @@ const getData = async () => {
                     const betModalHomeTeam = document.querySelector('.betModalHomeTeam');
                     const betModalAwayTeam = document.querySelector('.betModalAwayTeam');
                     const betAmount = document.querySelector('#betAmount');
-                    const betID = document.querySelector('#betID');
                     betAmount.value = "";
-
-                    // betID.value = data[i].id;
 
                     // teamName.value = 'Green Bay Packers';
                     // spread.value = 3;
@@ -237,18 +234,6 @@ const getData = async () => {
 
 
                     placeBet.addEventListener('click', function Func() {
-                        // SAVE BET TO LOCAL STORAGE
-                        const betObject = {
-                            betAmount: betAmount.value,
-                            teamName: teamName.value,
-                            // spread: spread.value,
-                            price: price.value,
-                            points: points.value,
-                            betID: betID.value
-                        }
-                        let count = localStorage.length;
-                        localStorage.setItem(count, JSON.stringify(betObject));
-                        // SAVE BET TO LOCAL STORAGE
 
                         // console.log(data[i].home_team)
                         if (data[0].bookmakers[0].markets[0].outcomes[0].name == data[i].home_team) {

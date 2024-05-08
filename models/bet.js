@@ -17,11 +17,7 @@ const betSchema = new Schema({
     betAmount: {
         type: Number,
         // required: true
-    },
-    // betID: {
-    //     type: String,
-    //     required: true
-    // }
+    }
 })
 
 const Bet = mongoose.model('Bet', betSchema);

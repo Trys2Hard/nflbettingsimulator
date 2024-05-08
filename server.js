@@ -42,14 +42,14 @@ app.use(session(sessionConfig));
 
 app.use(flash());
 
-// app.use((req, res, next) => {
-//     res.locals.success = req.flash('success');
-//     next();
-// })
+app.use((req, res, next) => {
+    res.locals.messages = req.flash('success');
+    next();
+})
 
 // Routes
 app.get('/', (req, res) => {
-    res.render('index', { messages: req.flash('success') });
+    res.render('index');
 });
 
 app.get('/bets', async (req, res) => {
@@ -63,28 +63,6 @@ app.post('/bets', async (req, res) => {
     req.flash('success', 'New bet saved');
     res.redirect('/');
 })
-
-
-
-// app.get('/mongoTest', async (req, res) => {
-//     const bet = new Bet({ teamName: 'Seattle Seahawks', betAmount: 70 });
-//     await bet.save();
-//     res.send(bet);
-// })
-
-// app.post('/bets', async (req, res) => {
-//     const newBet = new Bet(req.body);
-//     await newBet.save();
-//     console.log(newBet);
-//     res.redirect('/');
-// })
-
-// app.get('/bets/:id', async (req, res) => {
-//     const {id} = req.params;
-//     const bet = await Bet.findById(id);
-//     console.log(bet);
-//     res.send('details page!');
-// })
 
 app.listen(PORT, () => {
     console.log(`listening on port ${PORT}...`)

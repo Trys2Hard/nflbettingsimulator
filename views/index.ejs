@@ -17,223 +17,88 @@
 
 <body>
     <%- include('./partials/navbar.ejs') %>
-        <%= messages %>
-            <section class="landing">
+        <section class="landing">
 
-                <img class="beta" src="../img/beta.png" alt="Beta">
-                <div class="showcase">
-                    <div class="intro">
-                        <h1>Welcome to Subjectively Bettor</h1>
-                        <h2>A free NFL betting simulator</h2>
-                    </div>
+            <img class="beta" src="../img/beta.png" alt="Beta">
+            <div class="showcase">
+                <div class="intro">
+                    <h1>Welcome to Subjectively Bettor</h1>
+                    <h2>A free NFL betting simulator</h2>
+                </div>
 
-                    <div class="scroll">
-                        <h2>Place Your Bets</h2>
-                        <a href="#target"><i class="fa-solid fa-arrow-down" style="color: #54b654;"></i></a>
-                    </div>
+                <div class="scroll">
+                    <h2>Place Your Bets</h2>
+                    <a href="#target"><i class="fa-solid fa-arrow-down" style="color: #54b654;"></i></a>
+                </div>
+            </div>
+        </section>
+
+        <section class="main">
+            <section class="record">
+                <div class="target">127-109</div>
+                <div class="recordWords">Picks</div>
+                <a class="anchor" name="target"></a>
+
+                <div class="money">
+                    <div>Spent Money:</div>
+                    <div>$</div>
+                    <div class="spentMoney">1000</div>
+                    <button class="edit-balance">Edit</button>
                 </div>
             </section>
 
-            <section class="main">
-                <section class="record">
-                    <div class="target">127-109</div>
-                    <div class="recordWords">Picks</div>
-                    <a class="anchor" name="target"></a>
-
-                    <div class="money">
-                        <div>Spent Money:</div>
-                        <div>$</div>
-                        <div class="spentMoney">1000</div>
-                        <button class="edit-balance">Edit</button>
-                    </div>
-                </section>
-
-                <dialog class="edit-balance-modal">
-                    <div>Enter positive number to add money or negative number to withdraw.</div>
-                    <input type="number" class="change">
-                    <button class="submit-edit-balance-modal">Submit</button>
-                </dialog>
-
-                <section class="games">
-                    <!-- Game 1 Start -->
-                    <!-- <section class="game">
-                    <div class="teams">
-                        <div class="left">
-                            <div class="names">Seattle Seahawks</div>
-                            <div class="spread">-4.5/-110</div>
-                        </div>
-
-                        <div class="middle">VS</div>
-
-                        <div class="right">
-                            <div class="names">Arizona Cardinals</div>
-                            <div class="spread">+4.5/-110</div>
-                        </div>
-                    </div>
-
-                    <div class="picks">
-                        <div>
-                            <img class="pickImg" src="../img/squigs.png" alt="Seahawks Image">
-                            <div class="status">Home</div>
-                        </div>
-
-                        <button class="betPop">Place Bet</button>
-                        <div>
-                            <img src="../img/logo.png" alt="Cardinals Image">
-                            <div class="status">Away</div>
-                        </div>
-
-                    </div>
-                </section>
-
-                <section class="game">
-                    <div class="teams">
-                        <div class="left">
-                            <div class="names">Seattle Seahawks</div>
-                            <div class="spread">-4.5/-110</div>
-                        </div>
-
-                        <div class="middle">VS</div>
-
-                        <div class="right">
-                            <div class="names">Arizona Cardinals</div>
-                            <div class="spread">+4.5/-110</div>
-                        </div>
-                    </div>
-
-                    <div class="picks">
-                        <div>
-                            <img src="../img/squigs.png" alt="Seahawks Image">
-                            <div class="status" style="font-family:arvo">Home</div>
-                        </div>
-
-                        <button>Place Bet</button>
-                        <div>
-                            <img src="../img/logo.png" alt="Cardinals Image">
-                            <div class="status" style="font-family:arvo">Away</div>
-                        </div>
-
-                    </div>
-                </section>
-
-                <section class="game">
-                    <div class="teams">
-                        <div class="left">
-                            <div class="names">Seattle Seahawks</div>
-                            <div class="spread">-4.5/-110</div>
-                        </div>
-
-                        <div class="middle">VS</div>
-
-                        <div class="right">
-                            <div class="names">Arizona Cardinals</div>
-                            <div class="spread">+4.5/-110</div>
-                        </div>
-                    </div>
-
-                    <div class="picks">
-                        <div>
-                            <img src="../img/squigs.png" alt="Seahawks Image">
-                            <div class="status">Home</div>
-                        </div>
-
-                        <button>Place Bet</button>
-                        <div>
-                            <img src="../img/logo.png" alt="Cardinals Image">
-                            <div class="status">Away</div>
-                        </div>
-
-                    </div>
-                </section>
-
-                <section class="game">
-                    <div class="teams">
-                        <div class="left">
-                            <div class="names">Seattle Seahawks</div>
-                            <div class="spread">-4.5/-110</div>
-                        </div>
-
-                        <div class="middle">VS</div>
-
-                        <div class="right">
-                            <div class="names">Arizona Cardinals</div>
-                            <div class="spread">+4.5/-110</div>
-                        </div>
-                    </div>
-
-                    <div class="picks">
-                        <div>
-                            <img src="../img/squigs.png" alt="Seahawks Image">
-                            <div class="status">Home</div>
-                        </div>
-
-                        <button>Place Bet</button>
-                        <div>
-                            <img src="../img/logo.png" alt="Cardinals Image">
-                            <div class="status">Away</div>
-                        </div>
-
-                    </div>
-                </section> -->
-                </section>
-            </section>
-
-
-            <dialog class="placeBetModal">
-                <div class="closeBetModal">X</div>
-                <h2>Pick a Team</h2>
-
-                <section class="modalTeams">
-                    <div class="modalTeam1">
-                        <div class="betModalHomeTeam"></div>
-                        <!-- <div class="homeSpread"></div> -->
-                        <div class="homePoints"></div>
-                        <div class="homePrice"></div>
-                    </div>
-
-                    <div class="modalTeam2">
-                        <div class="betModalAwayTeam"></div>
-                        <div class="awayPoints"></div>
-                        <div class="awayPrice"></div>
-                        <!-- <div class="awaySpread"></div> -->
-                    </div>
-                </section>
-
-                <h2>Place Your Bet</h2>
-                <form action="/bets" method="POST">
-                    <label for="teamName">Team Name</label>
-                    <input name="teamName" type="text" id="teamName" class="" value="">
-
-                    <label for="points">Points</label>
-                    <input name="points" type="text" id="points" class="">
-
-                    <label for="price">Spread</label>
-                    <input name="price" type="text" id="price" class="">
-
-
-
-
-
-                    <label for="betAmount">Bet</label>
-                    <input name="betAmount" type="text" id="betAmount" class="">
-
-                    <!-- <label for="betID">ID</label>
-                    <input name="betID" type="text" id="betID" class=""> -->
-
-                    <button class="placeBet">Place Bet</button>
-                </form>
+            <dialog class="edit-balance-modal">
+                <div>Enter positive number to add money or negative number to withdraw.</div>
+                <input type="number" class="change">
+                <button class="submit-edit-balance-modal">Submit</button>
             </dialog>
 
-            <!-- <dialog class="confirmBetModal">
-                <p class="confirmBetModalMessage"></p>
-                <form action="/bets" method="POST">
-                    <button class="confirmBet">Confirm Bet</button>
-                </form>
+            <section class="games"></section>
+        </section>
 
-                <button class="cancelBet">Cancel</button>
-            </dialog> -->
+        <dialog class="placeBetModal">
+            <div class="closeBetModal">X</div>
+            <h2>Pick a Team</h2>
 
-            <script src="js/index.js"></script>
+            <section class="modalTeams">
+                <div class="modalTeam1">
+                    <div class="betModalHomeTeam"></div>
+                    <!-- <div class="homeSpread"></div> -->
+                    <div class="homePoints"></div>
+                    <div class="homePrice"></div>
+                </div>
+
+                <div class="modalTeam2">
+                    <div class="betModalAwayTeam"></div>
+                    <div class="awayPoints"></div>
+                    <div class="awayPrice"></div>
+                    <!-- <div class="awaySpread"></div> -->
+                </div>
+            </section>
+
+            <h2>Place Your Bet</h2>
+            <form action="/bets" method="POST">
+                <label for="teamName">Team Name</label>
+                <input name="teamName" type="text" id="teamName" class="" value="">
+
+                <label for="points">Points</label>
+                <input name="points" type="text" id="points" class="">
+
+                <label for="price">Spread</label>
+                <input name="price" type="text" id="price" class="">
+
+
+
+
+
+                <label for="betAmount">Bet</label>
+                <input name="betAmount" type="text" id="betAmount" class="">
+
+                <button class="placeBet">Place Bet</button>
+            </form>
+        </dialog>
+
+        <script src="js/index.js"></script>
 </body>
 
 </html>
