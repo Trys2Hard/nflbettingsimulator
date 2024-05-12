@@ -13,9 +13,14 @@
             <div>$</div>
             <div class="account"></div>
         </div>
-        <button>Login</button>
-        <button>Create Account</button>
+        <% if(!currentUser) { %>
+            <a href="/login"><button>Login</button></a>
+            <a href="/register"><button>Create Account</button></a>
+            <%} else {%>
+                <a href="/logout"><button>Logout</button></a>
+                <%}%>
     </section>
 </nav>
 
-<%= messages %>
+<%= success %>
+    <%= error %>
