@@ -17,6 +17,10 @@ const betSchema = new Schema({
     betAmount: {
         type: Number,
         // required: true
+    },
+    author: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
     }
 })
 

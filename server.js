@@ -11,6 +11,7 @@ const LocalStrategy = require('passport-local');
 const User = require('./models/user')
 const { isLoggedIn } = require('./middleware');
 const { storeReturnTo } = require('./middleware');
+const methodOverride = require('method-override');
 
 mongoose.connect('mongodb://127.0.0.1:27017/betApp')
     .then(() => {
@@ -42,6 +43,7 @@ app.use(express.static('public'));
 app.use('/css', express.static(__dirname + 'public/css'));
 app.use('/js', express.static(__dirname + 'public/js'));
 app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride('_method'));
 
 app.use(session(sessionConfig));
 app.use(flash());
@@ -71,6 +73,7 @@ app.get('/bets', isLoggedIn, async (req, res) => {
 
 app.post('/', isLoggedIn, async (req, res) => {
     const newBet = new Bet(req.body);
+    newBet.author = req.user._id;
     await newBet.save();
     req.flash('success', 'New bet saved');
     res.redirect('/');
@@ -97,8 +100,8 @@ app.get('/login', (req, res) => {
 
 app.post('/login', storeReturnTo, passport.authenticate('local', { failureFlash: true, failureRedirect: '/login' }), (req, res) => {
     req.flash('success', 'You are logged in');
-    const redirectURL = res.locals.returnTo;
-    res.redirect(redirectURL);
+    const redirectUrl = res.locals.returnTo || '/';
+    res.redirect(redirectUrl);
 });
 
 app.get('/logout', (req, res, next) => {
@@ -110,6 +113,12 @@ app.get('/logout', (req, res, next) => {
         res.redirect('/login');
     });
 });
+
+app.delete('/bets/:id', async (req, res) => {
+    const { id } = req.params;
+    const deletedBet = await Bet.findByIdAndDelete(id);
+    res.redirect('/bets');
+})
 
 app.listen(PORT, () => {
     console.log(`listening on port ${PORT}...`)
