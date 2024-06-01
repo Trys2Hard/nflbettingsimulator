@@ -21,15 +21,19 @@
         <ul>
             <% for(let bet of bets) { %>
                 <li>
-                    <form action="/bets/<%=bet._id%>?_method=DELETE" method="POST">
-                        <%= bet.teamName %>
-                            <%= bet.points %>
-                                <%= bet.price %>
-                                    <%= bet.betAmount %>
-                                        <%= bet.author %>
 
-                                            <button>Delete Bet</button>
-                    </form>
+                    <%= bet.teamName %>
+                        <%= bet.points %>
+                            <%= bet.price %>
+                                <%= bet.betAmount %>
+                                    <%= bet.author %>
+
+                                        <div>
+                                            <form action="/bets/<%=bet._id%>?_method=DELETE" method="POST">
+                                                <button>Delete Bet</button>
+                                            </form>
+                                        </div>
+
                 </li>
                 <% } %>
         </ul>

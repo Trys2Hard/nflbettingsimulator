@@ -9,7 +9,7 @@ const flash = require('connect-flash');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const User = require('./models/user')
-const { isLoggedIn } = require('./middleware');
+const { isLoggedIn, isAuthor } = require('./middleware');
 const { storeReturnTo } = require('./middleware');
 const methodOverride = require('method-override');
 
@@ -67,7 +67,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/bets', isLoggedIn, async (req, res) => {
-    const bets = await Bet.find({});
+    const bets = await Bet.find({ author: req.user._id });
     res.render('bets', { bets });
 });
 
@@ -114,9 +114,10 @@ app.get('/logout', (req, res, next) => {
     });
 });
 
-app.delete('/bets/:id', async (req, res) => {
+app.delete('/bets/:id', isLoggedIn, isAuthor, async (req, res) => {
     const { id } = req.params;
     const deletedBet = await Bet.findByIdAndDelete(id);
+    req.flash('success', 'Successfully deleted bet!');
     res.redirect('/bets');
 })
 
