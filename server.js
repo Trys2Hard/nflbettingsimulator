@@ -75,8 +75,10 @@ app.post('/', isLoggedIn, async (req, res) => {
     const newBet = new Bet(req.body);
     newBet.author = req.user._id;
     await newBet.save();
-    // req.flash('success', 'New bet saved');
-    // res.redirect('/');
+    req.user.balance = req.user.balance - parseInt(req.body.betAmount);
+    await req.user.save();
+    req.flash('success', 'New bet saved');
+    res.redirect('/');
 })
 
 app.get('/register', (req, res) => {

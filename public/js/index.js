@@ -2,52 +2,13 @@ let pickTeam = '';
 const games = document.querySelector('.games');
 const account = document.querySelector('.account');
 let listenPlaceBet = false;
-let listenConfirmBet = false;
 const api_key = 'e603050424de0c31810f91e691efa21d';
-// Need to remove confirm bet modal
-
-
-// account.innerText = localStorage.getItem('savedBalance');
-
-// if (account.innerText == false) {
-//     localStorage.setItem('savedBalance', 1000);
-//     account.innerText = localStorage.getItem('savedBalance');
-// }
-
-// let balance;
-// if (balance === undefined) {
-//     localStorage.setItem('balance', 2000);
-//     let balance = localStorage.getItem('balance');
-//     account.innerText = balance;
-// } else {
-//     let balance = localStorage.getItem('balance');
-//     account.innerText = balance;
-// }
-
-const editBalance = document.querySelector('.edit-balance');
-const editBalanceModal = document.querySelector('.edit-balance-modal');
-const submitEditBalanceModal = document.querySelector('.submit-edit-balance-modal');
-const change = document.querySelector('.change');
-const spentMoney = document.querySelector('.spentMoney');
 const weeks = document.querySelector('#weeks');
-
-editBalance.addEventListener('click', () => {
-    change.value = '';
-    editBalanceModal.showModal();
-
-    submitEditBalanceModal.addEventListener('click', () => {
-        balance = balance + parseInt(change.value);
-        account.innerText = balance;
-        spentMoney.innerText = parseInt(spentMoney.innerText) + parseInt(change.value);
-        editBalanceModal.close();
-    }, { once: true })
-})
 
 const getData = async () => {
     const res = await fetch(`https://api.the-odds-api.com/v4/sports/americanfootball_nfl/odds/?apiKey=${api_key}&regions=us&markets=spreads&oddsFormat=american`);
     const data = await res.json();
     console.log(data);
-
 
     const homeSpreads = [];
     const awaySpreads = [];
@@ -112,7 +73,6 @@ const getData = async () => {
     const listGames = () => {
         for (let i = 0; i < data.length; i++) {
             const startTime = Date.parse(data[i].commence_time);
-            // console.log(startTime, firstGame, lastGame);
             if (startTime >= firstGame && startTime <= lastGame) {
                 const game = document.createElement('section');
                 const teams = document.createElement('div');
@@ -241,103 +201,17 @@ const getData = async () => {
                         // console.log(data[i].home_team)
                         pickTeam = '';
 
-
                         placeBet.addEventListener('click', function Func() {
                             account.innerText = parseInt(account.innerText) - betAmount.value;
-                            // console.log(parseInt(account.innerText) - 50);
-                            // console.log(betAmount.value);
-                            // console.log(data[i].home_team)
-                            if (data[0].bookmakers[0].markets[0].outcomes[0].name == data[i].home_team) {
-                                var priceLeft = data[i].bookmakers[0].markets[0].outcomes[0].price;
-                                var priceRight = data[i].bookmakers[0].markets[0].outcomes[1].price;
-                                // console.log(data[i].home_team)
-                            } else {
-                                var priceLeft = data[i].bookmakers[0].markets[0].outcomes[1].price;
-                                var priceRight = data[i].bookmakers[0].markets[0].outcomes[0].price;
-                                // console.log(data[i].home_team)
-                            }
                             if (betAmount.value > parseInt(account.innerText) || betAmount.value === '' || betAmount.value == 0 || pickTeam == '') {
                                 alert('Please enter an amount greater than 0 and less than your account balance. Number can have at most 2 decimal places. Also make sure to pick a team');
-                            } else {
-                                listenPlaceBet = true;
-                                if (confirmBetModal.open == false) {
-
-                                    // Create confirm bet modal message
-                                    const confirmBetModalMessage = document.querySelector('.confirmBetModalMessage');
-                                    let winnings = priceLeft;
-                                    if (pickTeam === 'home') {
-                                        betModal.close();
-                                        confirmBetModal.showModal();
-                                        // console.log(`You picked the home team`);
-                                        if (priceLeft < 0) {
-                                            // console.log('negative price', priceLeft)
-                                            winnings = Math.ceil(betAmount.value / (Math.abs(priceLeft) / 100));
-                                            // console.log(winnings);
-                                        } else {
-                                            // console.log('positive price');
-                                            winnings = Math.abs(betAmount.value * (priceLeft / 100));
-                                            // console.log(betAmount.value, priceLeft)
-                                            // console.log(winnings);
-                                        }
-                                        confirmBetModalMessage.innerText = `You have placed a $${betAmount.value} bet on the ${betModalHomeTeam.innerText} at ${homePoints.innerText} odds. If the ${betModalHomeTeam.innerText} cover the spread againt the ${betModalAwayTeam.innerText} you will win $${winnings} plus receive your intial bet back. Otherwise you will lose the entirety of the bet. If you understand this and wish to proceed please click the confirmation button below.`
-                                    } else if (pickTeam === 'away') {
-                                        betModal.close();
-                                        confirmBetModal.showModal();
-                                        // console.log(`You picked the away team`);
-                                        // let winnings = priceRight;
-                                        if (priceRight < 0) {
-                                            // console.log('negative price')
-                                            winnings = Math.ceil(betAmount.value / (Math.abs(priceRight) / 100));
-                                            // console.log(winnings);
-                                        } else {
-                                            // console.log('positive price');
-                                            winnings = Math.abs(betAmount.value * (priceRight / 100));
-                                            // console.log(betAmount.value, priceLeft)
-                                            // console.log(winnings);
-                                        }
-
-                                        // winnings = Math.abs(betAmount.value * (priceRight / 100));
-                                        confirmBetModalMessage.innerText = `You have placed a $${betAmount.value} bet on the ${betModalAwayTeam.innerText} at ${awayPoints.innerText} odds. If the ${betModalAwayTeam.innerText} cover the spread against the ${betModalHomeTeam.innerText} you will win $${winnings} plus receive your intial bet back. Otherwise you will lose the entirety of the bet. If you understand this and wish to proceed please click the confirmation button below.`
-                                    }
-                                }
-                                if (listenConfirmBet == false) {
-                                    confirmBet.addEventListener('click', function confirm() {
-                                        if (pickTeam === 'home') {
-                                            console.log(`You have placed a $${betAmount.value} bet on the ${betModalHomeTeam.innerText} at ${homePoints.innerText} odds`)
-                                        } else {
-                                            console.log(`You have placed a $${betAmount.value} bet on the ${betModalAwayTeam.innerText} at ${awayPoints.innerText} odds`)
-                                        }
-
-                                        confirmBetModal.close();
-                                        account.innerText = parseInt(account.innerText) - parseInt(betAmount.value);
-                                        localStorage.setItem('savedBalance', account.innerText);
-                                        listenConfirmBet = true;
-                                    });
-                                    cancelBet.addEventListener('click', () => {
-                                        confirmBetModal.close();
-                                        listenConfirmBet = true;
-                                    });
-                                }
                             }
-                            placeBet.removeEventListener('click', Func);
                         });
-
-
-
-
-
-
-
-
-
-
-
 
                         if (listenPlaceBet === false) {
                             closeBetModal.addEventListener('click', () => {
                                 betModal.close();
                                 listenPlaceBet = true;
-                                // placeBet.removeEventListener('click', Func);
                                 console.log("Bet modal closed")
                             });
 
@@ -348,7 +222,6 @@ const getData = async () => {
                                     pickTeam = 'home';
                                     console.log("Home team selected")
                                 }
-
                             })
 
                             betModalAwayTeam.addEventListener('click', () => {
@@ -358,24 +231,15 @@ const getData = async () => {
                                     pickTeam = 'away';
                                     console.log("Away team selected")
                                 }
-
                             })
-
-                            // Place Bet buttons using price of first button clicked, .target?
-                            // for (const item of data) {
-                            // for (let i = 0; i < 16; i++) {
-                            // console.log("you clicked button", i)
-                            // console.log(data[i].home_team);
-
                         }
                     })
-                    // }
                 }
                 viewBetModal();
             }
         }
     }
-    // listGames();
+
     weeks.addEventListener('change', (e) => {
         if (e.target.value === "Week1") {
             games.replaceChildren();
@@ -395,7 +259,5 @@ const getData = async () => {
         }
     })
 }
-
-
 
 getData();
