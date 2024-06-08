@@ -11,7 +11,13 @@
         <div class="accountDiv">
             <i class="fa-sharp fa-solid fa-coins" style="color: #ffd700;"></i>
             <div>$</div>
-            <div class="account"></div>
+            <div class="account">
+                <% if(currentUser) {%>
+                    <%- currentUser.balance%>
+                        <% } else {%>
+                            <%console.log('no current user')%>
+                                <%}%>
+            </div>
         </div>
         <% if(!currentUser) { %>
             <a href="/login"><button>Login</button></a>

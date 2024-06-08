@@ -7,12 +7,12 @@ const api_key = 'e603050424de0c31810f91e691efa21d';
 // Need to remove confirm bet modal
 
 
-account.innerText = localStorage.getItem('savedBalance');
+// account.innerText = localStorage.getItem('savedBalance');
 
-if (account.innerText == false) {
-    localStorage.setItem('savedBalance', 1000);
-    account.innerText = localStorage.getItem('savedBalance');
-}
+// if (account.innerText == false) {
+//     localStorage.setItem('savedBalance', 1000);
+//     account.innerText = localStorage.getItem('savedBalance');
+// }
 
 // let balance;
 // if (balance === undefined) {
@@ -213,6 +213,7 @@ const getData = async () => {
                         const betAmount = document.querySelector('#betAmount');
                         betAmount.value = "";
 
+
                         // teamName.value = 'Green Bay Packers';
                         // spread.value = 3;
                         // betAmount.value = 110;
@@ -242,7 +243,9 @@ const getData = async () => {
 
 
                         placeBet.addEventListener('click', function Func() {
-
+                            account.innerText = parseInt(account.innerText) - betAmount.value;
+                            // console.log(parseInt(account.innerText) - 50);
+                            // console.log(betAmount.value);
                             // console.log(data[i].home_team)
                             if (data[0].bookmakers[0].markets[0].outcomes[0].name == data[i].home_team) {
                                 var priceLeft = data[i].bookmakers[0].markets[0].outcomes[0].price;

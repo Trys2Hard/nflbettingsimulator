@@ -75,8 +75,8 @@ app.post('/', isLoggedIn, async (req, res) => {
     const newBet = new Bet(req.body);
     newBet.author = req.user._id;
     await newBet.save();
-    req.flash('success', 'New bet saved');
-    res.redirect('/');
+    // req.flash('success', 'New bet saved');
+    // res.redirect('/');
 })
 
 app.get('/register', (req, res) => {
@@ -84,8 +84,9 @@ app.get('/register', (req, res) => {
 });
 
 app.post('/register', async (req, res) => {
-    const { email, username, password } = req.body;
-    const user = new User({ email, username });
+    req.body.balance = 1000;
+    const { email, username, password, balance } = req.body;
+    const user = new User({ email, username, balance });
     const registeredUser = await User.register(user, password);
     req.login(registeredUser, err => {
         if (err) return next(err);
