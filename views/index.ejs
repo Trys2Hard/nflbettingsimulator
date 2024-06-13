@@ -39,20 +39,26 @@
                 <div class="target">127-109</div>
                 <div class="recordWords">Picks</div>
                 <a class="anchor" name="target"></a>
-
-                <div class="money">
-                    <div>Spent Money:</div>
-                    <div>$</div>
-                    <div class="spentMoney">1000</div>
-                    <button class="edit-balance">Edit</button>
-                </div>
+                <% if (currentUser) { %>
+                    <div class="money">
+                        <div>Spent Money:</div>
+                        <div>$</div>
+                        <div class="spentMoney">1000</div>
+                        <button class="edit-balance">Edit</button>
+                    </div>
+                    <% } %>
             </section>
 
             <dialog class="edit-balance-modal">
                 <div>Enter positive number to add money or negative number to withdraw.</div>
-                <input type="number" class="change">
-                <button class="submit-edit-balance-modal">Submit</button>
+                <form action="/editbalance" method="POST">
+                    <input type="number" class="change" id="editBalance" name="editBalance">
+                    <button class="submit-edit-balance-modal">Submit</button>
+                </form>
+
             </dialog>
+
+
 
             <div>
                 <label for="weeks">Weeks</label>

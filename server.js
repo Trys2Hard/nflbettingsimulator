@@ -117,6 +117,12 @@ app.get('/logout', (req, res, next) => {
     });
 });
 
+app.post('/editbalance', async (req, res) => {
+    req.user.balance = req.user.balance + parseInt(req.body.editBalance);
+    await req.user.save();
+    res.redirect('/');
+})
+
 app.delete('/bets/:id', isLoggedIn, isAuthor, async (req, res) => {
     const { id } = req.params;
     const deletedBet = await Bet.findByIdAndDelete(id);
