@@ -182,9 +182,23 @@ const getData = async () => {
                         const betModalHomeTeam = document.querySelector('.betModalHomeTeam');
                         const betModalAwayTeam = document.querySelector('.betModalAwayTeam');
                         const betAmount = document.querySelector('#betAmount');
+                        const winnings = document.querySelector('#winnings');
                         betAmount.value = "";
+                        winnings.value = "";
+
+                        function betCalculator(moneyLine) {
+                            let odds;
+
+                            if (moneyLine >= 0) {
+                                odds = moneyLine >= 0 ? (moneyLine / 100) + 1 : (100 / Math.abs(moneyLine)) + 1;
+                            } else {
+                                odds = moneyLine >= 0 ? (moneyLine / 100) + 1 : (100 / Math.abs(moneyLine)) + 1;
+                            }
+                            winnings.value = ((odds * betAmount.value).toFixed(2));
+                        }
 
                         betAmount.addEventListener('input', () => {
+                            betCalculator(price.value);
                             const validate = function () {
                                 const t = betAmount.value;
                                 betAmount.value = t.indexOf(".") >= 0 ? t.slice(0, t.indexOf(".") + 3) : t;

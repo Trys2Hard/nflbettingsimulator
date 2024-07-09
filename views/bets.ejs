@@ -26,13 +26,14 @@
                         <%= bet.points %>
                             <%= bet.price %>
                                 <%= bet.betAmount %>
-                                    <%= bet.author %>
+                                    <%= bet.winnings %>
+                                        <%= bet.author %>
 
-                                        <div>
-                                            <form action="/bets/<%=bet._id%>?_method=DELETE" method="POST">
-                                                <button>Delete Bet</button>
-                                            </form>
-                                        </div>
+                                            <div>
+                                                <form action="/bets/<%=bet._id%>?_method=DELETE" method="POST">
+                                                    <button>Delete Bet</button>
+                                                </form>
+                                            </div>
 
                 </li>
                 <% } %>

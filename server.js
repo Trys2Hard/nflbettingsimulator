@@ -72,6 +72,7 @@ app.get('/bets', isLoggedIn, async (req, res) => {
 });
 
 app.post('/', isLoggedIn, async (req, res) => {
+    console.log(req.user, req.body)
     const newBet = new Bet(req.body);
     newBet.author = req.user._id;
     await newBet.save();
