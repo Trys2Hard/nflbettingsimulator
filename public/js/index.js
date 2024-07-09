@@ -10,12 +10,11 @@ const weeks = document.querySelector('#weeks');
 const editBalance = document.querySelector('.edit-balance');
 const editBalanceModal = document.querySelector('.edit-balance-modal');
 
-editBalance.addEventListener('click', () => {
-    editBalanceModal.showModal();
-})
-
-
-
+if (editBalance) {
+    editBalance.addEventListener('click', () => {
+        editBalanceModal.showModal();
+    })
+}
 
 const getData = async () => {
     const res = await fetch(`https://api.the-odds-api.com/v4/sports/americanfootball_nfl/odds/?apiKey=${api_key}&regions=us&markets=spreads&oddsFormat=american`);
@@ -185,6 +184,14 @@ const getData = async () => {
                         const betAmount = document.querySelector('#betAmount');
                         betAmount.value = "";
 
+                        betAmount.addEventListener('input', () => {
+                            const validate = function () {
+                                const t = betAmount.value;
+                                betAmount.value = t.indexOf(".") >= 0 ? t.slice(0, t.indexOf(".") + 3) : t;
+                            };
+                            validate()
+                        })
+
 
                         // teamName.value = 'Green Bay Packers';
                         // spread.value = 3;
@@ -214,9 +221,11 @@ const getData = async () => {
                         pickTeam = '';
 
                         placeBet.addEventListener('click', function Func() {
-                            account.innerText = parseInt(account.innerText) - betAmount.value;
-                            if (betAmount.value > parseInt(account.innerText) || betAmount.value === '' || betAmount.value == 0 || pickTeam == '') {
+
+                            if (betAmount.value > account.innerText || betAmount.value === '' || betAmount.value === 0 || pickTeam === '') {
                                 alert('Please enter an amount greater than 0 and less than your account balance. Number can have at most 2 decimal places. Also make sure to pick a team');
+                            } else {
+                                account.innerText = account.innerText - betAmount.value;
                             }
                         });
 

@@ -75,7 +75,7 @@ app.post('/', isLoggedIn, async (req, res) => {
     const newBet = new Bet(req.body);
     newBet.author = req.user._id;
     await newBet.save();
-    req.user.balance = req.user.balance - parseInt(req.body.betAmount);
+    req.user.balance = req.user.balance - req.body.betAmount;
     await req.user.save();
     req.flash('success', 'New bet saved');
     res.redirect('/');
@@ -117,7 +117,7 @@ app.get('/logout', (req, res, next) => {
     });
 });
 
-app.post('/editbalance', async (req, res) => {
+app.post('/editbalance', isLoggedIn, async (req, res) => {
     req.user.balance = req.user.balance + parseInt(req.body.editBalance);
     await req.user.save();
     res.redirect('/');
