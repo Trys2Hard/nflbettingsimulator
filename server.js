@@ -67,19 +67,28 @@ app.get('/', (req, res) => {
 });
 
 app.get('/bets', isLoggedIn, async (req, res) => {
-    const bets = await Bet.find({ author: req.user._id });
-    res.render('bets', { bets });
+    try {
+        const bets = await Bet.find({ author: req.user._id });
+        res.render('bets', { bets });
+    } catch (error) {
+        req.flash('error', 'Cannot fetch bets');
+        res.redirect('/');
+    }
 });
 
 app.post('/', isLoggedIn, async (req, res) => {
-    console.log(req.user, req.body)
-    const newBet = new Bet(req.body);
-    newBet.author = req.user._id;
-    await newBet.save();
-    req.user.balance = req.user.balance - req.body.betAmount;
-    await req.user.save();
-    req.flash('success', 'New bet saved');
-    res.redirect('/');
+    try {
+        const newBet = new Bet(req.body);
+        newBet.author = req.user._id;
+        await newBet.save();
+        req.user.balance = req.user.balance - req.body.betAmount;
+        await req.user.save();
+        req.flash('success', 'New bet saved');
+        res.redirect('/');
+    } catch (error) {
+        req.flash('error', 'Failed to save new bet');
+        res.redirect('/');
+    }
 })
 
 app.get('/register', (req, res) => {
@@ -87,15 +96,20 @@ app.get('/register', (req, res) => {
 });
 
 app.post('/register', async (req, res) => {
-    req.body.balance = 1000;
-    const { email, username, password, balance } = req.body;
-    const user = new User({ email, username, balance });
-    const registeredUser = await User.register(user, password);
-    req.login(registeredUser, err => {
-        if (err) return next(err);
-        req.flash('success', 'Your account has been created, and you are logged in');
-        res.redirect('/bets');
-    })
+    try {
+        req.body.balance = 1000;
+        const { email, username, password, balance } = req.body;
+        const user = new User({ email, username, balance });
+        const registeredUser = await User.register(user, password);
+        req.login(registeredUser, err => {
+            if (err) return next(err);
+            req.flash('success', 'Your account has been created, and you are logged in');
+            res.redirect('/bets');
+        })
+    } catch (error) {
+        req.flash('error', 'Failed to register user');
+        res.redirect('/register');
+    }
 })
 
 app.get('/login', (req, res) => {
@@ -119,16 +133,26 @@ app.get('/logout', (req, res, next) => {
 });
 
 app.post('/editbalance', isLoggedIn, async (req, res) => {
-    req.user.balance = req.user.balance + parseInt(req.body.editBalance);
-    await req.user.save();
-    res.redirect('/');
+    try {
+        req.user.balance = req.user.balance + parseInt(req.body.editBalance);
+        await req.user.save();
+        res.redirect('/');
+    } catch (error) {
+        req.flash('error', 'Failed to update balance');
+        res.redirect('/');
+    }
 })
 
 app.delete('/bets/:id', isLoggedIn, isAuthor, async (req, res) => {
-    const { id } = req.params;
-    const deletedBet = await Bet.findByIdAndDelete(id);
-    req.flash('success', 'Successfully deleted bet!');
-    res.redirect('/bets');
+    try {
+        const { id } = req.params;
+        const deletedBet = await Bet.findByIdAndDelete(id);
+        req.flash('success', 'Successfully deleted bet!');
+        res.redirect('/bets');
+    } catch (error) {
+        req.flash('error', 'Failed to delete bet');
+        res.redirect('/bets');
+    }
 })
 
 app.listen(PORT, () => {

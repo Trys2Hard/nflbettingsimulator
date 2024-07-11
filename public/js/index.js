@@ -5,8 +5,6 @@ let listenPlaceBet = false;
 const api_key = 'e603050424de0c31810f91e691efa21d';
 const weeks = document.querySelector('#weeks');
 
-
-
 const editBalance = document.querySelector('.edit-balance');
 const editBalanceModal = document.querySelector('.edit-balance-modal');
 
@@ -17,9 +15,18 @@ if (editBalance) {
 }
 
 const getData = async () => {
-    const res = await fetch(`https://api.the-odds-api.com/v4/sports/americanfootball_nfl/odds/?apiKey=${api_key}&regions=us&markets=spreads&oddsFormat=american`);
-    const data = await res.json();
-    console.log(data);
+    let data;
+    try {
+        const res = await fetch(`https://api.the-odds-api.com/v4/sports/americanfootball_nfl/odds/?apiKey=${api_key}&regions=us&markets=spreads&oddsFormat=american`);
+        if (!res.ok) {
+            throw new Error('Failed to fetch data');
+        }
+        data = await res.json();
+        console.log(data);
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        return;
+    }
 
     const homeSpreads = [];
     const awaySpreads = [];

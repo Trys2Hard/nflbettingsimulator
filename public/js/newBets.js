@@ -1,3 +1,5 @@
+// Shouldn't exist?
+
 const newBets = document.querySelector('.newBets');
 const completedBets = document.querySelector('.completedBets');
 const homeScore = '';
