@@ -1,3 +1,8 @@
+// Saints game at 127 previously had no draftkings bookmaker, this game used odds from the next game causing all games after 127 to be incorrect.
+// code should use different bookmaker if draftkings is not available
+
+// Appears that price and point are grabbed from 0 without checking if this is draftkings
+
 let pickTeam = '';
 const games = document.querySelector('.games');
 const account = document.querySelector('.account');
@@ -297,6 +302,81 @@ const getData = async () => {
             games.replaceChildren();
             firstGame = 1726791300000;
             lastGame = 1727136900000;
+            listGames();
+        } else if (e.target.value === "Week4") {
+            games.replaceChildren();
+            firstGame = 1727396100000;
+            lastGame = 1727741700000;
+            listGames();
+        } else if (e.target.value === "Week5") {
+            games.replaceChildren();
+            firstGame = 1728000900000;
+            lastGame = 1728346500000;
+            listGames();
+        } else if (e.target.value === "Week6") {
+            games.replaceChildren();
+            firstGame = 1728605700000;
+            lastGame = 1728951300000;
+            listGames();
+        } else if (e.target.value === "Week7") {
+            games.replaceChildren();
+            firstGame = 1729210500000;
+            lastGame = 1729558800000;
+            listGames();
+        } else if (e.target.value === "Week8") {
+            games.replaceChildren();
+            firstGame = 1729815300000;
+            lastGame = 1730161200000;
+            listGames();
+        } else if (e.target.value === "Week9") {
+            games.replaceChildren();
+            firstGame = 1730420100000;
+            lastGame = 1730769300000;
+            listGames();
+        } else if (e.target.value === "Week10") {
+            games.replaceChildren();
+            firstGame = 1731028500000;
+            lastGame = 1731374400000;
+            listGames();
+        } else if (e.target.value === "Week11") {
+            games.replaceChildren();
+            firstGame = 1731633300000;
+            lastGame = 1731978900000;
+            listGames();
+        } else if (e.target.value === "Week12") {
+            games.replaceChildren();
+            firstGame = 1732238100000;
+            lastGame = 1732583700000;
+            listGames();
+        } else if (e.target.value === "Week13") {
+            games.replaceChildren();
+            firstGame = 1732815000000;
+            lastGame = 1733184900000;
+            listGames();
+        } else if (e.target.value === "Week14") {
+            games.replaceChildren();
+            firstGame = 1733447700000;
+            lastGame = 1733793300000;
+            listGames();
+        } else if (e.target.value === "Week15") {
+            games.replaceChildren();
+            firstGame = 1734052500000;
+            lastGame = 1734399000000;
+            listGames();
+        } else if (e.target.value === "Week16") {
+            games.replaceChildren();
+            firstGame = 1734657300000;
+            lastGame = 1735002900000;
+            listGames();
+        } else if (e.target.value === "Week17") {
+            games.replaceChildren();
+            firstGame = 1735149600000;
+            lastGame = 1735607700000;
+            listGames();
+        } else if (e.target.value === "Week18") {
+            games.replaceChildren();
+            firstGame = 1736100000000;
+            lastGame = 1736112300000;
             listGames();
         }
     })
