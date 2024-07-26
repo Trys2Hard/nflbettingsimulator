@@ -12,6 +12,8 @@ const User = require('./models/user')
 const { isLoggedIn, isAuthor } = require('./middleware');
 const { storeReturnTo } = require('./middleware');
 const methodOverride = require('method-override');
+require('dotenv').config();
+const apiKey = process.env.API_KEY;
 
 mongoose.connect('mongodb://127.0.0.1:27017/betApp')
     .then(() => {
@@ -62,8 +64,53 @@ app.use((req, res, next) => {
 })
 
 // Routes
+app.get('/api/data', async (req, res) => {
+    try {
+        const response = await fetch(`https://api.the-odds-api.com/v4/sports/americanfootball_nfl/odds/?apiKey=${apiKey}&regions=us&markets=spreads&oddsFormat=american`, {
+            headers: {
+                'Authorization': `Bearer ${apiKey}`
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const data = await response.json();
+        res.json(data);
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to fetch data' });
+    }
+});
+
+
+
+
+// const getData = async () => {
+//         let data;
+//         try {
+//             const res = await fetch(`https://api.the-odds-api.com/v4/sports/americanfootball_nfl/odds/?apiKey=${api_key}&regions=us&markets=spreads&oddsFormat=american`);
+//             if (!res.ok) {
+//                 throw new Error('Failed to fetch data');
+//             }
+//             data = await res.json();
+//             console.log(data);
+//         } catch (error) {
+//             console.error('Error fetching data:', error);
+//             return;
+//         }
+// }
+
+
+
+
+
+
+
+
 app.get('/', (req, res) => {
     res.render('index');
+    // console.log(process.env.API_KEY)
 });
 
 app.get('/bets', isLoggedIn, async (req, res) => {
