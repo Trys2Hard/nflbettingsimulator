@@ -83,31 +83,6 @@ app.get('/api/data', async (req, res) => {
     }
 });
 
-
-
-
-// const getData = async () => {
-//         let data;
-//         try {
-//             const res = await fetch(`https://api.the-odds-api.com/v4/sports/americanfootball_nfl/odds/?apiKey=${api_key}&regions=us&markets=spreads&oddsFormat=american`);
-//             if (!res.ok) {
-//                 throw new Error('Failed to fetch data');
-//             }
-//             data = await res.json();
-//             console.log(data);
-//         } catch (error) {
-//             console.error('Error fetching data:', error);
-//             return;
-//         }
-// }
-
-
-
-
-
-
-
-
 app.get('/', (req, res) => {
     res.render('index');
     // console.log(process.env.API_KEY)
@@ -145,8 +120,9 @@ app.get('/register', (req, res) => {
 app.post('/register', async (req, res) => {
     try {
         req.body.balance = 1000;
-        const { email, username, password, balance } = req.body;
-        const user = new User({ email, username, balance });
+        req.body.spentMoney = 1000;
+        const { email, username, password, balance, spentMoney } = req.body;
+        const user = new User({ email, username, balance, spentMoney });
         const registeredUser = await User.register(user, password);
         req.login(registeredUser, err => {
             if (err) return next(err);
@@ -182,7 +158,9 @@ app.get('/logout', (req, res, next) => {
 app.post('/editbalance', isLoggedIn, async (req, res) => {
     try {
         req.user.balance = req.user.balance + parseInt(req.body.editBalance);
+        req.user.spentMoney = req.user.spentMoney + parseInt(req.body.editBalance);
         await req.user.save();
+        console.log(req.user);
         res.redirect('/');
     } catch (error) {
         req.flash('error', 'Failed to update balance');
@@ -194,6 +172,8 @@ app.delete('/bets/:id', isLoggedIn, isAuthor, async (req, res) => {
     try {
         const { id } = req.params;
         const deletedBet = await Bet.findByIdAndDelete(id);
+        req.user.balance = req.user.balance + deletedBet.betAmount;
+        await req.user.save();
         req.flash('success', 'Successfully deleted bet!');
         res.redirect('/bets');
     } catch (error) {

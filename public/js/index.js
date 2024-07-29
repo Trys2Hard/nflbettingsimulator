@@ -1,8 +1,6 @@
 // Saints game at 127 previously had no draftkings bookmaker, this game used odds from the next game causing all games after 127 to be incorrect.
 // code should use different bookmaker if draftkings is not available
 
-// Appears that price and point are grabbed from 0 without checking if this is draftkings
-
 let pickTeam = '';
 const games = document.querySelector('.games');
 const account = document.querySelector('.account');
@@ -11,35 +9,21 @@ const weeks = document.querySelector('#weeks');
 
 const editBalance = document.querySelector('.edit-balance');
 const editBalanceModal = document.querySelector('.edit-balance-modal');
+const spentMoney = document.querySelector('.spentMoney');
+
 
 if (editBalance) {
+    // spentMoney.innerText = 500;
     editBalance.addEventListener('click', () => {
         editBalanceModal.showModal();
     })
 }
-
-// const getData = async () => {
-//     let data;
-//     try {
-//         const res = await fetch(`https://api.the-odds-api.com/v4/sports/americanfootball_nfl/odds/?apiKey=${api_key}&regions=us&markets=spreads&oddsFormat=american`);
-//         if (!res.ok) {
-//             throw new Error('Failed to fetch data');
-//         }
-//         data = await res.json();
-//         console.log(data);
-//     } catch (error) {
-//         console.error('Error fetching data:', error);
-//         return;
-//     }
-
-// index.js
 
 document.addEventListener('DOMContentLoaded', () => {
     fetch('/api/data')
         .then(response => response.json())
         .then(data => {
             console.log(data);
-            // Handle the data here
             const homeSpreads = [];
             const awaySpreads = [];
             const homePriceArr = [];
@@ -254,8 +238,10 @@ document.addEventListener('DOMContentLoaded', () => {
                                 pickTeam = '';
 
                                 placeBet.addEventListener('click', function Func() {
-
                                     if (betAmount.value > account.innerText || betAmount.value === '' || betAmount.value === 0 || pickTeam === '') {
+                                        console.log(betAmount.value);
+                                        console.log(account.InnerText);
+                                        console.log(pickTeam);
                                         alert('Please enter an amount greater than 0 and less than your account balance. Number can have at most 2 decimal places. Also make sure to pick a team');
                                     } else {
                                         account.innerText = account.innerText - betAmount.value;

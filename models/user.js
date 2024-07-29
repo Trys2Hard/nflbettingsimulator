@@ -11,6 +11,10 @@ const UserSchema = new Schema({
     balance: {
         type: Number,
         required: false
+    },
+    spentMoney: {
+        type: Number,
+        defalut: 0
     }
 });
 

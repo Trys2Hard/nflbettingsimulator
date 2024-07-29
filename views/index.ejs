@@ -36,14 +36,16 @@
         <section class="main">
             <section class="record">
 
-                <div class="target">127-109</div>
+                <div class="target">000-000</div>
                 <div class="recordWords">Picks</div>
                 <a class="anchor" name="target"></a>
                 <% if (currentUser) { %>
                     <div class="money">
                         <div>Spent Money:</div>
                         <div>$</div>
-                        <div class="spentMoney">1000</div>
+                        <div class="spentMoney">
+                            <%= currentUser.spentMoney %>
+                        </div>
                         <button class="edit-balance">Edit</button>
                     </div>
                     <% } %>
