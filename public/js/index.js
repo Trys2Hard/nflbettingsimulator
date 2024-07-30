@@ -10,12 +10,14 @@ const weeks = document.querySelector('#weeks');
 const editBalance = document.querySelector('.edit-balance');
 const editBalanceModal = document.querySelector('.edit-balance-modal');
 const spentMoney = document.querySelector('.spentMoney');
-
+const closeEditBalanceModal = document.querySelector('.close-edit-balance-modal');
 
 if (editBalance) {
-    // spentMoney.innerText = 500;
     editBalance.addEventListener('click', () => {
         editBalanceModal.showModal();
+        closeEditBalanceModal.addEventListener('click', () => {
+            editBalanceModal.close();
+        })
     })
 }
 
@@ -186,6 +188,15 @@ document.addEventListener('DOMContentLoaded', () => {
                                 const betModalAwayTeam = document.querySelector('.betModalAwayTeam');
                                 const betAmount = document.querySelector('#betAmount');
                                 const winnings = document.querySelector('#winnings');
+                                const points = document.querySelector('#points');
+                                const price = document.querySelector('#price');
+
+                                betModalHomeTeam.style.color = "black";
+                                betModalAwayTeam.style.color = "black";
+
+                                teamName.value = "";
+                                points.value = "";
+                                price.value = "";
                                 betAmount.value = "";
                                 winnings.value = "";
 
@@ -238,10 +249,13 @@ document.addEventListener('DOMContentLoaded', () => {
                                 pickTeam = '';
 
                                 placeBet.addEventListener('click', function Func() {
-                                    if (betAmount.value > account.innerText || betAmount.value === '' || betAmount.value === 0 || pickTeam === '') {
-                                        console.log(betAmount.value);
-                                        console.log(account.InnerText);
-                                        console.log(pickTeam);
+                                    if (account.innerText !== "" & account.innerText < betAmount.value || betAmount.value === '' || betAmount.value === 0 || pickTeam === '') {
+                                        // if (account.innerText === "") {
+                                        //     console.log('account.innerText is an empty string')
+                                        // }
+                                        // console.log(betAmount.value);
+                                        // console.log(account.innerText);
+                                        // console.log(pickTeam);
                                         alert('Please enter an amount greater than 0 and less than your account balance. Number can have at most 2 decimal places. Also make sure to pick a team');
                                     } else {
                                         account.innerText = account.innerText - betAmount.value;
