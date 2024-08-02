@@ -4,38 +4,51 @@
     box-sizing: border-box;
 }
 
-h1 {
-    text-align: center;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
+body {
+    background-color: #121212;
+    color: white;
 }
 
 h2 {
-    margin-bottom: 1rem;
+    margin-left: 50px;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    font-size: 32px;
 }
 
-/* Placed Bets */
 .titles {
+    font-size: 20px;
     display: flex;
-    list-style-type: none;
+    margin-left: 50px;
 }
 
 .titles li {
-    border: 1px solid black;
-    width: 15rem;
-}
-
-.bets {
-    display: flex;
+    border-bottom: 1px solid white;
     list-style-type: none;
+    width: 10%;
 }
 
-.bets li {
-    border: 1px solid black;
-    width: 15rem;
+.info {
+    display: flex;
+    margin-left: 50px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
-/* Completed Bets */
-.completed {
-    margin-top: 1rem;
+.info li {
+    list-style-type: none;
+    width: 10%;
+}
+
+.deleteButton {
+    padding: 0.3rem 0.5rem;
+    border: none;
+    border-radius: 15px;
+    background-color: #9f0000;
+    color: white;
+}
+
+.deleteButton:hover {
+    cursor: pointer;
+    filter: brightness(1.2);
 }

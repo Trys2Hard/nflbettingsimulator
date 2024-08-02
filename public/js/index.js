@@ -21,6 +21,8 @@ if (editBalance) {
     })
 }
 
+// console.log(Date.now());
+
 document.addEventListener('DOMContentLoaded', () => {
     fetch('/api/data')
         .then(response => response.json())
@@ -288,6 +290,9 @@ document.addEventListener('DOMContentLoaded', () => {
                                     })
                                 }
                             })
+                            if (startTime <= Date.now()) {
+                                bet.hidden = true;
+                            }
                         }
                         viewBetModal();
                     }
