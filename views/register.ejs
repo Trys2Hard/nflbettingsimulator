@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
+    <title>NFL Betting Simulator: Create Account</title>
     <link rel="stylesheet" href="css/navbar.css">
-    <link rel="stylesheet" href="css/bets.css">
+    <link rel="stylesheet" href="css/register.css">
     <script src="https://kit.fontawesome.com/927b7ac6ca.js" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,20 +16,30 @@
 
 <body>
     <%- include('./partials/navbar.ejs') %>
-        <h1>Create your account</h1>
+        <section class="register-container">
+            <h1>Create Your Account</h1>
 
-        <form action="/register" method="POST">
-            <label for="email">email</label>
-            <input type="text" id="email" name="email">
+            <form action="/register" method="POST">
+                <div>
+                    <label for="email">Email</label>
+                    <input type="text" id="email" name="email">
+                </div>
 
-            <label for="username">username</label>
-            <input type="text" id="username" name="username">
+                <div>
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username">
+                </div>
 
-            <label for="password">password</label>
-            <input type="text" id="password" name="password">
+                <div>
+                    <label for="password">Password</label>
+                    <input type="text" id="password" name="password">
+                </div>
 
-            <button>Create Account</button>
-        </form>
+                <div>
+                    <button class="register-button">Create Account</button>
+                </div>
+            </form>
+        </section>
 </body>
 
 </html>

@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>NFL Betting Simulator: Login</title>
     <link rel="stylesheet" href="css/navbar.css">
-    <link rel="stylesheet" href="css/bets.css">
+    <link rel="stylesheet" href="css/login.css">
     <script src="https://kit.fontawesome.com/927b7ac6ca.js" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,19 +16,25 @@
 
 <body>
     <%- include('./partials/navbar.ejs') %>
-        <h1>Login to your account</h1>
+        <section class="login-container">
+            <h1>Login to Your Account</h1>
 
+            <form action="/login" method="POST">
+                <div>
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username">
+                </div>
 
+                <div>
+                    <label for="password">Password</label>
+                    <input type="text" id="password" name="password">
+                </div>
 
-        <form action="/login" method="POST">
-            <label for="username">username</label>
-            <input type="text" id="username" name="username">
-
-            <label for="password">password</label>
-            <input type="text" id="password" name="password">
-
-            <button>Login</button>
-        </form>
+                <div>
+                    <button class="login-button">Login</button>
+                </div>
+            </form>
+        </section>
 </body>
 
 </html>

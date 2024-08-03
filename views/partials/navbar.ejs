@@ -1,30 +1,29 @@
 <nav>
-    <!-- <img class="beta" src="../img/beta.png" alt="Beta"> -->
-    <div class="logo">Logo</div>
-    <img class="name" src="../img/name.png" alt="Subjectively Bettor">
+    <div class="logo">NFL Betting Simulator</div>
     <ul>
         <li><a href="/">Home</a></li>
         <li><a href="/bets">Bets</a></li>
     </ul>
 
-    <section class="nav-buttons">
-        <div class="accountDiv">
+    <section class="account-button-contain">
+        <div class="account-div">
             <i class="fa-sharp fa-solid fa-coins" style="color: #ffd700;"></i>
             <div>$</div>
             <div class="account">
                 <% if(currentUser) {%>
                     <%- currentUser.balance%>
-                        <% } else {%>
-                            <%console.log('no current user')%>
-                                <%}%>
+                        <% } %>
             </div>
         </div>
-        <% if(!currentUser) { %>
-            <a href="/login"><button>Login</button></a>
-            <a href="/register"><button>Create Account</button></a>
-            <%} else {%>
-                <a href="/logout"><button>Logout</button></a>
-                <%}%>
+        <div class="nav-buttons">
+            <% if(!currentUser) { %>
+                <a href="/login" class="nav-login-button"><button>Login</button></a>
+                <a href="/register"><button>Create Account</button></a>
+                <%} else {%>
+                    <a href="/logout" class="logout-button"><button>Logout</button></a>
+                    <%}%>
+        </div>
+
     </section>
 </nav>
 
