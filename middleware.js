@@ -3,7 +3,7 @@ const Bet = require('./models/bet');
 module.exports.isLoggedIn = (req, res, next) => {
     if (!req.isAuthenticated()) {
         req.session.returnTo = req.originalUrl;
-        req.flash('error', 'you must be signed in first!');
+        req.flash('error', 'You must be signed in to complete this action.');
         return res.redirect('/login');
     }
     next();
@@ -20,7 +20,7 @@ module.exports.isAuthor = async (req, res, next) => {
     const { id } = req.params;
     const bet = await Bet.findById(id);
     if (!bet.author.equals(req.user._id)) {
-        req.flash('error', 'You do not have permission to do that!');
+        req.flash('error', 'You are not authorized to complete this action.');
         return res.redirect('/bets');
     }
     next();

@@ -36,6 +36,24 @@ nav ul li a:hover {
     color: lightgrey;
 }
 
+.success {
+    justify-content: center;
+    align-items: center;
+    font-family: 'Source Serif Pro';
+    color: white;
+    height: 40px;
+    width: 100vw;
+}
+
+.error {
+    justify-content: center;
+    align-items: center;
+    font-family: 'Source Serif Pro';
+    color: white;
+    height: 40px;
+    width: 100vw;
+}
+
 .account-button-contain {
     display: flex;
     align-items: center;

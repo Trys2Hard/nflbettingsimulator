@@ -93,7 +93,7 @@ app.get('/bets', isLoggedIn, async (req, res) => {
         const bets = await Bet.find({ author: req.user._id });
         res.render('bets', { bets });
     } catch (error) {
-        req.flash('error', 'Cannot fetch bets');
+        req.flash('error', 'Failed to retrieve your bets.');
         res.redirect('/');
     }
 });
@@ -105,10 +105,10 @@ app.post('/', isLoggedIn, async (req, res) => {
         await newBet.save();
         req.user.balance = req.user.balance - req.body.betAmount;
         await req.user.save();
-        req.flash('success', 'New bet saved');
+        req.flash('success', 'Your bet has been saved.');
         res.redirect('/');
     } catch (error) {
-        req.flash('error', 'Failed to save new bet');
+        req.flash('error', 'Your bet failed to save.');
         res.redirect('/');
     }
 })
@@ -126,11 +126,11 @@ app.post('/register', async (req, res) => {
         const registeredUser = await User.register(user, password);
         req.login(registeredUser, err => {
             if (err) return next(err);
-            req.flash('success', 'Your account has been created, and you are logged in');
+            req.flash('success', 'Your account has been created, and you are now logged in.');
             res.redirect('/bets');
         })
     } catch (error) {
-        req.flash('error', 'Failed to register user');
+        req.flash('error', 'Failed to create your account.');
         res.redirect('/register');
     }
 })
@@ -140,7 +140,7 @@ app.get('/login', (req, res) => {
 });
 
 app.post('/login', storeReturnTo, passport.authenticate('local', { failureFlash: true, failureRedirect: '/login' }), (req, res) => {
-    req.flash('success', 'You are logged in');
+    req.flash('success', 'You have successfully logged in to your account.');
     const redirectUrl = res.locals.returnTo || '/';
     res.redirect(redirectUrl);
 });
@@ -150,7 +150,7 @@ app.get('/logout', (req, res, next) => {
         if (err) {
             return next(err);
         }
-        req.flash('success', 'Goodbye!');
+        req.flash('success', 'You have successfully logged out of your account. Goodbye!');
         res.redirect('/login');
     });
 });
@@ -163,7 +163,7 @@ app.post('/editbalance', isLoggedIn, async (req, res) => {
         console.log(req.user);
         res.redirect('/');
     } catch (error) {
-        req.flash('error', 'Failed to update balance');
+        req.flash('error', 'Failed to update your account balance');
         res.redirect('/');
     }
 })
@@ -174,10 +174,10 @@ app.delete('/bets/:id', isLoggedIn, isAuthor, async (req, res) => {
         const deletedBet = await Bet.findByIdAndDelete(id);
         req.user.balance = req.user.balance + deletedBet.betAmount;
         await req.user.save();
-        req.flash('success', 'Successfully deleted bet!');
+        req.flash('success', 'Your bet has been successfully deleted.');
         res.redirect('/bets');
     } catch (error) {
-        req.flash('error', 'Failed to delete bet');
+        req.flash('error', 'Failed to delete your bet.');
         res.redirect('/bets');
     }
 })
