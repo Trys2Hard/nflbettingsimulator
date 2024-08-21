@@ -63,6 +63,7 @@ nav ul li a:hover {
 }
 
 .account-div {
+    font-family: 'Orbitron';
     display: flex;
     align-items: center;
     font-size: 1.2rem;

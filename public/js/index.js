@@ -104,11 +104,11 @@ document.addEventListener('DOMContentLoaded', () => {
                         const awayNums = document.createElement('div');
                         const homePick = document.createElement('div');
                         const homeImg = document.createElement('img');
-                        const homeStatus = document.createElement('div');
+                        const homeStatus = document.createElement('p');
                         const bet = document.createElement('button');
                         const awayPick = document.createElement('div');
                         const awayImg = document.createElement('img');
-                        const awayStatus = document.createElement('div');
+                        const awayStatus = document.createElement('p');
 
                         // console.log(homeSpreads);
                         // console.log(data.length)
@@ -143,7 +143,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         awayNums.classList.add('spread');
                         homeStatus.classList.add('status');
                         awayStatus.classList.add('status');
-                        homeImg.classList.add('pickImg');
 
                         homeImg.src = "../img/squigs.png";
                         awayImg.src = "../img/logo.png";
@@ -157,15 +156,45 @@ document.addEventListener('DOMContentLoaded', () => {
                         awayNums.innerText = awaySpreads[i];
                         bet.innerText = 'Place Bet';
 
-                        homeImg.addEventListener('click', () => {
-                            homeImg.style.backgroundColor = "blue";
-                            awayImg.style.backgroundColor = "gray";
-                        })
+                        // homeImg.addEventListener('click', () => {
+                        //     homeImg.style.backgroundColor = "blue";
+                        //     awayImg.style.backgroundColor = "gray";
+                        // })
 
-                        awayImg.addEventListener('click', () => {
-                            awayImg.style.backgroundColor = "blue";
-                            homeImg.style.backgroundColor = "gray";
-                        })
+                        // awayImg.addEventListener('click', () => {
+                        //     awayImg.style.backgroundColor = "blue";
+                        //     homeImg.style.backgroundColor = "gray";
+                        // })
+
+                        awayImg.src = '../img/nfl-logos/kansas-city-chiefs.png';
+                        homeImg.src = '../img/nfl-logos/houston-texans.png';
+
+                        // const teamInfo = [
+                        //     {
+                        //         name: 'Kansas City Chiefs',
+                        //         img: '../img/nfl-logos/kansas-city-chiefs.png',
+                        //     },
+                        //     {
+                        //         name: 'Arizona Cardinals',
+                        //         img: '../img/nfl-logos/arizona-cardinals.png',
+                        //     },
+                        //     {
+                        //         name: 'New Orleans Saints',
+                        //         img: '../img/nfl-logos/new-orleans-saints.png',
+                        //     },
+                        //     {
+                        //         name: 'Houston Texans',
+                        //         img: '../img/nfl-logos/houston-texans.png',
+                        //     },
+                        // ];
+
+                        // teamInfo.forEach((team) => {
+                        //     if (team.name === homeName.innerText) {
+                        //         homeImg.src = team.img;
+                        //     } else if (team.name === awayName.innerText) {
+                        //         awayImg.src = team.img;
+                        //     }
+                        // });
 
                         const viewBetModal = () => {
                             const betModal = document.querySelector('.placeBetModal');
@@ -188,19 +217,23 @@ document.addEventListener('DOMContentLoaded', () => {
                                 const awayPrice = document.querySelector('.awayPrice');
                                 const betModalHomeTeam = document.querySelector('.betModalHomeTeam');
                                 const betModalAwayTeam = document.querySelector('.betModalAwayTeam');
+                                const modalTeam1 = document.querySelector('.modalTeam1');
+                                const modalTeam2 = document.querySelector('.modalTeam2');
                                 const betAmount = document.querySelector('#betAmount');
                                 const winnings = document.querySelector('#winnings');
                                 const points = document.querySelector('#points');
                                 const price = document.querySelector('#price');
 
-                                betModalHomeTeam.style.color = "black";
-                                betModalAwayTeam.style.color = "black";
+                                betModalHomeTeam.style.color = "white";
+                                betModalAwayTeam.style.color = "white";
+                                modalTeam1.style.outline = "none";
+                                modalTeam2.style.outline = "none";
 
                                 teamName.value = "";
                                 points.value = "";
                                 price.value = "";
-                                betAmount.value = "";
                                 winnings.value = "";
+                                betAmount.value = "";
 
                                 function betCalculator(moneyLine) {
                                     let odds;
@@ -227,13 +260,13 @@ document.addEventListener('DOMContentLoaded', () => {
                                 // spread.value = 3;
                                 // betAmount.value = 110;
 
-                                betModalHomeTeam.addEventListener('click', () => {
+                                modalTeam1.addEventListener('click', () => {
                                     teamName.value = betModalHomeTeam.innerText;
                                     points.value = homePoints.innerText;
                                     price.value = homePrice.innerText;
                                 })
 
-                                betModalAwayTeam.addEventListener('click', () => {
+                                modalTeam2.addEventListener('click', () => {
                                     teamName.value = betModalAwayTeam.innerText;
                                     points.value = awayPoints.innerText;
                                     price.value = awayPrice.innerText;
@@ -268,24 +301,27 @@ document.addEventListener('DOMContentLoaded', () => {
                                     closeBetModal.addEventListener('click', () => {
                                         betModal.close();
                                         listenPlaceBet = true;
-                                        console.log("Bet modal closed")
                                     });
 
-                                    betModalHomeTeam.addEventListener('click', () => {
+                                    modalTeam1.addEventListener('click', () => {
                                         if (pickTeam !== 'home') {
-                                            betModalHomeTeam.style.color = '#6331c1';
-                                            betModalAwayTeam.style.color = 'black';
+                                            winnings.value = "";
+                                            betAmount.value = "";
+                                            // betModalHomeTeam.style.color = 'white';
+                                            modalTeam2.style.outline = 'none';
+                                            modalTeam1.style.outline = '1px solid white';
                                             pickTeam = 'home';
-                                            console.log("Home team selected")
                                         }
                                     })
 
-                                    betModalAwayTeam.addEventListener('click', () => {
+                                    modalTeam2.addEventListener('click', () => {
                                         if (pickTeam !== 'away') {
-                                            betModalHomeTeam.style.color = 'black';
-                                            betModalAwayTeam.style.color = '#6331c1';
+                                            winnings.value = "";
+                                            betAmount.value = "";
+                                            // betModalHomeTeam.style.color = 'white';
+                                            modalTeam1.style.outline = 'none';
+                                            modalTeam2.style.outline = '1px solid white';
                                             pickTeam = 'away';
-                                            console.log("Away team selected")
                                         }
                                     })
                                 }

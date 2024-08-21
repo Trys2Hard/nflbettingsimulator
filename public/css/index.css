@@ -85,43 +85,76 @@ h2 {
     margin-top: 30rem;
 }
 
-/* GAME TEST */
+/* Games */
+#weeks {
+    font-family: 'Orbitron';
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 15px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 30px;
+}
+
+#weeks:hover {
+    cursor: pointer;
+}
+
+.games {
+    font-family: 'Orbitron';
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.game {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid white;
+    backdrop-filter: blur(25px);
+    background-color: #9b9b9b7d;
+}
+
 .teams {
     display: flex;
-    /* justify-content: space-evenly; */
-    justify-content: center;
-    /* align-items: center; */
-    /* font-size: 1.3rem; */
-    /* width: 90%; */
-    /* margin-left: auto; */
-    /* margin-right: auto; */
-    margin-top: 1rem;
-    /* font-size: 1rem; */
+    justify-content: space-evenly;
     color: white;
+    margin-top: 16px;
 }
 
 .left {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 45%;
     justify-content: center;
+    width: 45%;
 }
 
 .middle {
     display: flex;
+    justify-content: center;
     align-items: center;
     font-size: 1.5rem;
     width: 5%;
-    justify-content: center;
 }
 
 .right {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 45%;
     justify-content: center;
+    width: 45%;
+}
+
+.names {
+    font-size: 1.3rem;
+}
+
+.spread {
+    font-size: 0.8rem;
 }
 
 .picks {
@@ -130,64 +163,49 @@ h2 {
     align-items: center;
 }
 
-.pickImg {
-    height: 7rem;
-    width: 7rem;
-    margin-top: 1rem;
-    margin-left: 1rem;
-    margin-right: 1rem;
-    cursor: pointer;
-    padding: 0.5rem;
-    border: 1px solid blue;
-    background-color: #e5e5e5;
-}
-
-.picks img {
-    height: 7rem;
-    width: 7rem;
-    margin-top: 1rem;
-    margin-left: 1rem;
-    margin-right: 1rem;
-    cursor: pointer;
-    padding: 0.5rem;
-    border: 1px solid blue;
-    background-color: #e5e5e5;
-}
-
-.picks img:hover {
-    background-color: rgb(255, 255, 255);
+.picks div img {
+    width: 30%;
+    margin-top: auto;
+    margin-bottom: auto;
 }
 
 .picks div {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    margin-bottom: 0.5rem;
-    font-size: 1.2rem;
-    color: #e5e5e5;
+    font-size: 1rem;
+    height: 100%;
+    width: 45%;
+
 }
 
 .picks button {
-    border: none;
-    font-size: 1.2rem;
-    background-color: #19198a;
-    padding: 0.5rem 0.8rem;
-    border-radius: 20px;
-    cursor: pointer;
+    font-family: 'Orbitron';
+    font-size: 1rem;
     color: white;
-    font-family: 'source serif pro';
-}
-
-.names {
-    font-size: 1.6rem;
+    border: none;
+    border-radius: 10px;
+    background-color: #19198a;
+    padding: 3px;
+    cursor: pointer;
 }
 
 .status {
     color: white;
+    margin-bottom: 5px;
 }
 
-/* GAME TEST */
+.modalTeam1:hover {
+    filter: brightness(1.2);
+}
+
+.modalTeam2:hover {
+    filter: brightness(1.2);
+}
+
+.game button:hover {
+    filter: brightness(1.2);
+}
 
 /* Record */
 .record {
@@ -251,81 +269,83 @@ h2 {
     font-family: 'source serif pro';
 }
 
-.money button:hover {
-    filter: brightness(1.2);
-}
-
-/* Games */
-.games {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-    width: 80%;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.game {
-    display: flex;
-    flex-direction: column;
-    border: 1px solid white;
-    backdrop-filter: blur(25px);
-    background-color: #9b9b9b7d;
-}
-
-.top {
-    display: flex;
-    justify-content: space-evenly;
-    border: 1px solid red;
-    width: 100%;
-}
-
-.pick {
-    border: 1px solid blue;
-    display: flex;
-    justify-content: space-evenly;
-}
-
-.bottom {
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    border: 1px solid green;
-}
-
-.game button:hover {
-    filter: brightness(1.2);
-}
-
 /* Place Bet Modal */
 .placeBetModal {
-    max-width: 50%;
+    /* max-width: 100%; */
     margin: auto;
     padding: 1rem;
     border: none;
     border-radius: 10px;
-    box-shadow: -5px 5px 5px grey;
-    background-color: #dbdbdb;
+    box-shadow: -5px 5px 5px #a2a2a2;
+    background-color: #121212;
+    color: white;
+    font-family: 'Orbitron';
+}
+
+.placeBetModal form {
+    display: flex;
+    flex-direction: column;
+    /* width: 300px; */
+    align-items: center;
 }
 
 .closeBetModal {
-    margin-left: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     cursor: pointer;
-    color: white;
-    background-color: lightgrey;
-    padding: 0.3rem;
-    display: inline;
     border-radius: 5px;
+    width: 25px;
+    padding: 5px;
+    background-color: #9d9d9d47;
+    font-family: 'Orbitron';
+}
+
+.closeBetModal:hover {
+    /* filter: brightness(1.2); */
+    background-color: #890000;
 }
 
 .placeBetModal h2 {
     display: flex;
     justify-content: center;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
+    margin-top: 25px;
+    /* margin-bottom: 0.5rem; */
+    font-size: 1.7rem;
+}
+
+.pickATeam {
+    margin-bottom: 10px;
+}
+
+.placeBetModal form div {
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    width: 250px;
+    margin-top: 10px;
+    /* border: 1px solid white; */
+}
+
+.placeBetModal form div label {
+    margin-bottom: 2px;
+}
+
+.placeBetModal form div input {
+    font-family: 'Orbitron';
+    font-size: 16px;
+    width: 100%;
+    border-style: none;
+    border-radius: 5px;
+    padding: 3px;
 }
 
 .modalTeams {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.spreadDiv {
     display: flex;
 }
 
@@ -334,6 +354,10 @@ h2 {
     flex-direction: column;
     align-items: center;
     margin-right: 0.5rem;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #9d9d9d47;
 }
 
 .modalTeam2 {
@@ -341,17 +365,41 @@ h2 {
     flex-direction: column;
     align-items: center;
     margin-left: 0.5rem;
-}
-
-.betModalHomeTeam {
+    padding: 5px;
+    border-radius: 5px;
     cursor: pointer;
+    background-color: #9d9d9d47;
 }
 
-.betModalAwayTeam {
+/* .betModalHomeTeam {
     cursor: pointer;
+} */
+
+/* .betModalAwayTeam {
+    cursor: pointer;
+} */
+
+#teamName {
+    background-color: #9d9d9d;
+    outline: none;
 }
 
-.betAmount {
+#points {
+    background-color: #9d9d9d;
+    outline: none;
+}
+
+#price {
+    background-color: #9d9d9d;
+    outline: none;
+}
+
+#winnings {
+    background-color: #9d9d9d;
+    outline: none;
+}
+
+/* .betAmount {
     height: 1.5rem;
     padding-left: 0.1rem;
     width: 5rem;
@@ -359,23 +407,22 @@ h2 {
     display: block;
     margin-left: auto;
     margin-right: auto;
-}
+} */
 
 .placeBet {
-    padding: 0.5rem;
+    font-family: 'Orbitron';
+    font-size: 1rem;
+    padding: 10px;
     border: none;
     border-radius: 5px;
-    background-color: #6331c1;
+    background-color: #19198a;
     color: white;
     cursor: pointer;
-    display: block;
+    margin-top: 5px;
+    /* display: block;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 0.5rem;
-}
-
-.closeBetModal:hover {
-    filter: brightness(1.2);
+    margin-top: 0.5rem; */
 }
 
 .placeBet:hover {

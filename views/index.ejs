@@ -61,10 +61,7 @@
 
             </dialog>
 
-
-
             <div>
-                <label for="weeks">Weeks</label>
                 <select name="weeks" id="weeks">
                     <option value="Pick">Pick Week...</option>
                     <option value="Week1">Week 1</option>
@@ -92,43 +89,59 @@
         </section>
 
         <dialog class="placeBetModal">
-            <div class="closeBetModal">X</div>
-            <h2>Pick a Team</h2>
+            <p class="closeBetModal">X</p>
+            <h2 class="pickATeam">Pick a Team</h2>
 
             <section class="modalTeams">
                 <div class="modalTeam1">
                     <div class="betModalHomeTeam"></div>
-                    <!-- <div class="homeSpread"></div> -->
-                    <div class="homePoints"></div>
-                    <div class="homePrice"></div>
+                    <div class="spreadDiv">
+                        <div class="homePoints"></div>
+                        <div>/</div>
+                        <div class="homePrice"></div>
+                    </div>
                 </div>
 
                 <div class="modalTeam2">
                     <div class="betModalAwayTeam"></div>
-                    <div class="awayPoints"></div>
-                    <div class="awayPrice"></div>
-                    <!-- <div class="awaySpread"></div> -->
+                    <div class="spreadDiv">
+                        <div class="awayPoints"></div>
+                        <div>/</div>
+                        <div class="awayPrice"></div>
+                    </div>
                 </div>
             </section>
 
             <h2>Place Your Bet</h2>
             <form action="/" method="POST">
-                <label for="teamName">Team Name</label>
-                <input name="teamName" type="text" id="teamName" class="" value="" readonly>
+                <div>
+                    <label for="teamName">Team Name</label>
+                    <input name="teamName" type="text" id="teamName" readonly>
+                </div>
 
-                <label for="points">Points</label>
-                <input name="points" type="text" id="points" class="" readonly>
+                <div>
+                    <label for="points">Points</label>
+                    <input name="points" type="text" id="points" readonly>
+                </div>
 
-                <label for="price">Price</label>
-                <input name="price" type="text" id="price" class="" readonly>
+                <div>
+                    <label for="price">Price</label>
+                    <input name="price" type="text" id="price" readonly>
+                </div>
 
-                <label for="betAmount">Bet</label>
-                <input name="betAmount" type="text" id="betAmount" class="" inputmode="numeric" pattern="[0-9+-.]+">
+                <div>
+                    <label for="winnings">Winnings</label>
+                    <input type="number" name="winnings" id="winnings" readonly>
+                </div>
 
-                <label for="winnings">Winnings</label>
-                <input type="number" name="winnings" id="winnings" readonly>
+                <div>
+                    <label for="betAmount">Bet</label>
+                    <input name="betAmount" type="text" id="betAmount" inputmode="numeric" pattern="[0-9+-.]">
+                </div>
 
-                <button class="placeBet">Place Bet</button>
+                <div>
+                    <button class="placeBet">Place Bet</button>
+                </div>
             </form>
         </dialog>
 
