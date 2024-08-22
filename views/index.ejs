@@ -42,9 +42,9 @@
                 <% if (currentUser) { %>
                     <div class="money">
                         <div>Spent Money:</div>
-                        <div>$</div>
+                        <!-- <div>$</div> -->
                         <div class="spentMoney">
-                            <%= currentUser.spentMoney %>
+                            $<%= currentUser.spentMoney %>
                         </div>
                         <button class="edit-balance">Edit</button>
                     </div>
@@ -52,13 +52,13 @@
             </section>
 
             <dialog class="edit-balance-modal">
-                <button class="close-edit-balance-modal">X</button>
-                <div>Enter positive number to add money or negative number to withdraw.</div>
+                <p class="close-edit-balance-modal">X</p>
+                <div>Enter a positive number to deposit money or negative number to withdraw.</div>
                 <form action="/editbalance" method="POST">
-                    <input type="number" class="change" id="editBalance" name="editBalance">
+                    <input type="text" class="change" id="editBalance" name="editBalance" inputmode="numeric"
+                        pattern="[0-9+-.]+">
                     <button class="submit-edit-balance-modal">Submit</button>
                 </form>
-
             </dialog>
 
             <div>

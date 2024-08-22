@@ -251,22 +251,96 @@ h2 {
     align-items: center;
     position: absolute;
     right: 1rem;
-    width: 15rem;
-    font-size: 1.2rem;
+    font-size: 1rem;
     padding: 0.5rem;
-    border: 2px solid #54b654;
+    background-color: #9d9d9d47;
     border-radius: 10px;
     color: white;
+    font-family: 'Orbitron';
 }
 
 .money button {
     border: none;
     background-color: #19198a;
     padding: 0.5rem 0.8rem;
-    border-radius: 20px;
+    border-radius: 10px;
     cursor: pointer;
     color: white;
-    font-family: 'source serif pro';
+    font-family: 'Orbitron';
+}
+
+.money button:hover {
+    filter: brightness(1.2);
+}
+
+.spentMoney {
+    margin-left: 5px;
+    margin-right: 10px;
+}
+
+/* Edit Balance Modal */
+.edit-balance-modal {
+    font-family: Orbitron;
+    margin: auto;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    box-shadow: -5px 5px 5px #a2a2a2;
+    background-color: #121212;
+    color: white;
+    /* width: 500px; */
+    /* height: 200px; */
+}
+
+.close-edit-balance-modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    background-color: #9d9d9d47;
+    color: white;
+    padding: 5px;
+    width: 25px;
+    border-radius: 5px;
+}
+
+.close-edit-balance-modal:hover {
+    background-color: #890000;
+}
+
+.edit-balance-modal div {
+    margin-top: 40px;
+    margin-bottom: 5px;
+    line-height: 1.3;
+}
+
+.edit-balance-modal form {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.edit-balance-modal input {
+    font-size: 16px;
+    width: 200px;
+    border-style: none;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.edit-balance-modal button {
+    font-family: 'Orbitron';
+    font-size: 1rem;
+    color: white;
+    background-color: #19198a;
+    border-style: none;
+    border-radius: 5px;
+    padding: 5px;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+.edit-balance-modal button:hover {
+    filter: brightness(1.2);
 }
 
 /* Place Bet Modal */
