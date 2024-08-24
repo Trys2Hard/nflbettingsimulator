@@ -22,17 +22,17 @@
             <form action="/register" method="POST">
                 <div>
                     <label for="email">Email</label>
-                    <input type="text" id="email" name="email">
+                    <input type="email" id="email" name="email">
                 </div>
 
                 <div>
                     <label for="username">Username</label>
-                    <input type="text" id="username" name="username">
+                    <input type="text" id="username" name="username" minlength="4" maxlength="16">
                 </div>
 
                 <div>
                     <label for="password">Password</label>
-                    <input type="text" id="password" name="password">
+                    <input type="password" id="password" name="password" minlength="8" maxlength="128">
                 </div>
 
                 <div>
@@ -40,6 +40,7 @@
                 </div>
             </form>
         </section>
+        <script src="js/navbar.js"></script>
 </body>
 
 </html>

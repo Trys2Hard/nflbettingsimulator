@@ -14,6 +14,8 @@ const { storeReturnTo } = require('./middleware');
 const methodOverride = require('method-override');
 require('dotenv').config();
 const apiKey = process.env.API_KEY;
+const crypto = require('crypto');
+const nodemailer = require('nodemailer');
 
 mongoose.connect('mongodb://127.0.0.1:27017/betApp')
     .then(() => {
@@ -122,16 +124,57 @@ app.post('/register', async (req, res) => {
         req.body.balance = 1000;
         req.body.spentMoney = 1000;
         const { email, username, password, balance, spentMoney } = req.body;
-        const user = new User({ email, username, balance, spentMoney });
+        const user = new User({ email, username, balance, spentMoney, isVerified: false });
         const registeredUser = await User.register(user, password);
-        req.login(registeredUser, err => {
-            if (err) return next(err);
-            req.flash('success', 'Your account has been created, and you are now logged in.');
-            res.redirect('/bets');
-        })
+        const token = crypto.randomBytes(32).toString('hex');
+        registeredUser.emailToken = token;
+        await registeredUser.save();
+
+        const transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: "nflbettingsimulator@gmail.com",
+                pass: "loiqigbfwvanliwd",
+            },
+        });
+
+        const mailOptions = {
+            from: "nflbettingsimulator@gmail.com",
+            to: registeredUser.email,
+            subject: "Account Verification",
+            text: `Please verify your account by clicking the link: \nhttp:\/\/${req.headers.host}\/verify-email?userId=${registeredUser._id}&token=${token} If the link does not work please copy the link and paste directly into a web browser.`
+        };
+
+        transporter.sendMail(mailOptions, (err, info) => {
+            if (err) {
+                console.log(err);
+                return res.status(500).send({ message: 'Error sending verification email' });
+            }
+            res.status(200).send({ message: 'Your account has been created. In order to log in to your account you must click the link in the verification email sent to ' + registeredUser.email });
+        });
     } catch (error) {
         req.flash('error', 'Failed to create your account.');
         res.redirect('/register');
+    }
+})
+
+app.get('/verify-email', async (req, res) => {
+    const { userId, token } = req.query;
+
+    try {
+        const user = await User.findOne({ _id: userId, emailToken: token });
+
+        if (!user) {
+            return res.status(400).send({ message: 'Invalid token or user does not exist' });
+        } else {
+            user.isVerified = true;
+            user.emailToken = null;
+            await user.save();
+            req.flash('success', 'Your account has been verified.')
+            res.redirect('/login');
+        }
+    } catch (error) {
+        res.status(500).send({ message: 'Internal Server Error' });
     }
 })
 
@@ -140,9 +183,19 @@ app.get('/login', (req, res) => {
 });
 
 app.post('/login', storeReturnTo, passport.authenticate('local', { failureFlash: true, failureRedirect: '/login' }), (req, res) => {
-    req.flash('success', 'You have successfully logged in to your account.');
-    const redirectUrl = res.locals.returnTo || '/';
-    res.redirect(redirectUrl);
+    if (req.user.isVerified === true) {
+        req.flash('success', 'You have successfully logged in to your account.');
+        const redirectUrl = res.locals.returnTo || '/';
+        res.redirect(redirectUrl);
+    } else {
+        req.logout(function (err) {
+            if (err) {
+                return next(err);
+            }
+            req.flash('error', 'Please verify your account.');
+            res.redirect('/login');
+        });
+    }
 });
 
 app.get('/logout', (req, res, next) => {

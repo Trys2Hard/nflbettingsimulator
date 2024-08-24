@@ -15,6 +15,13 @@ const UserSchema = new Schema({
     spentMoney: {
         type: Number,
         defalut: 0
+    },
+    isVerified: {
+        type: Boolean,
+        defalut: false
+    },
+    emailToken: {
+        type: String
     }
 });
 
