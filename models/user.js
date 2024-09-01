@@ -6,23 +6,29 @@ const UserSchema = new Schema({
     email: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
     },
     balance: {
         type: Number,
-        required: false
+        required: false,
     },
     spentMoney: {
         type: Number,
-        defalut: 0
+        defalut: 0,
     },
     isVerified: {
         type: Boolean,
-        defalut: false
+        defalut: false,
     },
     emailToken: {
-        type: String
-    }
+        type: String,
+    },
+    resetToken: {
+        type: String,
+    },
+    resetTokenExpires: {
+        type: String,
+    },
 });
 
 UserSchema.plugin(passportLocalMongoose);

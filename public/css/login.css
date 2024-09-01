@@ -45,6 +45,11 @@ input {
     padding: 5px;
 }
 
+.forgot-password {
+    color: #5ed0ff;
+    font-family: 'Serif Pro';
+}
+
 .login-button {
     font-family: 'Orbitron';
     font-size: 1rem;

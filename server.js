@@ -87,7 +87,6 @@ app.get('/api/data', async (req, res) => {
 
 app.get('/', (req, res) => {
     res.render('index');
-    // console.log(process.env.API_KEY)
 });
 
 app.get('/bets', isLoggedIn, async (req, res) => {
@@ -147,7 +146,6 @@ app.post('/register', async (req, res) => {
 
         transporter.sendMail(mailOptions, (err, info) => {
             if (err) {
-                console.log(err);
                 return res.status(500).send({ message: 'Error sending verification email' });
             }
             res.status(200).send({ message: 'Your account has been created. In order to log in to your account you must click the link in the verification email sent to ' + registeredUser.email });
@@ -156,27 +154,7 @@ app.post('/register', async (req, res) => {
         req.flash('error', 'Failed to create your account.');
         res.redirect('/register');
     }
-})
-
-app.get('/verify-email', async (req, res) => {
-    const { userId, token } = req.query;
-
-    try {
-        const user = await User.findOne({ _id: userId, emailToken: token });
-
-        if (!user) {
-            return res.status(400).send({ message: 'Invalid token or user does not exist' });
-        } else {
-            user.isVerified = true;
-            user.emailToken = null;
-            await user.save();
-            req.flash('success', 'Your account has been verified.')
-            res.redirect('/login');
-        }
-    } catch (error) {
-        res.status(500).send({ message: 'Internal Server Error' });
-    }
-})
+});
 
 app.get('/login', (req, res) => {
     res.render('login');
@@ -208,12 +186,109 @@ app.get('/logout', (req, res, next) => {
     });
 });
 
+app.get('/verify-email', async (req, res) => {
+    const { userId, token } = req.query;
+
+    try {
+        const user = await User.findOne({ _id: userId, emailToken: token });
+
+        if (!user) {
+            return res.status(400).send({ message: 'Invalid token or user does not exist.' });
+        } else {
+            user.isVerified = true;
+            user.emailToken = null;
+            await user.save();
+            req.flash('success', 'Your account has been verified.')
+            res.redirect('/login');
+        }
+    } catch (error) {
+        res.status(500).send({ message: 'Failed to verify your account.' });
+    }
+});
+
+app.get('/forgot-password', (req, res) => {
+    res.render('forgot-password')
+})
+
+app.post('/forgot-password', async (req, res) => {
+    try {
+        const user = await User.findOne({ email: req.body.email });
+
+        if (!user) {
+            req.flash('success', 'If an account with the provided email address exists you will receive an email with a link to reset your password.');
+            res.redirect('/login');
+        } else {
+            const resetToken = crypto.randomBytes(32).toString('hex');
+            const hashedResetToken = crypto.createHash('sha256').update(resetToken).digest('hex');
+            const resetTokenExpires = Date.now() + 10 * 60 * 1000;
+            user.resetToken = hashedResetToken;
+            user.resetTokenExpires = resetTokenExpires;
+            await user.save();
+
+            const transporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                    user: process.env.EMAIL_USER,
+                    pass: process.env.EMAIL_PASS,
+                },
+            });
+
+            const mailOptions = {
+                from: process.env.EMAIL_USER,
+                to: req.body.email,
+                subject: "Forgot Password",
+                text: `Click the following link to reset your password \nhttp:\/\/${req.headers.host}\/reset-password?userId=${user._id}&resetToken=${resetToken} This link will expire in 10 minutes.`
+            };
+
+            transporter.sendMail(mailOptions, (err, info) => {
+                if (err) {
+                    return res.status(500).send({ message: 'Error sending forgot password email' });
+                }
+                req.flash('success', 'If an account with the provided email address exists you will receive an email with a link to reset your password.')
+                res.redirect('/login');
+            });
+        }
+    } catch (error) {
+        req.flash('error', 'Failed to reset your password');
+        res.redirect('/login');
+    }
+});
+
+app.get('/reset-password', async (req, res) => {
+    const { userId, resetToken } = req.query;
+    req.session.userId = userId;
+    const hashedResetToken = crypto.createHash('sha256').update(resetToken).digest('hex');
+    try {
+        const user = await User.findOne({ _id: userId, resetToken: hashedResetToken });
+        if (!user || Date.now() > user.resetTokenExpires) {
+            return res.status(400).send({ message: 'Invalid token or user does not exist' });
+        } else {
+            res.render('reset-password');
+        }
+    } catch (error) {
+        res.status(500).send({ message: 'Internal Server Error' });
+    }
+});
+
+app.post('/reset-password', async (req, res) => {
+    try {
+        const user = await User.findOne({ _id: req.session.userId });
+        await user.setPassword(req.body.password);
+        user.resetToken = undefined;
+        user.resetTokenExpires = undefined;
+        await user.save();
+        req.flash('success', 'Your password has been reset');
+        res.redirect('/login');
+    } catch (error) {
+        res.status(500).send({ message: 'Failed to reset password' });
+    }
+});
+
 app.post('/editbalance', isLoggedIn, async (req, res) => {
     try {
         req.user.balance = req.user.balance + parseInt(req.body.editBalance);
         req.user.spentMoney = req.user.spentMoney + parseInt(req.body.editBalance);
         await req.user.save();
-        console.log(req.user);
         res.redirect('/');
     } catch (error) {
         req.flash('error', 'Failed to update your account balance');
