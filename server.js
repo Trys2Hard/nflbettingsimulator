@@ -34,10 +34,11 @@ const PORT = process.env.PORT || 3000;
 const sessionConfig = {
     secret: 'secretgoeshere',
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     cookie: {
-        httpOnly: true,
-        expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+        // httpOnly: true,
+        // expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+        secure: false,
         maxAge: 1000 * 60 * 60 * 24 * 7
     }
 }
@@ -68,7 +69,7 @@ app.use((req, res, next) => {
 // Routes
 app.get('/api/data', async (req, res) => {
     try {
-        const response = await fetch(`https://api.the-odds-api.com/v4/sports/americanfootball_nfl/odds/?apiKey=${apiKey}&regions=us&markets=spreads&oddsFormat=american`, {
+        const response = await fetch(`ttps://api.the-odds-api.com/v4/sports/americanfootball_nfl/odds/?apiKey=${apiKey}&regions=us&markets=spreads&oddsFormat=american`, {
             headers: {
                 'Authorization': `Bearer ${apiKey}`
             }
@@ -257,7 +258,8 @@ app.post('/forgot-password', async (req, res) => {
 app.get('/reset-password', async (req, res) => {
     const { userId, resetToken } = req.query;
     req.session.userId = userId;
-    const hashedResetToken = crypto.createHash('sha256').update(resetToken).digest('hex');
+    req.session.resetToken = resetToken;
+    const hashedResetToken = crypto.createHash('sha256').update(req.session.resetToken).digest('hex');
     try {
         const user = await User.findOne({ _id: userId, resetToken: hashedResetToken });
         if (!user || Date.now() > user.resetTokenExpires) {
@@ -271,16 +273,21 @@ app.get('/reset-password', async (req, res) => {
 });
 
 app.post('/reset-password', async (req, res) => {
-    try {
-        const user = await User.findOne({ _id: req.session.userId });
-        await user.setPassword(req.body.password);
-        user.resetToken = undefined;
-        user.resetTokenExpires = undefined;
-        await user.save();
-        req.flash('success', 'Your password has been reset');
-        res.redirect('/login');
-    } catch (error) {
-        res.status(500).send({ message: 'Failed to reset password' });
+    if (req.body.confirmPassword !== req.body.password) {
+        req.flash('error', 'Passwords do not match.');
+        res.redirect(`/reset-password?userId=${req.session.userId}&resetToken=${req.session.resetToken}`);
+    } else {
+        try {
+            const user = await User.findOne({ _id: req.session.userId });
+            await user.setPassword(req.body.password);
+            user.resetToken = undefined;
+            user.resetTokenExpires = undefined;
+            await user.save();
+            req.flash('success', 'Your password has been reset');
+            res.redirect('/login');
+        } catch (error) {
+            res.status(500).send({ message: 'Failed to reset password' });
+        }
     }
 });
 
