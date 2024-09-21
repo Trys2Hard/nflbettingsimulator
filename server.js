@@ -69,7 +69,7 @@ app.use((req, res, next) => {
 // Routes
 app.get('/api/data', async (req, res) => {
     try {
-        const response = await fetch(`ttps://api.the-odds-api.com/v4/sports/americanfootball_nfl/odds/?apiKey=${apiKey}&regions=us&markets=spreads&oddsFormat=american`, {
+        const response = await fetch(`https://api.the-odds-api.com/v4/sports/americanfootball_nfl/odds/?apiKey=${apiKey}&regions=us&markets=spreads&oddsFormat=american`, {
             headers: {
                 'Authorization': `Bearer ${apiKey}`
             }

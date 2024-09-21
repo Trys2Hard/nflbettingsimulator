@@ -1,6 +1,3 @@
-// Saints game at 127 previously had no draftkings bookmaker, this game used odds from the next game causing all games after 127 to be incorrect.
-// code should use different bookmaker if draftkings is not available
-
 let pickTeam = '';
 const games = document.querySelector('.games');
 const account = document.querySelector('.account');
@@ -24,6 +21,7 @@ if (editBalance) {
 // console.log(Date.now());
 
 document.addEventListener('DOMContentLoaded', () => {
+    // try {
     fetch('/api/data')
         .then(response => response.json())
         .then(data => {
@@ -35,8 +33,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const homePointsArr = [];
             const awayPointsArr = [];
 
+
             const getSpreads = () => {
                 for (const contest of data) {
+                    let foundDraftkings = false;
                     for (const bookmaker of contest.bookmakers) {
                         if (bookmaker.markets[0].outcomes[0].point > 0) {
                             var point1 = `+${bookmaker.markets[0].outcomes[0].point}`;
@@ -78,6 +78,16 @@ document.addEventListener('DOMContentLoaded', () => {
                                 homePointsArr.push(`${point2}`);
                                 awayPointsArr.push(`${point1}`);
                             }
+                            foundDraftkings = true;
+                            break;
+                        }
+                        if (!foundDraftkings) {
+                            homeSpreads.push('N/A');
+                            awaySpreads.push('N/A');
+                            homePriceArr.push('N/A');
+                            awayPriceArr.push('N/A');
+                            homePointsArr.push('N/A');
+                            awayPointsArr.push('N/A');
                         }
                     }
                 }
@@ -86,7 +96,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             let firstGame = 1725582000000;
             let lastGame = 1725927600000;
-
 
             const listGames = () => {
                 for (let i = 0; i < data.length; i++) {
@@ -155,6 +164,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         awayName.innerText = data[i].away_team;
                         awayNums.innerText = awaySpreads[i];
                         bet.innerText = 'Place Bet';
+
+                        if (homeNums.innerText === "N/A") {
+                            bet.style.display = "none";
+                        }
 
                         // homeImg.addEventListener('click', () => {
                         //     homeImg.style.backgroundColor = "blue";
@@ -332,6 +345,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
                         viewBetModal();
                     }
+                    else {
+                        console.log('Error listing games')
+                    }
                 }
             }
 
@@ -429,7 +445,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             })
         });
-})
-// .catch(error => {
-//     console.error('Error fetching data:', error);
-// });
+    // }
+    // catch (error) {
+    //     console.error('Error fetching data:', error);
+    // };
+});
