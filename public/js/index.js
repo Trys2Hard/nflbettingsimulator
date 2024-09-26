@@ -118,6 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         const awayPick = document.createElement('div');
                         const awayImg = document.createElement('img');
                         const awayStatus = document.createElement('p');
+                        const id = data[i].id;
 
                         // console.log(homeSpreads);
                         // console.log(data.length)
@@ -165,9 +166,16 @@ document.addEventListener('DOMContentLoaded', () => {
                         awayNums.innerText = awaySpreads[i];
                         bet.innerText = 'Place Bet';
 
-                        if (homeNums.innerText === "N/A") {
-                            bet.style.display = "none";
+                        if (homeNums.innerText === 'N/A') {
+                            bet.style.display = 'none';
                         }
+
+                        if (Date.now() >= Date.parse(data[i].commence_time)) {
+                            bet.style.display = 'none';
+                        }
+
+                        // console.log(Date.parse(data[i].commence_time));
+                        // console.log(Date.now());
 
                         // homeImg.addEventListener('click', () => {
                         //     homeImg.style.backgroundColor = "blue";
@@ -236,6 +244,10 @@ document.addEventListener('DOMContentLoaded', () => {
                                 const winnings = document.querySelector('#winnings');
                                 const points = document.querySelector('#points');
                                 const price = document.querySelector('#price');
+                                const opponent = document.querySelector('#opponent');
+                                const gameId = document.querySelector('#gameId');
+
+                                gameId.value = id;
 
                                 betModalHomeTeam.style.color = "white";
                                 betModalAwayTeam.style.color = "white";
@@ -275,12 +287,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
                                 modalTeam1.addEventListener('click', () => {
                                     teamName.value = betModalHomeTeam.innerText;
+                                    opponent.value = betModalAwayTeam.innerText;
                                     points.value = homePoints.innerText;
                                     price.value = homePrice.innerText;
+                                    // gameId.value = 
                                 })
 
                                 modalTeam2.addEventListener('click', () => {
                                     teamName.value = betModalAwayTeam.innerText;
+                                    opponent.value = betModalHomeTeam.innerText;
                                     points.value = awayPoints.innerText;
                                     price.value = awayPrice.innerText;
                                 })

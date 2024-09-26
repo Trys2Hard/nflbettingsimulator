@@ -6,6 +6,9 @@ const betSchema = new Schema({
         type: String,
         // required: true
     },
+    opponent: {
+        type: String,
+    },
     points: {
         type: Number,
         // required: true
@@ -19,13 +22,16 @@ const betSchema = new Schema({
         // required: true
     },
     winnings: {
-        type: Number
+        type: String,
     },
     author: {
         type: Schema.Types.ObjectId,
         ref: 'User'
-    }
-})
+    },
+    gameId: {
+        type: String,
+    },
+});
 
 const Bet = mongoose.model('Bet', betSchema);
 

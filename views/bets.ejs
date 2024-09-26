@@ -21,19 +21,24 @@
         <div class="currentBets">
             <ul class="titles">
                 <li>Team Name</li>
+                <li>Opponent</li>
                 <li>Spread/Points</li>
                 <li>Price</li>
                 <li>Bet Amount</li>
                 <li>Winnings</li>
+                <li>Id</li>
             </ul>
 
-            <ul>
+            <ul class="bets">
                 <% for(let bet of bets) { %>
                     <div class="info">
-                        <li>
+                        <li class="teamName">
                             <%= bet.teamName %>
                         </li>
                         <li>
+                            <%= bet.opponent %>
+                        </li>
+                        <li class="spread">
                             <%= bet.points %>
                         </li>
                         <li>
@@ -45,6 +50,9 @@
                         <li>
                             <%= bet.winnings %>
                         </li>
+                        <li class="gameId">
+                            <%= bet.gameId %>
+                        </li>
                         <form action="/bets/<%=bet._id%>?_method=DELETE" method="POST">
                             <button class="deleteButton">Delete Bet</button>
                         </form>
@@ -55,6 +63,7 @@
 
         <h2>Completed Bets</h2>
         <script src="js/navbar.js"></script>
+        <script src="js/bets.js"></script>
 </body>
 
 </html>

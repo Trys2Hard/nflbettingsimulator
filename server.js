@@ -86,6 +86,25 @@ app.get('/api/data', async (req, res) => {
     }
 });
 
+app.get('/api/completedGames', async (req, res) => {
+    try {
+        const response = await fetch(`https://api.the-odds-api.com/v4/sports/americanfootball_nfl/scores/?apiKey=${apiKey}&daysFrom=3`, {
+            headers: {
+                'Authorization': `Bearer ${apiKey}`
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const data = await response.json();
+        res.json(data);
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to fetch data' });
+    }
+});
+
 app.get('/', (req, res) => {
     res.render('index');
 });

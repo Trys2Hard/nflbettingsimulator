@@ -458,6 +458,11 @@ h2 {
     outline: none;
 }
 
+#opponent {
+    background-color: #9d9d9d;
+    outline: none;
+}
+
 #points {
     background-color: #9d9d9d;
     outline: none;
@@ -469,6 +474,11 @@ h2 {
 }
 
 #winnings {
+    background-color: #9d9d9d;
+    outline: none;
+}
+
+#gameId {
     background-color: #9d9d9d;
     outline: none;
 }
