@@ -45,6 +45,11 @@ input {
     padding: 5px;
 }
 
+.register-container ul {
+    margin-top: 20px;
+    line-height: 50px;
+}
+
 .register-button {
     font-family: 'Orbitron';
     font-size: 1rem;

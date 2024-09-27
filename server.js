@@ -312,10 +312,15 @@ app.post('/reset-password', async (req, res) => {
 
 app.post('/editbalance', isLoggedIn, async (req, res) => {
     try {
-        req.user.balance = req.user.balance + parseInt(req.body.editBalance);
-        req.user.spentMoney = req.user.spentMoney + parseInt(req.body.editBalance);
-        await req.user.save();
-        res.redirect('/');
+        if (req.user.spentMoney + parseInt(req.body.editBalance) < 0) {
+            req.flash('error', 'Spent money cannot be less than $0.');
+            res.redirect('/');
+        } else {
+            req.user.balance = req.user.balance + parseInt(req.body.editBalance);
+            req.user.spentMoney = req.user.spentMoney + parseInt(req.body.editBalance);
+            await req.user.save();
+            res.redirect('/');
+        }
     } catch (error) {
         req.flash('error', 'Failed to update your account balance');
         res.redirect('/');
