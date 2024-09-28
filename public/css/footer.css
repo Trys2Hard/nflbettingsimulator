@@ -1,0 +1,16 @@
+footer {
+    font-family: 'Source Serif Pro';
+    font-size: 0.9rem;
+    color: white;
+    background-color: #252525;
+    position: absolute;
+    bottom: 0;
+    text-align: center;
+    line-height: 1.2;
+    padding: 15px;
+}
+
+.copyright {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
