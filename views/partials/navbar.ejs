@@ -1,6 +1,6 @@
 <nav>
     <div class="logo">NFL Betting Simulator</div>
-    <ul>
+    <ul class="desktop-nav-links">
         <li><a href="/">Home</a></li>
         <li><a href="/bets">Bets</a></li>
     </ul>
@@ -15,7 +15,7 @@
                         <% } %>
             </div>
         </div>
-        <div class="nav-buttons">
+        <div class="nav-buttons desktop-nav-links">
             <% if(!currentUser) { %>
                 <a href="/login" class="nav-login-button"><button>Login</button></a>
                 <a href="/register"><button>Create Account</button></a>
@@ -23,6 +23,35 @@
                     <a href="/logout" class="logout-button"><button>Logout</button></a>
                     <%}%>
         </div>
+
+        <!-- Mobile Nav Begin -->
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/" class="nav-link">Home</a>
+            </li>
+            <li class="nav-item">
+                <a href="/bets" class="nav-link">Bets</a>
+            </li>
+            <% if(!currentUser) { %>
+                <li class="nav-item">
+                    <a href="/login" class="nav-link">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/register" class="nav-link">Create Account</a>
+                </li>
+                <%} else {%>
+                    <li class="nav-item">
+                        <a href="/logout" class="nav-link">Logout</a>
+                    </li>
+                    <%}%>
+        </ul>
+
+        <div class="hamburger">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+        <!-- Mobile Nav End -->
 
     </section>
 </nav>

@@ -1,5 +1,12 @@
 const error = document.querySelector('.error');
 const success = document.querySelector('.success');
+const hamburger = document.querySelector('.hamburger');
+const navMenu = document.querySelector('.nav-menu');
+
+hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+    navMenu.classList.toggle('active');
+})
 
 if (error.innerText) {
     error.style.display = "flex";
