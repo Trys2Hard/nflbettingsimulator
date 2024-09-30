@@ -14,13 +14,16 @@ body {
     flex-direction: column;
     align-items: center;
     font-family: 'Orbitron';
+    margin-top: 40px;
 }
 
 h1 {
     display: flex;
     justify-content: center;
     font-size: 2rem;
-    margin-top: 40px;
+}
+
+.register-container form {
     width: 400px;
 }
 
@@ -28,7 +31,6 @@ h1 {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 400px;
 }
 
 label {
@@ -43,11 +45,6 @@ input {
     border-style: none;
     border-radius: 5px;
     padding: 5px;
-}
-
-.register-container ul {
-    margin-top: 20px;
-    line-height: 50px;
 }
 
 .register-button {
@@ -65,4 +62,28 @@ input {
 .register-button:hover {
     cursor: pointer;
     filter: brightness(1.2);
+}
+
+.register-container ul {
+    margin-top: 20px;
+    line-height: 50px;
+}
+
+.register-container ul li {
+    font-size: 0.9rem;
+}
+
+/* Media Queries */
+@media (max-width: 500px) {
+    .register-container form {
+        width: 80%;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    .register-container ul {
+        width: 80%;
+    }
 }
