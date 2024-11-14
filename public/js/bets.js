@@ -1,60 +1,62 @@
-const teamNames = document.querySelectorAll('.teamName');
-const gameIds = document.querySelectorAll('.gameId');
-const spreads = document.querySelectorAll('.spread');
+// const teamNames = document.querySelectorAll('.teamName');
+// const gameIds = document.querySelectorAll('.gameId');
+// const spreads = document.querySelectorAll('.spread');
+// const bets = document.querySelectorAll('.info');
+// const completedBets = document.querySelector('.completedBets');
 
-let namesArr = [];
-function namesFunc() {
-    teamNames.forEach(name => {
-        namesArr.push(name.innerText);
-    })
-}
-namesFunc();
+// let namesArr = [];
+// function namesFunc() {
+//     teamNames.forEach(name => {
+//         namesArr.push(name.innerText);
+//     })
+// }
+// namesFunc();
 
-let gameIdsArr = [];
-function gameIdsFunc() {
-    gameIds.forEach(game => {
-        gameIdsArr.push(game.innerText);
-    })
-}
-gameIdsFunc();
+// let gameIdsArr = [];
+// function gameIdsFunc() {
+//     gameIds.forEach(game => {
+//         gameIdsArr.push(game.innerText);
+//     })
+// }
+// gameIdsFunc();
 
-let spreadsArr = [];
-function spreadFunc() {
-    spreads.forEach(spread => {
-        spreadsArr.push(spread.innerText);
-    })
-}
-spreadFunc();
-console.log(spreadsArr);
+// let spreadsArr = [];
+// function spreadFunc() {
+//     spreads.forEach(spread => {
+//         spreadsArr.push(spread.innerText);
+//     })
+// }
+// spreadFunc();
 
-document.addEventListener('DOMContentLoaded', () => {
-    fetch('/api/completedGames')
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-            let i = 0;
+// document.addEventListener('DOMContentLoaded', () => {
+//     fetch('/api/completedGames')
+//         .then(response => response.json())
+//         .then(data => {
+//             console.log(data);
+//             let i = 0;
 
-            gameIdsArr.forEach((id) => {
-                for (const contest of data) {
-                    if (id === contest.id && contest.completed === true) {
-                        if (contest.scores[0].name === namesArr[i]) {
-                            let targetNum = parseInt(contest.scores[0].score) + parseInt(spreadsArr[i]);
-                            if (targetNum > parseInt(contest.scores[1].score)) {
-                                console.log('You won the bet');
-                            } else {
-                                console.log('You lost the bet');
-                            }
-                        } else if (contest.scores[1].name === namesArr[i]) {
-                            let targetNum = parseInt(contest.scores[1].score) + parseInt(spreadsArr[i]);
-                            if (targetNum > parseInt(contest.scores[0].score)) {
-                                console.log('You won the bet');
-                            } else {
-                                console.log('You lost the bet');
-                            }
-                        }
-                    }
-                }
-                i++;
-            })
-        })
-})
+//             gameIdsArr.forEach((id) => {
+//                 for (const contest of data) {
+//                     if (id === contest.id && contest.completed === true) {
+//                         completedBets.append(bets[i]);
+//                         if (contest.scores[0].name === namesArr[i]) {
+//                             let targetNum = parseInt(contest.scores[0].score) + parseInt(spreadsArr[i]);
+//                             if (targetNum > parseInt(contest.scores[1].score)) {
+//                                 bets[i].style.color = "green";
+//                             } else {
+//                                 bets[i].style.color = "red";
+//                             }
+//                         } else if (contest.scores[1].name === namesArr[i]) {
+//                             let targetNum = parseInt(contest.scores[1].score) + parseInt(spreadsArr[i]);
+//                             if (targetNum > parseInt(contest.scores[0].score)) {
+//                                 bets[i].style.color = "green";
+//                             } else {
+//                                 bets[i].style.color = "red";
+//                             }
+//                         }
+//                     }
+//                 }
+//                 i++;
+//             })
+//         })
+// })

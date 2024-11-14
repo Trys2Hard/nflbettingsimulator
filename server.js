@@ -66,7 +66,24 @@ app.use((req, res, next) => {
     next();
 })
 
+let data;
+async function fetchCompletedGames() {
+    if (!data) {
+        const response = await fetch(`https://api.the-odds-api.com/v4/sports/americanfootball_nfl/scores/?apiKey=${apiKey}&daysFrom=3`, {
+            headers: {
+                'Authorization': `Bearer ${apiKey}`
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        data = await response.json();
+    }
+}
+
 // Routes
+
 app.get('/api/data', async (req, res) => {
     try {
         const response = await fetch(`https://api.the-odds-api.com/v4/sports/americanfootball_nfl/odds/?apiKey=${apiKey}&regions=us&markets=spreads&oddsFormat=american`, {
@@ -79,7 +96,7 @@ app.get('/api/data', async (req, res) => {
             throw new Error('Network response was not ok');
         }
 
-        const data = await response.json();
+        const data = await response.json()
         res.json(data);
     } catch (error) {
         res.status(500).json({ error: 'Failed to fetch data' });
@@ -88,17 +105,7 @@ app.get('/api/data', async (req, res) => {
 
 app.get('/api/completedGames', async (req, res) => {
     try {
-        const response = await fetch(`https://api.the-odds-api.com/v4/sports/americanfootball_nfl/scores/?apiKey=${apiKey}&daysFrom=3`, {
-            headers: {
-                'Authorization': `Bearer ${apiKey}`
-            }
-        });
-
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-
-        const data = await response.json();
+        await fetchCompletedGames();
         res.json(data);
     } catch (error) {
         res.status(500).json({ error: 'Failed to fetch data' });
@@ -111,7 +118,35 @@ app.get('/', (req, res) => {
 
 app.get('/bets', isLoggedIn, async (req, res) => {
     try {
+        await fetchCompletedGames();
         const bets = await Bet.find({ author: req.user._id });
+        for (bet of bets) {
+            if (bet.completed === true) {
+                for (game of data) {
+                    if (game.completed === true) {
+                        if (bet.gameId === game.id) {
+                            if (bet.teamName === game.scores[0].name) {
+                                let num = parseInt(game.scores[0].score) + bet.points;
+                                if (num > parseInt(game.scores[1].score)) {
+                                    req.user.balance = parseInt(bet.winnings) + parseInt(req.user.balance);
+                                    await req.user.save();
+                                    bet.winnings = 0;
+                                    await bet.save();
+                                }
+                            } else if (bet.teamName === game.scores[1].name) {
+                                let num = parseInt(game.scores[1].score) + bet.points;
+                                if (num > parseInt(game.scores[0].score)) {
+                                    req.user.balance = parseInt(bet.winnings) + parseInt(req.user.balance);
+                                    await req.user.save();
+                                    bet.winnings = 0;
+                                    await bet.save();
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
         res.render('bets', { bets });
     } catch (error) {
         req.flash('error', 'Failed to retrieve your bets.');

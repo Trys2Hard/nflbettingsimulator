@@ -31,6 +31,10 @@ const betSchema = new Schema({
     gameId: {
         type: String,
     },
+    completed: {
+        type: Boolean,
+        // default: false,
+    },
 });
 
 const Bet = mongoose.model('Bet', betSchema);

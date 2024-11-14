@@ -246,8 +246,10 @@ document.addEventListener('DOMContentLoaded', () => {
                                 const price = document.querySelector('#price');
                                 const opponent = document.querySelector('#opponent');
                                 const gameId = document.querySelector('#gameId');
+                                const completed = document.querySelector('#completed');
 
                                 gameId.value = id;
+                                completed.value = "false";
 
                                 betModalHomeTeam.style.color = "white";
                                 betModalAwayTeam.style.color = "white";
