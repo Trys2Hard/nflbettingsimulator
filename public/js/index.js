@@ -8,6 +8,7 @@ const editBalance = document.querySelector('.edit-balance');
 const editBalanceModal = document.querySelector('.edit-balance-modal');
 const spentMoney = document.querySelector('.spentMoney');
 const closeEditBalanceModal = document.querySelector('.close-edit-balance-modal');
+const footer = document.querySelector('footer');
 
 if (editBalance) {
     editBalance.addEventListener('click', () => {
@@ -369,6 +370,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             weeks.addEventListener('change', (e) => {
+                // footer.style.position = 'relative';
                 if (e.target.value === "Week1") {
                     games.replaceChildren();
                     firstGame = 1725582000000;
