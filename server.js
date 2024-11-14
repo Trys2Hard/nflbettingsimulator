@@ -1,3 +1,5 @@
+// $13085, eagles bet -4 200 winnings 379, commanders bet +4 375 winnings 723
+
 const express = require('express');
 const ejs = require('ejs');
 const app = express();
@@ -123,14 +125,19 @@ app.get('/bets', isLoggedIn, async (req, res) => {
         for (bet of bets) {
             if (bet.completed === true) {
                 for (game of data) {
-                    if (game.completed === true) {
+                    if (game.completed === true && bet.isWon === false) {
                         if (bet.gameId === game.id) {
                             if (bet.teamName === game.scores[0].name) {
                                 let num = parseInt(game.scores[0].score) + bet.points;
                                 if (num > parseInt(game.scores[1].score)) {
                                     req.user.balance = parseInt(bet.winnings) + parseInt(req.user.balance);
                                     await req.user.save();
-                                    bet.winnings = 0;
+                                    bet.isWon = true;
+                                    await bet.save();
+                                } else if (num === parseInt(game.scores[1].score)) {
+                                    req.user.balance = parseInt(bet.betAmount) + parseInt(req.user.balance);
+                                    await req.user.save();
+                                    bet.isWon = true;
                                     await bet.save();
                                 }
                             } else if (bet.teamName === game.scores[1].name) {
@@ -138,7 +145,12 @@ app.get('/bets', isLoggedIn, async (req, res) => {
                                 if (num > parseInt(game.scores[0].score)) {
                                     req.user.balance = parseInt(bet.winnings) + parseInt(req.user.balance);
                                     await req.user.save();
-                                    bet.winnings = 0;
+                                    bet.isWon = true;
+                                    await bet.save();
+                                } else if (num === parseInt(game.scores[0].score)) {
+                                    req.user.balance = parseInt(bet.betAmount) + parseInt(req.user.balance);
+                                    await req.user.save();
+                                    bet.isWon = true;
                                     await bet.save();
                                 }
                             }

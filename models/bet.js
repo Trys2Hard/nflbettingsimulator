@@ -35,6 +35,9 @@ const betSchema = new Schema({
         type: Boolean,
         // default: false,
     },
+    isWon: {
+        type: Boolean,
+    }
 });
 
 const Bet = mongoose.model('Bet', betSchema);

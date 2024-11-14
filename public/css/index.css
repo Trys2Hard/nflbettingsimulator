@@ -489,6 +489,11 @@ h2 {
     outline: none;
 }
 
+#isWon {
+    background-color: #9d9d9d;
+    outline: none;
+}
+
 /* .betAmount {
     height: 1.5rem;
     padding-left: 0.1rem;
