@@ -36,9 +36,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
             const getSpreads = () => {
-                for (const contest of data) {
+                // let i = 0;
+                // let bookmakerNums = 0;
+                for (contest of data) {
                     let foundDraftkings = false;
-                    for (const bookmaker of contest.bookmakers) {
+                    // console.log(`game ${i++}`);
+                    for (bookmaker of contest.bookmakers) {
+                        // console.log('Bookmaker number ' + bookmakerNums)
                         if (bookmaker.markets[0].outcomes[0].point > 0) {
                             var point1 = `+${bookmaker.markets[0].outcomes[0].point}`;
                         } else {
@@ -64,6 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
 
                         if (bookmaker.key === "draftkings") {
+                            console.log('draftkings')
                             if (bookmaker.markets[0].outcomes[0].name == contest.home_team) {
                                 homeSpreads.push(`${point1}/${price1}`);
                                 awaySpreads.push(`${point2}/${price2}`);
@@ -82,14 +87,14 @@ document.addEventListener('DOMContentLoaded', () => {
                             foundDraftkings = true;
                             break;
                         }
-                        if (!foundDraftkings) {
-                            homeSpreads.push('N/A');
-                            awaySpreads.push('N/A');
-                            homePriceArr.push('N/A');
-                            awayPriceArr.push('N/A');
-                            homePointsArr.push('N/A');
-                            awayPointsArr.push('N/A');
-                        }
+                    }
+                    if (!foundDraftkings) {
+                        homeSpreads.push('N/A');
+                        awaySpreads.push('N/A');
+                        homePriceArr.push('N/A');
+                        awayPriceArr.push('N/A');
+                        homePointsArr.push('N/A');
+                        awayPointsArr.push('N/A');
                     }
                 }
             }
@@ -188,35 +193,147 @@ document.addEventListener('DOMContentLoaded', () => {
                         //     homeImg.style.backgroundColor = "gray";
                         // })
 
-                        awayImg.src = '../img/nfl-logos/kansas-city-chiefs.png';
-                        homeImg.src = '../img/nfl-logos/houston-texans.png';
+                        // awayImg.src = '../img/nfl-logos/kansas-city-chiefs.png';
+                        // homeImg.src = '../img/nfl-logos/houston-texans.png';
 
-                        // const teamInfo = [
-                        //     {
-                        //         name: 'Kansas City Chiefs',
-                        //         img: '../img/nfl-logos/kansas-city-chiefs.png',
-                        //     },
-                        //     {
-                        //         name: 'Arizona Cardinals',
-                        //         img: '../img/nfl-logos/arizona-cardinals.png',
-                        //     },
-                        //     {
-                        //         name: 'New Orleans Saints',
-                        //         img: '../img/nfl-logos/new-orleans-saints.png',
-                        //     },
-                        //     {
-                        //         name: 'Houston Texans',
-                        //         img: '../img/nfl-logos/houston-texans.png',
-                        //     },
-                        // ];
+                        const teamInfo = [
+                            {
+                                name: 'Arizona Cardinals',
+                                img: '../img/nfl-logos/arizona-cardinals.png',
+                            },
+                            {
+                                name: 'Atlanta Falcons',
+                                img: '../img/nfl-logos/atlanta-falcons.png',
+                            },
+                            {
+                                name: 'Baltimore Ravens',
+                                img: '../img/nfl-logos/baltimore-ravens.png',
+                            },
+                            {
+                                name: 'Buffalo Bills',
+                                img: '../img/nfl-logos/buffalo-bills.png',
+                            },
+                            {
+                                name: 'Carolina Panthers',
+                                img: '../img/nfl-logos/carolina-panthers.png',
+                            },
+                            {
+                                name: 'Chicago Bears',
+                                img: '../img/nfl-logos/chicago-bears.png',
+                            },
+                            {
+                                name: 'Cincinnati Bengals',
+                                img: '../img/nfl-logos/cincinnati-bengals.png',
+                            },
+                            {
+                                name: 'Cleveland Browns',
+                                img: '../img/nfl-logos/cleveland-browns.png',
+                            },
+                            {
+                                name: 'Dallas Cowboys',
+                                img: '../img/nfl-logos/dallas-cowboys.png',
+                            },
+                            {
+                                name: 'Denver Broncos',
+                                img: '../img/nfl-logos/denver-broncos.png',
+                            },
+                            {
+                                name: 'Detroit Lions',
+                                img: '../img/nfl-logos/detroit-lions.png',
+                            },
+                            {
+                                name: 'Green Bay Packers',
+                                img: '../img/nfl-logos/green-bay-packers.png',
+                            },
+                            {
+                                name: 'Houston Texans',
+                                img: '../img/nfl-logos/houston-texans.png',
+                            },
+                            {
+                                name: 'Indianapolis Colts',
+                                img: '../img/nfl-logos/indianapolis-colts.png',
+                            },
+                            {
+                                name: 'Jacksonville Jaguars',
+                                img: '../img/nfl-logos/jacksonville-jaguars.png',
+                            },
+                            {
+                                name: 'Kansas City Chiefs',
+                                img: '../img/nfl-logos/kansas-city-chiefs.png',
+                            },
+                            {
+                                name: 'Las Vegas Raiders',
+                                img: '../img/nfl-logos/las-vegas-raiders.png',
+                            },
+                            {
+                                name: 'Los Angeles Chargers',
+                                img: '../img/nfl-logos/los-angeles-chargers.png',
+                            },
+                            {
+                                name: 'Los Angeles Rams',
+                                img: '../img/nfl-logos/los-angeles-rams.png',
+                            },
+                            {
+                                name: 'Miami Dolphins',
+                                img: '../img/nfl-logos/miami-dolphins.png',
+                            },
+                            {
+                                name: 'Minnesota Vikings',
+                                img: '../img/nfl-logos/minnesota-vikings.png',
+                            },
+                            {
+                                name: 'New England Patriots',
+                                img: '../img/nfl-logos/new-england-patriots.png',
+                            },
+                            {
+                                name: 'New Orleans Saints',
+                                img: '../img/nfl-logos/new-orleans-saints.png',
+                            },
+                            {
+                                name: 'New York Giants',
+                                img: '../img/nfl-logos/new-york-giants.png',
+                            },
+                            {
+                                name: 'New York Jets',
+                                img: '../img/nfl-logos/new-york-jets.png',
+                            },
+                            {
+                                name: 'Philadelphia Eagles',
+                                img: '../img/nfl-logos/philadelphia-eagles.png',
+                            },
+                            {
+                                name: 'Pittsburgh Steelers',
+                                img: '../img/nfl-logos/pittsburgh-steelers.png',
+                            },
+                            {
+                                name: 'San Francisco 49ers',
+                                img: '../img/nfl-logos/san-francisco-49ers.png',
+                            },
+                            {
+                                name: 'Seattle Seahawks',
+                                img: '../img/nfl-logos/seattle-seahawks.png',
+                            },
+                            {
+                                name: 'Tampa Bay Buccaneers',
+                                img: '../img/nfl-logos/tampa-bay-buccaneers.png',
+                            },
+                            {
+                                name: 'Tennessee Titans',
+                                img: '../img/nfl-logos/tennessee-titans.png',
+                            },
+                            {
+                                name: 'Washington Commanders',
+                                img: '../img/nfl-logos/washington-commanders.png',
+                            },
+                        ];
 
-                        // teamInfo.forEach((team) => {
-                        //     if (team.name === homeName.innerText) {
-                        //         homeImg.src = team.img;
-                        //     } else if (team.name === awayName.innerText) {
-                        //         awayImg.src = team.img;
-                        //     }
-                        // });
+                        teamInfo.forEach((team) => {
+                            if (team.name === homeName.innerText) {
+                                homeImg.src = team.img;
+                            } else if (team.name === awayName.innerText) {
+                                awayImg.src = team.img;
+                            }
+                        });
 
                         const viewBetModal = () => {
                             const betModal = document.querySelector('.placeBetModal');
