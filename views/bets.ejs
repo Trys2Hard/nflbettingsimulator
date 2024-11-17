@@ -19,6 +19,8 @@
     <%- include('./partials/navbar.ejs') %>
         <h2>Current Bets</h2>
 
+
+
         <div class="currentBets">
             <ul class="titles">
                 <li>Team Name</li>
@@ -32,38 +34,41 @@
 
             <ul class="bets">
                 <% for(let bet of bets) { %>
-
-                    <% if(bet.completed===false) { %>
-                        <ul class="info">
-                            <li class="teamName">
-                                <%= bet.teamName %>
-                            </li>
-                            <li>
-                                <%= bet.opponent %>
-                            </li>
-                            <li class="spread">
-                                <%= bet.points %>
-                            </li>
-                            <li>
-                                <%= bet.price %>
-                            </li>
-                            <li>
-                                <%= bet.betAmount %>
-                            </li>
-                            <li>
-                                <%= bet.winnings %>
-                            </li>
-                            <li class="gameId">
-                                <%= bet.gameId %>
-                            </li>
-                            <li>
-                                <form action="/bets/<%=bet._id%>?_method=DELETE" method="POST">
-                                    <button class="deleteButton">Delete Bet</button>
-                                </form>
-                            </li>
-                        </ul>
-                        <% } %>
+                    <% if (bet.isWon===true) { %>
+                        <% %>
                             <% } %>
+
+                                <% if(bet.completed===false) { %>
+                                    <ul class="info">
+                                        <li class="teamName">
+                                            <%= bet.teamName %>
+                                        </li>
+                                        <li>
+                                            <%= bet.opponent %>
+                                        </li>
+                                        <li class="spread">
+                                            <%= bet.points %>
+                                        </li>
+                                        <li>
+                                            <%= bet.price %>
+                                        </li>
+                                        <li>
+                                            <%= bet.betAmount %>
+                                        </li>
+                                        <li>
+                                            <%= bet.winnings %>
+                                        </li>
+                                        <li class="gameId">
+                                            <%= bet.gameId %>
+                                        </li>
+                                        <li>
+                                            <form action="/bets/<%=bet._id%>?_method=DELETE" method="POST">
+                                                <button class="deleteButton">Delete Bet</button>
+                                            </form>
+                                        </li>
+                                    </ul>
+                                    <% } %>
+                                        <% } %>
             </ul>
         </div>
 
