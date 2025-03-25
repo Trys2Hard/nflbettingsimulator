@@ -1,1 +1,1 @@
-NFL Betting Simulator is currently under development as a website that will allow you to, as the name suggests, place simulated bets on real NFL games. The website is projected to launch into open beta during the 2025-2026 NFL season.
+NFL Betting Simulator is intended to showcase my abilites with HTML, CSS, Javascript, Express, Node, and MongoDB. It is currently meant as a portfolio project with no plans to launch into production, subject to change.
